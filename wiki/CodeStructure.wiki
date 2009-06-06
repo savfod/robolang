@@ -41,7 +41,7 @@
   #AccessCommandIterator - используется для действий с командами. Поддерживает операции
     * int               CommandsTotal() - даёт общее число команд.
     * special string    GetLine(int LineIndex); - возвращает строку по её номеру
-    * Menu*             CreateMenu(int LineIndex, int SymbolIndex, MenuMaker* MenuFabric); - создаёт меню
+    * Menu{{{*}}}             CreateMenu(int LineIndex, int SymbolIndex, MenuMaker{{{*}}} MenuFabric); - создаёт меню
   #RunCommandIterator - выполняет код. Функции:
     * void     First();
     * void     DoAndNext();
