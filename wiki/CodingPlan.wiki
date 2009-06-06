@@ -1,13 +1,11 @@
-#summary One-sentence summary of this page.
-
-= Introduction =
-
-Add your content here.
+#summary Таблица работы с частями
 
 
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+|| *Объект* || *Разработчик(и)* || *Сделано (когда)* || *Проверено (кто, когда)* || *Комментарий*||
+|| GUI || || || || ||
+|| [CodeInterpreter Интерпретатор кода (абстракция)] || СА || 17 марта || СМ, 18.03 ||||
+|| Комманда (несколько простых) || || || || Требует поля в первую очередь||
+|| Поле (абстракция) || || || ||||
+|| Робот (абстракция) || || || ||||
+|| Интерпретатор кода (для простого пользователя) || СА || || ||||
+|| Поле и Робот (обычные)|| || || ||||

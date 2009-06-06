@@ -1,13 +1,17 @@
-#summary One-sentence summary of this page.
+#summary Правила использования имён
 
-= Introduction =
+= Правила =
 
-Add your content here.
+За основу правил использования имен принято: "Соглашение по оформлению кода команы RSDN"
 
+http://www.rsdn.ru/article/mag/200401/codestyle.XML 
 
-= Details =
+Стили использования регистра букв: Pascal
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+Данное соглашение не  совсем приспособлено к языку C++, поэтому в случае несоответствия стандарта своим представлениям просьба писать в комментариях.
+
+= Уже замеченные несоответствия: =
+
+for (int i = 0; i < 5; ++i)  в стандарте заменяется на for (int i = 0; i < 5; i++)
+
+По возможности используйте пространство имен std

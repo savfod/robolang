@@ -1,13 +1,9 @@
-#summary One-sentence summary of this page.
-
-= Introduction =
-
-Add your content here.
+#summary Список задач
 
 
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+|| *Задача* || *Разработчик* || *Сделано* || *Комментарии* ||
+|| Сбор [Requirements требований] || СА || 25 февраля || ||
+|| Выбор [IDE визуальной среды] || СМ || 25 февраля|| Qt4, QDevelop ||
+|| Создание [Design общего дизайна программы]|| СА || 16 марта || Детальный дизайн сюда не входит||
+|| Организация правил составления имён || СК || 26 марта ||[UsingNames Правила составления имен] ||
+|| Создание [Planning плана] ||  ||  || 16 марта(?) ||

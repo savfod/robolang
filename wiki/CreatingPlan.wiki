@@ -1,13 +1,8 @@
-#summary One-sentence summary of this page.
+#summary Планы создания программы "Робот".
 
-= Introduction =
+|| *срок* || 11 марта || ||
+|| *описание* || начало кодинга || ||
 
-Add your content here.
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+К тому моменту, когда мы реально начнём писать код, должны быть готовы:
+ * правила написания кода
+ * детальный дизайн программы с описанием разбиения на классы с описанием интерфейсов. Без выполнения этого условия невозможно начать писать код.  
