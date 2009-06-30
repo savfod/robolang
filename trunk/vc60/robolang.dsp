@@ -98,6 +98,14 @@ SOURCE=.\MainFrm.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\program\Program.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\programui\ProgramUI.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\robolang.cpp
 # End Source File
 # Begin Source File
@@ -140,6 +148,14 @@ SOURCE=.\LeftView.h
 # Begin Source File
 
 SOURCE=.\MainFrm.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\program\Program.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\programui\ProgramUI.h
 # End Source File
 # Begin Source File
 
