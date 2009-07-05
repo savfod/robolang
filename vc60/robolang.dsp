@@ -85,119 +85,9 @@ LINK32=link.exe
 
 # Name "robolang - Win32 Release"
 # Name "robolang - Win32 Debug"
-# Begin Group "Source Files"
+# Begin Group "vc60"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
-# Begin Source File
-
-SOURCE=..\program\Command.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\LeftView.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\MainFrm.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\program\Program.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\programui\ProgramUI.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\robolang.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\robolang.rc
-# End Source File
-# Begin Source File
-
-SOURCE=.\robolangDoc.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\RobolangEditWindow.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\RobolangMap.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\RobolangSplitter.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\robolangView.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\StdAfx.cpp
-# ADD CPP /Yc"stdafx.h"
-# End Source File
-# End Group
-# Begin Group "Header Files"
-
-# PROP Default_Filter "h;hpp;hxx;hm;inl"
-# Begin Source File
-
-SOURCE=..\program\Command.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\LeftView.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\MainFrm.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\program\Program.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\programui\ProgramUI.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Resource.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\robolang.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\robolangDoc.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\RobolangEditWindow.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\RobolangMap.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\RobolangSplitter.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\robolangView.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\StdAfx.h
-# End Source File
-# End Group
 # Begin Group "Resource Files"
 
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
@@ -216,6 +106,168 @@ SOURCE=.\res\robolangDoc.ico
 # Begin Source File
 
 SOURCE=.\res\Toolbar.bmp
+# End Source File
+# End Group
+# Begin Source File
+
+SOURCE=.\LeftView.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\LeftView.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\MainFrm.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\MainFrm.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Resource.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\robolang.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\robolang.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\robolang.rc
+# End Source File
+# Begin Source File
+
+SOURCE=.\robolangDoc.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\robolangDoc.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\RobolangEditWindow.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\RobolangEditWindow.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\RobolangMap.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\RobolangMap.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\RobolangSplitter.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\RobolangSplitter.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\robolangView.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\robolangView.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\StdAfx.cpp
+# ADD CPP /Yc"stdafx.h"
+# End Source File
+# Begin Source File
+
+SOURCE=.\StdAfx.h
+# End Source File
+# End Group
+# Begin Group "control"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\control\Control.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\control\Control.h
+# End Source File
+# End Group
+# Begin Group "interpreter"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\interpreter\Interpreter.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\interpreter\Interpreter.h
+# End Source File
+# End Group
+# Begin Group "program"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\program\Command.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\program\Command.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\program\Program.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\program\Program.h
+# End Source File
+# End Group
+# Begin Group "map"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\map\RoboMap.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\map\RoboMap.h
+# End Source File
+# End Group
+# Begin Group "programui"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\programui\ProgramUI.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\programui\ProgramUI.h
+# End Source File
+# End Group
+# Begin Group "mapui"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\mapui\RoboMapUI.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\mapui\RoboMapUI.h
 # End Source File
 # End Group
 # Begin Source File

@@ -6,14 +6,11 @@
 #include "RobolangEditWindow.h"
 #include "../ProgramUI/ProgramUI.h"
 
-
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #endif
-
-CRobolangEditWindow* CRobolangEditWindow::_pointer = NULL;
 
 /////////////////////////////////////////////////////////////////////////////
 // CRobolangEditWindow
@@ -21,22 +18,17 @@ IMPLEMENT_DYNCREATE( CRobolangEditWindow , CListView )
 
 CRobolangEditWindow::CRobolangEditWindow()
 {
-	_pointer = this;
 }
 
 CRobolangEditWindow::~CRobolangEditWindow()
 {
 }
 
-
 BEGIN_MESSAGE_MAP(CRobolangEditWindow, CListView)
 	//{{AFX_MSG_MAP(CRobolangEditWindow)
 	ON_WM_SIZE()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
-
-
-
 
 /////////////////////////////////////////////////////////////////////////////
 // CRobolangEditWindow message handlers
@@ -61,10 +53,6 @@ void CRobolangEditWindow::OnInitialUpdate()
 	}
 
 	//Upload initial test
-	(CProgramUI::Instance()) -> ReUploadProgramm();
-
-	
-
 }
 
 BOOL CRobolangEditWindow::PreCreateWindow(CREATESTRUCT& cs) 
@@ -90,9 +78,6 @@ void CRobolangEditWindow::OnSize(UINT nType, int cx, int cy)
 	}
 }
 
-
-
-
 /////////////////////////////////////////////////////////////////////////////
 // Other
 
@@ -113,7 +98,6 @@ void CRobolangEditWindow::ShowCommand( CCommand* command, int tabulationCount)
 	{
 		ShowCommand( (command->Commands).GetAt(i), tabulationCount + 1);
 	}
-
 }
 
 CString CRobolangEditWindow::AddTabulations(CString string, int tabulationCount)
@@ -129,9 +113,4 @@ CString CRobolangEditWindow::AddTabulations(CString string, int tabulationCount)
 void CRobolangEditWindow::RemoveAllCommands()
 {
 	GetListCtrl().DeleteAllItems();
-}
-
-CRobolangEditWindow* CRobolangEditWindow::GetPointer()
-{
-	return _pointer;
 }

@@ -4,20 +4,20 @@
 
 #include "stdafx.h"
 #include "Program.h"
-CProgram* CProgram::_instance = NULL;
+
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-CProgram::CProgram()
+CProgram::CProgram( IControl *p_ic )
+:	ic( p_ic )
 {
-	_instance = this;
 }
 
 CProgram::~CProgram()
 {
-
 }
+
 /////////////////////////////////////////////////////////////////////
 // Other
 
@@ -41,13 +41,4 @@ CCommand* CProgram::GetMainCommand()
 	result->Commands[2]->Commands[0]->Name = "here";
 
 	return result;
-}
-CProgram* CProgram::Instance()
-{
-	if(!_instance)
-	{
-		CProgram();
-	}
-
-	return _instance;
 }

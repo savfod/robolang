@@ -9,12 +9,16 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-class CMap  
+#include "..\control\control.h"
+
+class CRoboMap  
 {
 public:
-	CMap();
-	virtual ~CMap();
+	CRoboMap( IControl *ic );
+	virtual ~CRoboMap();
 
+private:
+	IControl *ic;
 };
 
 #endif // !defined(AFX_MAP_H__99A05FF9_B630_4808_A98C_3459904AD4E6__INCLUDED_)

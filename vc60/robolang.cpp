@@ -7,6 +7,16 @@
 #include "MainFrm.h"
 #include "robolangDoc.h"
 #include "LeftView.h"
+#include "RobolangSplitter.h"
+#include "RobolangEditWindow.h"
+#include "RobolangView.h"
+#include "RobolangMap.h"
+
+#include "..\interpreter\interpreter.h"
+#include "..\program\program.h"
+#include "..\programui\programui.h"
+#include "..\map\RoboMap.h"
+#include "..\mapui\RoboMapUI.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -20,8 +30,7 @@ static char THIS_FILE[] = __FILE__;
 BEGIN_MESSAGE_MAP(CRobolangApp, CWinApp)
 	//{{AFX_MSG_MAP(CRobolangApp)
 	ON_COMMAND(ID_APP_ABOUT, OnAppAbout)
-		// NOTE - the ClassWizard will add and remove mapping macros here.
-		//    DO NOT EDIT what you see in these blocks of generated code!
+	ON_COMMAND(ID_FILE_NEW, OnFileNew)
 	//}}AFX_MSG_MAP
 	// Standard file based document commands
 	ON_COMMAND(ID_FILE_NEW, CWinApp::OnFileNew)
@@ -37,12 +46,19 @@ CRobolangApp::CRobolangApp()
 {
 	// TODO: add construction code here,
 	// Place all significant initialization in InitInstance
+	initMode = true;
 }
 
 /////////////////////////////////////////////////////////////////////////////
 // The one and only CRobolangApp object
 
 CRobolangApp theApp;
+
+
+IControl *IControl::getInstance()
+{
+	return( &theApp );
+}
 
 /////////////////////////////////////////////////////////////////////////////
 // CRobolangApp initialization
@@ -89,6 +105,9 @@ BOOL CRobolangApp::InitInstance()
 	// The one and only window has been initialized, so show and update it.
 	m_pMainWnd->ShowWindow(SW_SHOW);
 	m_pMainWnd->UpdateWindow();
+
+	createClasses();
+	initMode = false;
 
 	return TRUE;
 }
@@ -150,3 +169,29 @@ void CRobolangApp::OnAppAbout()
 /////////////////////////////////////////////////////////////////////////////
 // CRobolangApp message handlers
 
+void CRobolangApp::OnFileNew() 
+{
+	// TODO: Add your command handler code here
+	if( initMode )
+		{
+			CWinApp::OnFileNew();
+			return;
+		}
+}
+
+// operations
+void CRobolangApp::createClasses()
+{
+	CMainFrame *mainframe = ( CMainFrame * )AfxGetMainWnd();
+	CLeftView *controlWindow = ( CLeftView * )mainframe -> m_wndSplitter.GetPane( 0 , 0 );
+	CRobolangView *rightView = mainframe -> GetRightPane();
+	CRobolangEditWindow *editWindow = ( CRobolangEditWindow * )rightView -> splitter.GetPane( 0 , 0 );
+	CRobolangMap *mapWindow = ( CRobolangMap * )rightView -> splitter.GetPane( 1 , 0 );
+
+	IControl::vCControl = new CControl( this );
+	IControl::vCInterpreter = new CInterpreter( this );
+	IControl::vCProgram = new CProgram( this );
+	IControl::vCProgramUI = new CProgramUI( editWindow );
+	IControl::vCRoboMap = new CRoboMap( this );
+	IControl::vCRoboMapUI = new CRoboMapUI( mapWindow );
+}

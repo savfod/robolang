@@ -9,12 +9,11 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-CInterpreter::CInterpreter()
+CInterpreter::CInterpreter( IControl *p_ic )
+:	ic( p_ic )
 {
-
 }
 
 CInterpreter::~CInterpreter()
 {
-
 }

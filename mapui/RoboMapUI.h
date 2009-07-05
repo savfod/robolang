@@ -9,12 +9,20 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-class CMapUI  
+class IRoboMapWindow
 {
 public:
-	CMapUI();
-	virtual ~CMapUI();
+	// interface for map window
+};
 
+class CRoboMapUI  
+{
+public:
+	CRoboMapUI( IRoboMapWindow *mw );
+	virtual ~CRoboMapUI();
+
+private:
+	IRoboMapWindow *iw;
 };
 
 #endif // !defined(AFX_MAPUI_H__0B3F765C_1712_4B73_BB42_05887E40ADBE__INCLUDED_)
