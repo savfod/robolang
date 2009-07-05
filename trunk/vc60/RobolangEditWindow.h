@@ -6,6 +6,7 @@
 #endif // _MSC_VER > 1000
 // RobolangEditWindow.h : header file
 //
+#include "../Program/Command.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // CRobolangEditWindow window
@@ -23,9 +24,25 @@ public:
 // Operations
 public:
 
+
+	void ShowCommand(CCommand* command);
+	void RemoveAllCommands();
+	static CRobolangEditWindow* GetPointer();
+
+private:
+
+
+	void ShowCommand(CCommand* command, int tabulationCount);
+	CString AddTabulations(CString string, int tabulationCount);
+	static CRobolangEditWindow* _pointer;
+
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CRobolangEditWindow)
+	public:
+	virtual void OnInitialUpdate();
+	protected:
+	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 	//}}AFX_VIRTUAL
 
 // Implementation
@@ -35,7 +52,7 @@ public:
 	// Generated message map functions
 protected:
 	//{{AFX_MSG(CRobolangEditWindow)
-		// NOTE - the ClassWizard will add and remove member functions here.
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()
