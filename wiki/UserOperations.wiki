@@ -12,5 +12,5 @@ User-oriented [Requirements2 Requirements].
 =2.School-suitable version=
  Working version +
  # Using functions in Robot program 
- # Any-levels conditions (if, while)
+ # Any-levels conditions (if(!((A&B)&((!C)|(D...)))))
 =3.[Requirements2 Full version]=
