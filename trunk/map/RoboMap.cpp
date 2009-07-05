@@ -1,20 +1,19 @@
-// MapUI.cpp: implementation of the CMapUI class.
+// Map.cpp: implementation of the CMap class.
 //
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
-#include "MapUI.h"
+#include "RoboMap.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-CMapUI::CMapUI()
+CRoboMap::CRoboMap( IControl *p_ic )
+:	ic( p_ic )
 {
-
 }
 
-CMapUI::~CMapUI()
+CRoboMap::~CRoboMap()
 {
-
 }

@@ -13,13 +13,14 @@
 #endif
 
 #include "resource.h"       // main symbols
+#include "..\control\control.h"       // control
 
 /////////////////////////////////////////////////////////////////////////////
 // CRobolangApp:
 // See robolang.cpp for the implementation of this class
 //
 
-class CRobolangApp : public CWinApp
+class CRobolangApp : public CWinApp, IControl
 {
 public:
 	CRobolangApp();
@@ -34,10 +35,17 @@ public:
 // Implementation
 	//{{AFX_MSG(CRobolangApp)
 	afx_msg void OnAppAbout();
-		// NOTE - the ClassWizard will add and remove member functions here.
-		//    DO NOT EDIT what you see in these blocks of generated code !
+	afx_msg void OnFileNew();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
+
+public:
+	// operations
+	void createClasses();
+
+private:
+	// data
+	bool initMode;
 };
 
 

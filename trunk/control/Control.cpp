@@ -9,12 +9,11 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-CControl::CControl()
+CControl::CControl( IControl *p_ic )
+:	ic( p_ic )
 {
-
 }
 
 CControl::~CControl()
 {
-
 }

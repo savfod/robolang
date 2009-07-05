@@ -6,12 +6,14 @@
 #endif // _MSC_VER > 1000
 // RobolangEditWindow.h : header file
 //
-#include "../Program/Command.h"
+
+#include "..\Program\Command.h"
+#include "..\ProgramUI\ProgramUI.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // CRobolangEditWindow window
 
-class CRobolangEditWindow : public CListView
+class CRobolangEditWindow : public CListView , public IEditWindow
 {
 // Construction
 public:
@@ -23,18 +25,12 @@ public:
 
 // Operations
 public:
-
-
 	void ShowCommand(CCommand* command);
 	void RemoveAllCommands();
-	static CRobolangEditWindow* GetPointer();
 
 private:
-
-
 	void ShowCommand(CCommand* command, int tabulationCount);
 	CString AddTabulations(CString string, int tabulationCount);
-	static CRobolangEditWindow* _pointer;
 
 // Overrides
 	// ClassWizard generated virtual function overrides

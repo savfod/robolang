@@ -9,12 +9,16 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+class IControl;
+
 class CInterpreter  
 {
 public:
-	CInterpreter();
+	CInterpreter( IControl *ic );
 	virtual ~CInterpreter();
 
+private:
+	IControl *ic;
 };
 
 #endif // !defined(AFX_INTERPRETER_H__673DB5B2_FFE6_44E0_9D87_76FC75C9ACD1__INCLUDED_)

@@ -5,41 +5,26 @@
 #include "stdafx.h"
 #include "ProgramUI.h"
 
-#include "../vc60/RobolangEditWindow.h"
 #include "../Program/Program.h"
-CProgramUI* CProgramUI::_instance = NULL;
+
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-CProgramUI::CProgramUI()
+CProgramUI::CProgramUI( IEditWindow *p_iw )
+:	iw( p_iw )
 {
-	_instance = this;
 }
 
 CProgramUI::~CProgramUI()
 {
-
 }
 
 void CProgramUI::ReUploadProgramm()
 {
-	//finding CRobolangEditWindow, "singleton"
-	CRobolangEditWindow* robolang = CRobolangEditWindow::GetPointer();
-	
 	//finding CProgram, "singleton"
-	CProgram* program = CProgram::Instance();
+	CProgram *program = IControl::getInstance() -> getCProgram();
 
-	//
-	robolang->RemoveAllCommands();
-	robolang->ShowCommand(program->GetMainCommand());
-}
-CProgramUI* CProgramUI::Instance()
-{
-	if(!_instance)
-	{
-		CProgramUI();
-	}
-
-	return _instance;
+	iw -> RemoveAllCommands();
+	iw -> ShowCommand( program -> GetMainCommand() );
 }

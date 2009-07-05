@@ -7,10 +7,12 @@
 // RobolangMap.h : header file
 //
 
+#include "..\mapui\RoboMapUI.h"
+
 /////////////////////////////////////////////////////////////////////////////
 // CRobolangMap window
 
-class CRobolangMap : public CWnd
+class CRobolangMap : public CWnd , public IRoboMapWindow
 {
 // Construction
 public:

@@ -19,8 +19,6 @@ IMPLEMENT_DYNCREATE(CRobolangDoc, CDocument)
 
 BEGIN_MESSAGE_MAP(CRobolangDoc, CDocument)
 	//{{AFX_MSG_MAP(CRobolangDoc)
-		// NOTE - the ClassWizard will add and remove mapping macros here.
-		//    DO NOT EDIT what you see in these blocks of generated code!
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -47,8 +45,6 @@ BOOL CRobolangDoc::OnNewDocument()
 
 	return TRUE;
 }
-
-
 
 /////////////////////////////////////////////////////////////////////////////
 // CRobolangDoc serialization

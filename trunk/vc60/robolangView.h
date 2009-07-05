@@ -44,7 +44,7 @@ public:
 	virtual void Dump(CDumpContext& dc) const;
 #endif
 
-protected:
+public:
 	CRobolangSplitter splitter;
 
 // Generated message map functions
