@@ -31,10 +31,10 @@ BOOL CRobolangSplitter::Create( CWnd *parent , LPCREATESTRUCT /*lpcs*/, CCreateC
 	if( !CSplitterWnd::CreateStatic( parent, 2, 1 ) )
 		return( FALSE );
 
-	if( !CSplitterWnd::CreateView( 0 , 0 , RUNTIME_CLASS( CRobolangEditWindow ) , CSize( 10 , 10 ) , pContext ) )
+	if( !CSplitterWnd::CreateView( 0 , 0 , RUNTIME_CLASS( CRobolangEditWindow ) , CSize( 20 , 20 ) , pContext ) )
 		return( FALSE );
 
-	if( !CSplitterWnd::CreateView( 1 , 0 , RUNTIME_CLASS( CRobolangMap ) , CSize( 10 , 10 ) , pContext ) )
+	if( !CSplitterWnd::CreateView( 1 , 0 , RUNTIME_CLASS( CRobolangMap ) , CSize( 20 , 20 ) , pContext ) )
 		return( FALSE );
 
 	editPane = ( CRobolangEditWindow * )CSplitterWnd::GetPane( 0 , 0 );
