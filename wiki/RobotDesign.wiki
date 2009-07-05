@@ -7,9 +7,9 @@
 || interpreter || || - || execute command || || get command || || ||
 || map || || || - || draw map || || || ||
 || mapui || || || || - || || || draw in GUI ||
-|| program || || || || || - || draw program || ||
-|| programui || || || || || || - || draw in GUI ||
-|| framework (vc60) || || || || || || || - ||
+|| program || || || || || - || inform about changes || ||
+|| programui || || || || || take program || - || draw in GUI ||
+|| framework (vc60) || || || || || || inform about changes|| - ||
 
 
 
