@@ -6,10 +6,10 @@
 || control || - || || || || || || ||
 || interpreter || || - || execute command || || get command || || ||
 || map || || || - || draw map || || || ||
-|| mapui || || || || - || || || draw in GUI ||
+|| mapui || || || change (from framework)|| - || || || draw in GUI ||
 || program || || || || || - || inform about changes || ||
 || programui || || || || || take program || - || draw in GUI ||
-|| framework (vc60) || || || || || || inform about changes|| - ||
+|| framework (vc60) || || || || inform about changes || || inform about changes|| - ||
 
 
 
