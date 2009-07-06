@@ -10,16 +10,16 @@ PHASE 1.
 
 limitations:
 
-1. one-file program
-2. linear program only - commands are "paint" and "move"
-3. no interpreter working, no map shown
+ # one-file program
+ # linear program only - commands are "paint" and "move"
+ # no interpreter working, no map shown
 
 program scenarios:
 
-1. open/save/close program
-2. add/delete/update operators in required position
-3. set operator parameters
-4. full-featured standard Windows operations in main window
+ # open/save/close program
+ # add/delete/update operators in required position
+ # set operator parameters
+ # full-featured standard Windows operations in main window
 
 ==previous contents==
 =1. Working version=
