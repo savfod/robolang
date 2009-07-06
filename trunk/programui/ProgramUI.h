@@ -15,7 +15,7 @@ class IEditWindow
 {
 public:
 	// interface to program edit window
-	virtual void ShowCommand( CCommand *command ) = 0;
+	virtual void ShowCommand(const CCommand *command ) = 0;
 	virtual void RemoveAllCommands() = 0;
 };
 
@@ -25,7 +25,17 @@ public:
 	CProgramUI( IEditWindow *iw );
 	virtual ~CProgramUI();
 
-	void ReUploadProgramm();
+	void ReUploadProgram();
+
+//CRobolangEditWindow
+	void onEditAdd(CCommand* whereToAdd, CString commandName); 
+	void onEditDelete(CCommand* command);
+	void onEditSave();//what parameters?
+	void onEditOpen();//what parameters?
+	void onEditClose();
+	void onEditNew();
+//CProgram
+	void onProgramSmthChanged();
 
 private:
 	IEditWindow *iw;

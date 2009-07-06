@@ -12,10 +12,17 @@
 CProgram::CProgram( IControl *p_ic )
 :	ic( p_ic )
 {
+	program = new CCommand;
+	program->Name = "ןנמדנאללא"; //"program"
 }
 
 CProgram::~CProgram()
 {
+	Close();
+	if(program)
+	{
+		delete program;
+	}
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -24,7 +31,7 @@ CProgram::~CProgram()
 CCommand* CProgram::GetMainCommand()
 {
 	//for debug only
-	CCommand* result = new CCommand();
+	/*CCommand* result = new CCommand();
 	result->Name = "now";
 	result->Commands.Add(new CCommand());
 	result->Commands.Add(new CCommand());
@@ -38,7 +45,21 @@ CCommand* CProgram::GetMainCommand()
 	result->Commands[1]->Commands[0]->Name = "be";
 
 	result->Commands[2]->Commands.Add(new CCommand());
-	result->Commands[2]->Commands[0]->Name = "here";
+	result->Commands[2]->Commands[0]->Name = "here";*/
 
-	return result;
+	return program;
 }
+void CProgram::Close()
+{
+	DeleteCommand(program);
+}
+void CProgram::DeleteCommand(CCommand* command)
+{
+	for (int i = 0; i < (command->Commands).GetSize(); i++)
+	{
+		DeleteCommand((command->Commands)[i]);
+	}
+	delete command;
+}
+
+

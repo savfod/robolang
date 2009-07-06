@@ -25,12 +25,12 @@ public:
 
 // Operations
 public:
-	void ShowCommand(CCommand* command);
+	void ShowCommand( const CCommand* command);
 	void RemoveAllCommands();
 
 private:
-	void ShowCommand(CCommand* command, int tabulationCount);
-	CString AddTabulations(CString string, int tabulationCount);
+	void ShowCommand(const CCommand* command, int tabulationCount);
+	CString AddTabulations(const CString string, int tabulationCount);
 
 // Overrides
 	// ClassWizard generated virtual function overrides
