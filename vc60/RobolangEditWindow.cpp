@@ -81,12 +81,12 @@ void CRobolangEditWindow::OnSize(UINT nType, int cx, int cy)
 /////////////////////////////////////////////////////////////////////////////
 // Other
 
-void CRobolangEditWindow::ShowCommand( CCommand* command )
+void CRobolangEditWindow::ShowCommand( const CCommand* command )
 {
 	ShowCommand(command, 0);
 }
 
-void CRobolangEditWindow::ShowCommand( CCommand* command, int tabulationCount)
+void CRobolangEditWindow::ShowCommand( const CCommand* command, int tabulationCount)
 {
 	//command
 	int itemCount = GetListCtrl().GetItemCount();
@@ -100,7 +100,7 @@ void CRobolangEditWindow::ShowCommand( CCommand* command, int tabulationCount)
 	}
 }
 
-CString CRobolangEditWindow::AddTabulations(CString string, int tabulationCount)
+CString CRobolangEditWindow::AddTabulations(const CString string, int tabulationCount)
 {
 	CString result = string;
 	for(int i = 0; i < tabulationCount; i++)

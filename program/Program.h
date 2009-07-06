@@ -19,9 +19,15 @@ public:
 	virtual ~CProgram();
 
 	CCommand* GetMainCommand();
+	void Open();//parameters?
+	void Save();//parameters?
+	void Close();
+	
 	
 private:
 	IControl *ic;
+	CCommand* program;
+	void DeleteCommand(CCommand* command);
 };
 
 #endif // !defined(AFX_PROGRAM_H__54E717C0_BF26_45B6_BEFF_3EE9C65FE0E9__INCLUDED_)
