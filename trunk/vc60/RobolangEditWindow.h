@@ -31,6 +31,7 @@ public:
 private:
 	void ShowCommand(const CCommand* command, int tabulationCount);
 	CString AddTabulations(const CString string, int tabulationCount);
+	void AdjustLastColumnWidth();
 
 // Overrides
 	// ClassWizard generated virtual function overrides

@@ -142,3 +142,14 @@ CRobolangView* CMainFrame::GetRightPane()
 	CRobolangView* pView = DYNAMIC_DOWNCAST(CRobolangView, pWnd);
 	return pView;
 }
+
+void CMainFrame::resizeSplitters()
+{
+	m_wndSplitter.SetColumnInfo( 0 , 300 , 100 );
+	m_wndSplitter.RecalcLayout();
+
+	CRobolangView *rightView = GetRightPane();
+	rightView -> splitter.SetRowInfo( 0 , 400 , 100 );
+	rightView -> splitter.RecalcLayout();
+}
+

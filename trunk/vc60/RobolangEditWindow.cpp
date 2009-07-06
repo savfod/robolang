@@ -37,22 +37,23 @@ void CRobolangEditWindow::OnInitialUpdate()
 {
 	CListView::OnInitialUpdate();
 	
-	// Insert a column. 
-	LVCOLUMN col;
-	col.mask = LVCF_WIDTH;
-	if(!GetListCtrl().GetColumn(0, &col)) 
-	{
- 		//get width
-		RECT rect;
-		CRobolangEditWindow::GetWindowRect(&rect);
-		int width = rect.right - rect.left;
-		TRACE("%d", width);
+	// Insert columns
+	CListCtrl& lc = GetListCtrl();
+	if( lc.GetHeaderCtrl() -> GetItemCount() > 0 )
+		return;
+	
+ 	//get width
+	CRect rect;
+	GetClientRect( rect );
 
-		ASSERT(GetStyle() & LVS_REPORT);
-		GetListCtrl().InsertColumn(0, "", LVCFMT_LEFT, 100);
-	}
+	lc.SetRedraw( false );
+	lc.InsertColumn( 0, "Робот", LVCFMT_LEFT, 100);
+	lc.InsertColumn( 1, "Команда", LVCFMT_LEFT, 100);
+	lc.InsertColumn( 2, "Параметры", LVCFMT_LEFT);
+	lc.SetRedraw( true );
 
-	//Upload initial test
+	lc.SetExtendedStyle( LVS_EX_GRIDLINES | LVS_EX_FLATSB );
+	AdjustLastColumnWidth();
 }
 
 BOOL CRobolangEditWindow::PreCreateWindow(CREATESTRUCT& cs) 
@@ -60,7 +61,7 @@ BOOL CRobolangEditWindow::PreCreateWindow(CREATESTRUCT& cs)
 	// TODO: Add your specialized code here and/or call the base class
 	
 	//Set listCtrl style (Report)
-	cs.style = (cs.style | LVS_REPORT);
+	cs.style |= LVS_REPORT | LVS_NOSORTHEADER | LVS_SINGLESEL | LVS_SHOWSELALWAYS;
 	
 	return CListView::PreCreateWindow(cs);
 }
@@ -68,14 +69,35 @@ BOOL CRobolangEditWindow::PreCreateWindow(CREATESTRUCT& cs)
 void CRobolangEditWindow::OnSize(UINT nType, int cx, int cy) 
 {
 	CListView::OnSize(nType, cx, cy);
-	
-	LVCOLUMN col;
-	col.mask = LVCF_WIDTH;
-	if(GetListCtrl().GetColumn(0, &col)) 
-	{
-		col.cx = cx;
-		GetListCtrl().SetColumn(0, &col);
-	}
+
+	AdjustLastColumnWidth();
+}
+
+void CRobolangEditWindow::AdjustLastColumnWidth()
+{
+	CListCtrl& lc = GetListCtrl();
+	CHeaderCtrl *hc = lc.GetHeaderCtrl();
+	if( hc -> GetItemCount() == 0 )
+		return;
+
+	int width = 0;
+	for( int k = hc -> GetItemCount() - 2; k >= 0; k-- )
+		{
+			CRect hrc;
+			hc -> GetItemRect( k , hrc );
+			width += hrc.Width();
+		}
+
+	CRect rc;
+	GetClientRect( rc );
+
+	if( rc.Width() > width )
+		{
+			HDITEM item;
+			item.mask = HDI_WIDTH;
+			item.cxy = rc.Width() - width;
+			hc -> SetItem( hc -> GetItemCount() - 1 , &item );
+		}
 }
 
 /////////////////////////////////////////////////////////////////////////////

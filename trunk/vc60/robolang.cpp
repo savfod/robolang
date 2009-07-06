@@ -103,7 +103,8 @@ BOOL CRobolangApp::InitInstance()
 		return FALSE;
 
 	// The one and only window has been initialized, so show and update it.
-	m_pMainWnd->ShowWindow(SW_SHOW);
+	m_pMainWnd->ShowWindow(SW_SHOWMAXIMIZED);
+	( ( CMainFrame * )m_pMainWnd ) -> resizeSplitters();
 	m_pMainWnd->UpdateWindow();
 
 	createClasses();
