@@ -13,7 +13,6 @@ class CRobolangView;
 
 class CMainFrame : public CFrameWnd
 {
-	
 protected: // create from serialization only
 	CMainFrame();
 	DECLARE_DYNCREATE(CMainFrame)
@@ -25,6 +24,7 @@ public:
 
 // Operations
 public:
+	void resizeSplitters();
 
 // Overrides
 	// ClassWizard generated virtual function overrides

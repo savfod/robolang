@@ -37,7 +37,8 @@ public:
 	// Generated message map functions
 protected:
 	//{{AFX_MSG(CRobolangMap)
-		// NOTE - the ClassWizard will add and remove member functions here.
+	afx_msg void OnPaint();
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };
