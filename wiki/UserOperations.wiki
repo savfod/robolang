@@ -1,7 +1,28 @@
-#summary List of operations, that user should be able to do.
-User-oriented [Requirements2 Requirements].
+#summary List of operations, that user should be able to do
 
-=1.Working version=
+==free-style requirements==
+ * User-oriented [Requirements2 Requirements].
+ * [Requirements2 Full version]
+
+==phased implementation requirements==
+
+PHASE 1.
+
+limitations:
+
+1. one-file program
+2. linear program only - commands are "paint" and "move"
+3. no interpreter working, no map shown
+
+program scenarios:
+
+1. open/save/close program
+2. add/delete/update operators in required position
+3. set operator parameters
+4. full-featured standard Windows operations in main window
+
+==previous contents==
+=1. Working version=
  # Robot program editing (Commands: moving + painting, "while", "if") 
  # Robot program saving/opening (in good format)
  # Changing place of Robot
@@ -13,4 +34,3 @@ User-oriented [Requirements2 Requirements].
  Working version +
  # Using functions in Robot program 
  # Any-levels conditions (if(!((A&B)&((!C)|(D...)))))
-=3.[Requirements2 Full version]=
