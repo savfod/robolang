@@ -58,7 +58,7 @@ BOOL CRobolangMap::OnEraseBkgnd(CDC* pDC)
 	CRect rc;
 	GetClientRect( rc );
 	
-	dc -> FillSolidRect( rc , RGB( 64 , 128 , 255 ) );
+	dc -> FillSolidRect( rc , RGB( 134 , 238 , 195 ) );
 
 	return TRUE;
 }

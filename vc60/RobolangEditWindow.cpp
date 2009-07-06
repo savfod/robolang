@@ -103,12 +103,12 @@ void CRobolangEditWindow::AdjustLastColumnWidth()
 /////////////////////////////////////////////////////////////////////////////
 // Other
 
-void CRobolangEditWindow::ShowCommand( const CCommand* command )
+void CRobolangEditWindow::ShowCommand( CCommand* command )
 {
 	ShowCommand(command, 0);
 }
 
-void CRobolangEditWindow::ShowCommand( const CCommand* command, int tabulationCount)
+void CRobolangEditWindow::ShowCommand( CCommand* command, int tabulationCount)
 {
 	//command
 	int itemCount = GetListCtrl().GetItemCount();
