@@ -15,7 +15,7 @@ class IEditWindow
 {
 public:
 	// interface to program edit window
-	virtual void ShowCommand( const CCommand *command ) = 0;
+	virtual void ShowCommand( CCommand *command ) = 0;
 	virtual void RemoveAllCommands() = 0;
 };
 

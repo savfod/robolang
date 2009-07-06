@@ -25,11 +25,11 @@ public:
 
 // Operations
 public:
-	void ShowCommand( const CCommand* command);
+	void ShowCommand( CCommand* command);
 	void RemoveAllCommands();
 
 private:
-	void ShowCommand(const CCommand* command, int tabulationCount);
+	void ShowCommand( CCommand* command, int tabulationCount);
 	CString AddTabulations(const CString string, int tabulationCount);
 	void AdjustLastColumnWidth();
 
