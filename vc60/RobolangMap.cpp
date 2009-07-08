@@ -13,7 +13,7 @@ static char THIS_FILE[] = __FILE__;
 
 /////////////////////////////////////////////////////////////////////////////
 // CRobolangMap
-IMPLEMENT_DYNCREATE( CRobolangMap , CWnd )
+IMPLEMENT_DYNCREATE( CRobolangMap , CView )
 
 CRobolangMap::CRobolangMap()
 {
@@ -23,9 +23,8 @@ CRobolangMap::~CRobolangMap()
 {
 }
 
-BEGIN_MESSAGE_MAP(CRobolangMap, CWnd)
+BEGIN_MESSAGE_MAP(CRobolangMap, CView)
 	//{{AFX_MSG_MAP(CRobolangMap)
-	ON_WM_PAINT()
 	ON_WM_ERASEBKGND()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
@@ -33,18 +32,16 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CRobolangMap message handlers
 
-void CRobolangMap::OnPaint() 
+void CRobolangMap::OnDraw( CDC *dc ) 
 {
-	CPaintDC dc(this); // device context for painting
-	
 	// TODO: Add your message handler code here
 	CRect rc;
 	GetUpdateRect( rc , TRUE );
 
-	dc.SelectStockObject( ANSI_FIXED_FONT );
+	dc -> SelectStockObject( ANSI_FIXED_FONT );
 	
 	GetClientRect( rc );
-	dc.DrawText( CString( "MAP SHOULD BE DRAWN HERE" ) , rc ,  DT_CENTER | DT_VCENTER | DT_SINGLELINE );
+	dc -> DrawText( CString( "MAP SHOULD BE DRAWN HERE" ) , rc ,  DT_CENTER | DT_VCENTER | DT_SINGLELINE );
 	
 	// Do not call CWnd::OnPaint() for painting messages
 }

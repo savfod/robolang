@@ -13,16 +13,12 @@ CProgram::CProgram( IControl *p_ic )
 :	ic( p_ic )
 {
 	program = new CCommand;
-	program->Name = "ןנמדנאללא"; //"program"
+	program -> type = CMDTYPE_PROCEDURE;
 }
 
 CProgram::~CProgram()
 {
 	Close();
-	if(program)
-	{
-		delete program;
-	}
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -49,17 +45,22 @@ CCommand* CProgram::GetMainCommand()
 
 	return program;
 }
+
 void CProgram::Close()
 {
 	DeleteCommand(program);
+	program = NULL;
 }
-void CProgram::DeleteCommand(CCommand* command)
+
+void CProgram::DeleteCommand( CCommand* command )
 {
-	for (int i = 0; i < (command->Commands).GetSize(); i++)
-	{
-		DeleteCommand((command->Commands)[i]);
-	}
+	CCommandArray& cmdList1 = command -> primaryChildCommands;
+	for( int i = 0; i < cmdList1.GetSize(); i++ )
+		DeleteCommand( cmdList1[i] );
+
+	CCommandArray& cmdList2 = command -> secondaryChildCommands;
+	for( i = 0; i < cmdList2.GetSize(); i++ )
+		DeleteCommand( cmdList2[i] );
+
 	delete command;
 }
-
-

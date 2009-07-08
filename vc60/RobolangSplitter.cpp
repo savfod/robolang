@@ -6,6 +6,7 @@
 #include "RobolangEditWindow.h"
 #include "RobolangMap.h"
 #include "RobolangSplitter.h"
+#include "MainFrm.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -31,10 +32,17 @@ BOOL CRobolangSplitter::Create( CWnd *parent , LPCREATESTRUCT /*lpcs*/, CCreateC
 	if( !CSplitterWnd::CreateStatic( parent, 2, 1 ) )
 		return( FALSE );
 
-	if( !CSplitterWnd::CreateView( 0 , 0 , RUNTIME_CLASS( CRobolangEditWindow ) , CSize( 20 , 20 ) , pContext ) )
+	CCreateContext cc;
+	cc.m_pCurrentDoc = ( ( CView * )parent ) -> GetDocument();
+	cc.m_pCurrentFrame = ( CMainFrame * )AfxGetMainWnd();
+	cc.m_pLastView = NULL;
+	cc.m_pNewDocTemplate = NULL;
+	cc.m_pNewViewClass = NULL;
+
+	if( !CSplitterWnd::CreateView( 0 , 0 , RUNTIME_CLASS( CRobolangEditWindow ) , CSize( 20 , 20 ) , &cc ) )
 		return( FALSE );
 
-	if( !CSplitterWnd::CreateView( 1 , 0 , RUNTIME_CLASS( CRobolangMap ) , CSize( 20 , 20 ) , pContext ) )
+	if( !CSplitterWnd::CreateView( 1 , 0 , RUNTIME_CLASS( CRobolangMap ) , CSize( 20 , 20 ) , &cc ) )
 		return( FALSE );
 
 	editPane = ( CRobolangEditWindow * )CSplitterWnd::GetPane( 0 , 0 );

@@ -15,8 +15,8 @@ class IEditWindow
 {
 public:
 	// interface to program edit window
-	virtual void ShowCommand( CCommand *command ) = 0;
-	virtual void RemoveAllCommands() = 0;
+	virtual void addCommand( CCommand *command ) = 0;
+	virtual void removeAllCommands() = 0;
 };
 
 class CProgramUI  

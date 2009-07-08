@@ -12,7 +12,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // CRobolangMap window
 
-class CRobolangMap : public CWnd , public IRoboMapWindow
+class CRobolangMap : public CView , public IRoboMapWindow
 {
 // Construction
 public:
@@ -28,6 +28,7 @@ public:
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CRobolangMap)
+	void OnDraw( CDC *dc );
 	//}}AFX_VIRTUAL
 
 // Implementation

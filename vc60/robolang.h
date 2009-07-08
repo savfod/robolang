@@ -30,6 +30,7 @@ public:
 	//{{AFX_VIRTUAL(CRobolangApp)
 	public:
 	virtual BOOL InitInstance();
+	virtual int ExitInstance();
 	//}}AFX_VIRTUAL
 
 // Implementation
