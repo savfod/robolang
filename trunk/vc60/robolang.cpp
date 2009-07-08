@@ -189,10 +189,23 @@ void CRobolangApp::createClasses()
 	CRobolangEditWindow *editWindow = ( CRobolangEditWindow * )rightView -> splitter.GetPane( 0 , 0 );
 	CRobolangMap *mapWindow = ( CRobolangMap * )rightView -> splitter.GetPane( 1 , 0 );
 
-	IControl::vCControl = new CControl( this );
 	IControl::vCInterpreter = new CInterpreter( this );
 	IControl::vCProgram = new CProgram( this );
-	IControl::vCProgramUI = new CProgramUI( editWindow );
 	IControl::vCRoboMap = new CRoboMap( this );
+	IControl::vCControl = new CControl( this );
+	IControl::vCProgramUI = new CProgramUI( editWindow );
 	IControl::vCRoboMapUI = new CRoboMapUI( mapWindow );
+}
+
+int CRobolangApp::ExitInstance() 
+{
+	// TODO: Add your specialized code here and/or call the base class
+	delete IControl::vCInterpreter;
+	delete IControl::vCProgram;
+	delete IControl::vCRoboMap;
+	delete IControl::vCRoboMapUI;
+	delete IControl::vCProgramUI;
+	delete IControl::vCControl;
+	
+	return CWinApp::ExitInstance();
 }

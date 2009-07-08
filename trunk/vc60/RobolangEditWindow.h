@@ -20,19 +20,26 @@ public:
 	CRobolangEditWindow();
 	DECLARE_DYNCREATE( CRobolangEditWindow );
 
-// Attributes
-public:
-
 // Operations
 public:
-	void ShowCommand( CCommand* command);
-	void RemoveAllCommands();
+	void addCommand( CCommand *command );
+	void removeAllCommands();
 
 private:
-	void ShowCommand( CCommand* command, int tabulationCount);
-	CString AddTabulations(const CString string, int tabulationCount);
-	void AdjustLastColumnWidth();
+	int addCommand( int pos , CCommand *command, int depth );
+	void adjustLastColumnWidth();
 
+	void addItem( int pos , CString robot , CString command , int depth , void *data );
+	int hitTest( int& subItem );
+	CString addTabulations( const CString string, int tabulationCount );
+
+	void startSelectRobot( int item );
+
+	CCommand *getCommand( int item );
+	CCommand *insertCommand( int item );
+
+// windows stuff
+private:
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CRobolangEditWindow)
@@ -50,6 +57,8 @@ public:
 protected:
 	//{{AFX_MSG(CRobolangEditWindow)
 	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()

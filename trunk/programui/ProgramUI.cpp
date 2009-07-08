@@ -25,7 +25,7 @@ void CProgramUI::ReUploadProgram()
 	//finding CProgram, "singleton"
 	CProgram *program = IControl::getInstance() -> getCProgram();
 
-	iw -> RemoveAllCommands();
-	iw -> ShowCommand( program -> GetMainCommand() );
+	iw -> removeAllCommands();
+	iw -> addCommand( program -> GetMainCommand() );
 }
 

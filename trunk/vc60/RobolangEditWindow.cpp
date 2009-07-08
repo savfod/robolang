@@ -16,6 +16,9 @@ static char THIS_FILE[] = __FILE__;
 // CRobolangEditWindow
 IMPLEMENT_DYNCREATE( CRobolangEditWindow , CListView )
 
+/*#########################################################################*/
+/*#########################################################################*/
+
 CRobolangEditWindow::CRobolangEditWindow()
 {
 }
@@ -24,56 +27,22 @@ CRobolangEditWindow::~CRobolangEditWindow()
 {
 }
 
-BEGIN_MESSAGE_MAP(CRobolangEditWindow, CListView)
-	//{{AFX_MSG_MAP(CRobolangEditWindow)
-	ON_WM_SIZE()
-	//}}AFX_MSG_MAP
-END_MESSAGE_MAP()
-
-/////////////////////////////////////////////////////////////////////////////
-// CRobolangEditWindow message handlers
-
-void CRobolangEditWindow::OnInitialUpdate() 
+void CRobolangEditWindow::addCommand( CCommand *command )
 {
-	CListView::OnInitialUpdate();
-	
-	// Insert columns
-	CListCtrl& lc = GetListCtrl();
-	if( lc.GetHeaderCtrl() -> GetItemCount() > 0 )
-		return;
-	
- 	//get width
-	CRect rect;
-	GetClientRect( rect );
-
-	lc.SetRedraw( false );
-	lc.InsertColumn( 0, "Робот", LVCFMT_LEFT, 100);
-	lc.InsertColumn( 1, "Команда", LVCFMT_LEFT, 100);
-	lc.InsertColumn( 2, "Параметры", LVCFMT_LEFT);
-	lc.SetRedraw( true );
-
-	lc.SetExtendedStyle( LVS_EX_GRIDLINES | LVS_EX_FLATSB );
-	AdjustLastColumnWidth();
+	CListCtrl &lc = CListView::GetListCtrl();
+	addCommand( lc.GetItemCount() , command , 0 );
 }
 
-BOOL CRobolangEditWindow::PreCreateWindow(CREATESTRUCT& cs) 
+void CRobolangEditWindow::removeAllCommands()
 {
-	// TODO: Add your specialized code here and/or call the base class
-	
-	//Set listCtrl style (Report)
-	cs.style |= LVS_REPORT | LVS_NOSORTHEADER | LVS_SINGLESEL | LVS_SHOWSELALWAYS;
-	
-	return CListView::PreCreateWindow(cs);
+	CListCtrl &lc = CListView::GetListCtrl();
+	lc.DeleteAllItems();
 }
 
-void CRobolangEditWindow::OnSize(UINT nType, int cx, int cy) 
-{
-	CListView::OnSize(nType, cx, cy);
+/*#########################################################################*/
+/*#########################################################################*/
 
-	AdjustLastColumnWidth();
-}
-
-void CRobolangEditWindow::AdjustLastColumnWidth()
+void CRobolangEditWindow::adjustLastColumnWidth()
 {
 	CListCtrl& lc = GetListCtrl();
 	CHeaderCtrl *hc = lc.GetHeaderCtrl();
@@ -100,39 +69,186 @@ void CRobolangEditWindow::AdjustLastColumnWidth()
 		}
 }
 
-/////////////////////////////////////////////////////////////////////////////
-// Other
-
-void CRobolangEditWindow::ShowCommand( CCommand* command )
+int CRobolangEditWindow::addCommand( int pos , CCommand *command , int depth )
 {
-	ShowCommand(command, 0);
+	CListCtrl &lc = CListView::GetListCtrl();
+
+	// command
+	CString robot = command -> getRobotName();
+	CString cmdLine = command -> getCommandString();
+	addItem( pos++ , robot , cmdLine , depth , command );
+
+	// Commands inside command
+	CCommandArray& cmdList = command -> primaryChildCommands;
+	for( int i = 0; i < cmdList.GetSize(); i++ )
+		pos = addCommand( pos , cmdList.GetAt(i), depth + 1 );
+
+	// secondary list - for if/else
+	CommandType cmdType = command -> getType();
+	if( cmdType == CMDTYPE_IF )
+		{
+			// check has else section
+			CCommandArray& cmdList = command -> secondaryChildCommands;
+			if( cmdList.GetSize() > 0 )
+				addItem( pos++ , robot , command -> getElseName() , depth , command );
+
+			for( int i = 0; i < cmdList.GetSize(); i++ )
+				pos = addCommand( pos , cmdList.GetAt(i), depth + 1 );
+
+			// if termination
+			addItem( pos++ , robot , command -> getEndifName() , depth , command );
+		}
+
+	return( pos );
 }
 
-void CRobolangEditWindow::ShowCommand( CCommand* command, int tabulationCount)
+int CRobolangEditWindow::hitTest( int& subItem ) 
 {
-	//command
-	int itemCount = GetListCtrl().GetItemCount();
-	int currentItem = GetListCtrl().InsertItem(itemCount, AddTabulations((command->Name), tabulationCount));
-	GetListCtrl().SetItemData(currentItem, (DWORD)command);
+	// TODO: Add your message handler code here and/or call default
+	CListCtrl &lc = CListView::GetListCtrl();
 
-	//Commands inside command
-	for (int i = 0; i < (command->Commands).GetSize(); i++)
-	{
-		ShowCommand( (command->Commands).GetAt(i), tabulationCount + 1);
-	}
+	CPoint pt;
+	::GetCursorPos( &pt );
+	ScreenToClient( &pt );
+
+	LVHITTESTINFO ht;
+	ht.pt = pt;
+	ht.flags = LVHT_ONITEM | LVHT_TORIGHT;
+	int item = lc.SubItemHitTest( &ht );
+	subItem = ht.iSubItem;
+
+	return( item );
 }
 
-CString CRobolangEditWindow::AddTabulations(const CString string, int tabulationCount)
+void CRobolangEditWindow::addItem( int pos , CString robot , CString command , int depth , void *data )
+{
+	CListCtrl &lc = CListView::GetListCtrl();
+
+	CString tabbedCommand = addTabulations( command , depth );
+
+	int item = lc.InsertItem( pos , robot );
+	lc.SetItemText( item , 1 , tabbedCommand );
+	lc.SetItemData( item , ( unsigned long )data );
+}
+
+CString CRobolangEditWindow::addTabulations( const CString string , int tabulationCount )
 {
 	CString result = string;
-	for(int i = 0; i < tabulationCount; i++)
-	{
-		result.Insert(0, "    "); //  4 spaces
-	}
+	for( int i = 0; i < tabulationCount; i++ )
+		result.Insert( 0 , "    " ); //  4 spaces
+
 	return result;
 }
 
-void CRobolangEditWindow::RemoveAllCommands()
+void CRobolangEditWindow::startSelectRobot( int item )
 {
-	GetListCtrl().DeleteAllItems();
+	CCommand *cmd = getCommand( item );
+	if( cmd == NULL )
+		cmd = insertCommand( item );
+}
+
+CCommand *CRobolangEditWindow::getCommand( int item )
+{
+	CListCtrl &lc = CListView::GetListCtrl();
+	return( ( CCommand * )lc.GetItemData( item ) );
+}
+
+CCommand *CRobolangEditWindow::insertCommand( int item )
+{
+	return( NULL );
+}
+
+/*#########################################################################*/
+/*#########################################################################*/
+
+BEGIN_MESSAGE_MAP(CRobolangEditWindow, CListView)
+	//{{AFX_MSG_MAP(CRobolangEditWindow)
+	ON_WM_SIZE()
+	ON_WM_SETCURSOR()
+	ON_WM_LBUTTONDOWN()
+	//}}AFX_MSG_MAP
+END_MESSAGE_MAP()
+
+/////////////////////////////////////////////////////////////////////////////
+// CRobolangEditWindow message handlers
+
+void CRobolangEditWindow::OnInitialUpdate() 
+{
+	CListView::OnInitialUpdate();
+	
+	// Insert columns
+	CListCtrl& lc = GetListCtrl();
+	if( lc.GetHeaderCtrl() -> GetItemCount() > 0 )
+		return;
+	
+ 	//get width
+	CRect rect;
+	GetClientRect( rect );
+
+	lc.SetRedraw( false );
+	lc.InsertColumn( 0, "Робот", LVCFMT_LEFT, 100);
+	lc.InsertColumn( 1, "Команда", LVCFMT_LEFT, 100);
+	lc.SetRedraw( true );
+
+	lc.SetExtendedStyle( LVS_EX_GRIDLINES | LVS_EX_FLATSB | LVS_EX_FULLROWSELECT );
+	adjustLastColumnWidth();
+
+	lc.SetBkColor( COLORREF( RGB( 255 , 255 , 180 ) ) );
+}
+
+BOOL CRobolangEditWindow::PreCreateWindow(CREATESTRUCT& cs) 
+{
+	// TODO: Add your specialized code here and/or call the base class
+	
+	//Set listCtrl style (Report)
+	cs.style |= LVS_REPORT | LVS_NOSORTHEADER | LVS_SINGLESEL;
+	
+	return CListView::PreCreateWindow(cs);
+}
+
+void CRobolangEditWindow::OnSize(UINT nType, int cx, int cy) 
+{
+	CListView::OnSize(nType, cx, cy);
+
+	adjustLastColumnWidth();
+}
+
+/////////////////////////////////////////////////////////////////////////////
+// Other
+
+BOOL CRobolangEditWindow::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message) 
+{
+	// TODO: Add your message handler code here and/or call default
+	if( nHitTest == HTCLIENT )
+		{
+			int subItem;
+			int item = hitTest( subItem );
+
+			if( item >= 0 )
+				{
+					if( subItem == 0 )
+						{
+							char *l_IDC_HAND = MAKEINTRESOURCE(32649);
+							::SetCursor( ::LoadCursor( NULL , l_IDC_HAND ) );
+							return( TRUE );
+						}
+				}
+		}
+	
+	return CListView::OnSetCursor(pWnd, nHitTest, message);
+}
+
+void CRobolangEditWindow::OnLButtonDown(UINT nFlags, CPoint point) 
+{
+	// TODO: Add your message handler code here and/or call default
+	int subItem;
+	int item = hitTest( subItem );
+
+	if( item >= 0 )
+		{
+			if( subItem == 0 )
+				startSelectRobot( item );
+		}
+	
+	CListView::OnLButtonDown(nFlags, point);
 }
