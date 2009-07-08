@@ -125,6 +125,10 @@ BEGIN
         MENUITEM "&Скопировать\tCtrl+C",        ID_EDIT_COPY
         MENUITEM "&Вставить\tCtrl+V",           ID_EDIT_PASTE
     END
+    POPUP "Команды"
+    BEGIN
+        MENUITEM "Добавить",                    IDC_CMDNEW
+    END
     POPUP "&Вид"
     BEGIN
         MENUITEM "&Панель инструментов",        ID_VIEW_TOOLBAR
@@ -185,6 +189,40 @@ BEGIN
                     300,8
 END
 
+IDD_CMDNEW DIALOG DISCARDABLE  0, 0, 301, 188
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Создать Новую Команду"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,244,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,244,24,50,14
+    GROUPBOX        "Тип команды",IDC_STATIC,7,7,225,174
+    CONTROL         "Закрасить",IDC_CMDTYPEPAINT,"Button",BS_AUTORADIOBUTTON,
+                    23,22,52,10
+    CONTROL         "Перейти",IDC_CMDTYPEMOVE,"Button",BS_AUTORADIOBUTTON,23,
+                    74,45,10
+    CONTROL         "Условие",IDC_CMDTYPEIF,"Button",BS_AUTORADIOBUTTON,23,
+                    126,45,10
+    CONTROL         "",IDC_STATIC,"Static",SS_WHITERECT,99,46,97,14
+    LTEXT           "Цвет:",IDC_STATIC,102,36,20,8
+    PUSHBUTTON      "Ц",IDC_BUTTON1,198,46,15,14
+    CONTROL         "Влево",IDC_MOVELEFT,"Button",BS_AUTORADIOBUTTON,102,87,
+                    37,10
+    GROUPBOX        "",IDC_STATIC,94,74,127,45,WS_GROUP
+    CONTROL         "Вправо",IDC_MOVERIGHT,"Button",BS_AUTORADIOBUTTON,159,
+                    87,41,10
+    CONTROL         "Вверх",IDC_MOVEUP,"Button",BS_AUTORADIOBUTTON,102,101,
+                    36,10
+    CONTROL         "Вниз",IDC_MOVEDOWN,"Button",BS_AUTORADIOBUTTON,159,101,
+                    33,10
+    GROUPBOX        "",IDC_STATIC,93,22,127,45,WS_GROUP
+    GROUPBOX        "",IDC_STATIC,94,126,127,45,WS_GROUP
+    CONTROL         "Если ... то ...",IDC_IFONE,"Button",BS_AUTORADIOBUTTON,
+                    102,139,58,10
+    CONTROL         "Если ... то ... иначе...",IDC_IFTWO,"Button",
+                    BS_AUTORADIOBUTTON,102,153,85,10
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -200,6 +238,14 @@ BEGIN
         RIGHTMARGIN, 228
         TOPMARGIN, 7
         BOTTOMMARGIN, 48
+    END
+
+    IDD_CMDNEW, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 294
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 181
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -314,6 +360,11 @@ END
 STRINGTABLE DISCARDABLE 
 BEGIN
     AFX_IDS_PREVIEW_CLOSE   "Закрыть просмотр перед печатью\nЗакрыть просмотр печати"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDC_CMDNEW              "Создать новую команду программы"
 END
 
 #endif    // Russian resources
