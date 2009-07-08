@@ -59,6 +59,9 @@ protected:
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
+	afx_msg void OnUpdateCmdnew(CCmdUI* pCmdUI);
+	afx_msg void OnCmdnew();
 	//}}AFX_MSG
 
 	DECLARE_MESSAGE_MAP()

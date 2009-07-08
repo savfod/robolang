@@ -5,6 +5,7 @@
 #include "robolang.h"
 #include "RobolangEditWindow.h"
 #include "../ProgramUI/ProgramUI.h"
+#include "DlgNew.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -166,6 +167,9 @@ BEGIN_MESSAGE_MAP(CRobolangEditWindow, CListView)
 	ON_WM_SIZE()
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONDOWN()
+	ON_WM_CONTEXTMENU()
+	ON_UPDATE_COMMAND_UI(IDC_CMDNEW, OnUpdateCmdnew)
+	ON_COMMAND(IDC_CMDNEW, OnCmdnew)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -251,4 +255,26 @@ void CRobolangEditWindow::OnLButtonDown(UINT nFlags, CPoint point)
 		}
 	
 	CListView::OnLButtonDown(nFlags, point);
+}
+
+void CRobolangEditWindow::OnContextMenu(CWnd* pWnd, CPoint point) 
+{
+	// TODO: Add your message handler code here
+	CMenu menu;
+	menu.LoadMenu( IDR_MAINFRAME );
+	CMenu *mp = menu.GetSubMenu( 2 );
+
+	mp -> TrackPopupMenu( TPM_LEFTALIGN | TPM_LEFTBUTTON , point.x , point.y , this );
+}
+
+void CRobolangEditWindow::OnUpdateCmdnew(CCmdUI* pCmdUI) 
+{
+	// TODO: Add your command update UI handler code here
+	
+}
+
+void CRobolangEditWindow::OnCmdnew() 
+{
+	// TODO: Add your command handler code here
+	CDlgNew::createCommand();
 }

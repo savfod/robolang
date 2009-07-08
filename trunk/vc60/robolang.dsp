@@ -110,6 +110,14 @@ SOURCE=.\res\Toolbar.bmp
 # End Group
 # Begin Source File
 
+SOURCE=.\DlgNew.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\DlgNew.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\LeftView.cpp
 # End Source File
 # Begin Source File
