@@ -54,7 +54,6 @@ CRobolangApp::CRobolangApp()
 
 CRobolangApp theApp;
 
-
 IControl *IControl::getInstance()
 {
 	return( &theApp );

@@ -9,7 +9,6 @@
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
-//////////////////////////////////////////////////////////////////////
 
 CProgramUI::CProgramUI( IEditWindow *p_iw )
 :	iw( p_iw )
@@ -20,7 +19,10 @@ CProgramUI::~CProgramUI()
 {
 }
 
-void CProgramUI::ReUploadProgram()
+/*#########################################################################*/
+/*#########################################################################*/
+
+void CProgramUI::onProgramChanged()
 {
 	//finding CProgram, "singleton"
 	CProgram *program = IControl::getInstance() -> getCProgram();
@@ -29,3 +31,20 @@ void CProgramUI::ReUploadProgram()
 	iw -> addCommand( program -> GetMainCommand() );
 }
 
+/*#########################################################################*/
+/*#########################################################################*/
+
+void CProgramUI::onEditAdd( CCommand *cmd , CCommand *whereToAdd )
+{
+}
+
+void CProgramUI::onEditUpdate( CCommand *cmd )
+{
+}
+
+void CProgramUI::onEditDelete( CCommand *cmd )
+{
+}
+
+/*#########################################################################*/
+/*#########################################################################*/

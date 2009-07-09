@@ -28,15 +28,14 @@ public:
 private:
 	int addCommand( int pos , CCommand *command, int depth );
 	void adjustLastColumnWidth();
+	CCommand *getCurrentCommand();
 
 	void addItem( int pos , CString robot , CString command , int depth , void *data );
 	int hitTest( int& subItem );
 	CString addTabulations( const CString string, int tabulationCount );
 
 	void startSelectRobot( int item );
-
 	CCommand *getCommand( int item );
-	CCommand *insertCommand( int item );
 
 // windows stuff
 private:
@@ -62,7 +61,13 @@ protected:
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg void OnUpdateCmdnew(CCmdUI* pCmdUI);
 	afx_msg void OnCmdnew();
+	afx_msg void OnCmdchange();
+	afx_msg void OnUpdateCmdchange(CCmdUI* pCmdUI);
+	afx_msg void OnCmddelete();
+	afx_msg void OnUpdateCmddelete(CCmdUI* pCmdUI);
 	//}}AFX_MSG
+	void OnCmdRange( UINT nCmd );
+	void OnUpdateCmdRange( CCmdUI* pCmdUI );
 
 	DECLARE_MESSAGE_MAP()
 };

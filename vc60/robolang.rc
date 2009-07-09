@@ -127,7 +127,40 @@ BEGIN
     END
     POPUP "Команды"
     BEGIN
-        MENUITEM "Добавить",                    IDC_CMDNEW
+        POPUP "Закрасить"
+        BEGIN
+            MENUITEM "Белый",                       IDC_CMDPAINT_WHITE
+            MENUITEM "Черный",                      IDC_CMDPAINT_BLACK
+            MENUITEM "Красный",                     IDC_CMDPAINT_RED
+            MENUITEM "Желтый",                      IDC_CMDPAINT_YELLOW
+            MENUITEM "Зеленый",                     IDC_CMDPAINT_GREEN
+        END
+        POPUP "Перейти"
+        BEGIN
+            MENUITEM "Налево",                      IDC_CMDMOVE_LEFT
+            MENUITEM "Направо",                     IDC_CMDMOVE_RIGHT
+            MENUITEM "Вверх",                       IDC_CMDMOVE_UP
+            MENUITEM "Вниз",                        IDC_CMDMOVE_DOWN
+        END
+        POPUP "Если (условие)"
+        BEGIN
+            MENUITEM "Стенка справа",               IDC_CMDIF_WALLLEFT
+            MENUITEM "Стенка справа",               IDC_CMDIF_WALLRIGHT
+            MENUITEM "Стенка сверху",               IDC_CMDIF_WALLUP
+            MENUITEM "Стенка снизу",                IDC_CMDIF_WALLDOWN
+        END
+        POPUP "Цикл пока (условие)"
+        BEGIN
+            MENUITEM "Стенка справа",               IDC_CMDIF_WALLLEFT
+            MENUITEM "Стенка справа",               IDC_CMDIF_WALLRIGHT
+            MENUITEM "Стенка сверху",               IDC_CMDIF_WALLUP
+            MENUITEM "Стенка снизу",                IDC_CMDIF_WALLDOWN
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "Добавить...",                 IDC_CMDNEW
+        MENUITEM "Изменить...",                 IDC_CMDCHANGE
+        MENUITEM SEPARATOR
+        MENUITEM "Удалить",                     IDC_CMDDELETE
     END
     POPUP "&Вид"
     BEGIN
@@ -189,38 +222,44 @@ BEGIN
                     300,8
 END
 
-IDD_CMDNEW DIALOG DISCARDABLE  0, 0, 301, 188
+IDD_CMDNEW DIALOG DISCARDABLE  0, 0, 301, 166
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Создать Новую Команду"
 FONT 8, "MS Sans Serif"
 BEGIN
+    GROUPBOX        "Тип команды",IDC_STATIC,7,7,225,151,WS_GROUP
+    CONTROL         "Закрасить",IDC_CMDTYPEPAINT,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP | WS_TABSTOP,23,37,52,10
+    CONTROL         "Перейти",IDC_CMDTYPEMOVE,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,23,80,45,10
+    CONTROL         "Условие",IDC_CMDTYPEIF,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,23,115,45,10
+    CONTROL         "Цикл",IDC_CMDTYPEWHILE,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,23,130,33,10
+    GROUPBOX        "",IDC_STATIC,80,16,146,45,WS_GROUP
+    LTEXT           "Цвет:",IDC_STATIC,87,30,20,8
+    CONTROL         "",IDC_RECT,"Static",SS_WHITERECT,88,40,109,14
+    PUSHBUTTON      "Ц",IDC_COLOR,203,40,15,14
+    GROUPBOX        "",IDC_STATIC,80,61,146,45,WS_GROUP
+    CONTROL         "Влево",IDC_MOVELEFT,"Button",BS_AUTORADIOBUTTON,87,74,
+                    37,10
+    CONTROL         "Вправо",IDC_MOVERIGHT,"Button",BS_AUTORADIOBUTTON,154,
+                    74,41,10
+    CONTROL         "Вверх",IDC_MOVEUP,"Button",BS_AUTORADIOBUTTON,87,88,36,
+                    10
+    CONTROL         "Вниз",IDC_MOVEDOWN,"Button",BS_AUTORADIOBUTTON,154,88,
+                    33,10
     DEFPUSHBUTTON   "OK",IDOK,244,7,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,244,24,50,14
-    GROUPBOX        "Тип команды",IDC_STATIC,7,7,225,174
-    CONTROL         "Закрасить",IDC_CMDTYPEPAINT,"Button",BS_AUTORADIOBUTTON,
-                    23,22,52,10
-    CONTROL         "Перейти",IDC_CMDTYPEMOVE,"Button",BS_AUTORADIOBUTTON,23,
-                    74,45,10
-    CONTROL         "Условие",IDC_CMDTYPEIF,"Button",BS_AUTORADIOBUTTON,23,
-                    126,45,10
-    CONTROL         "",IDC_STATIC,"Static",SS_WHITERECT,99,46,97,14
-    LTEXT           "Цвет:",IDC_STATIC,102,36,20,8
-    PUSHBUTTON      "Ц",IDC_BUTTON1,198,46,15,14
-    CONTROL         "Влево",IDC_MOVELEFT,"Button",BS_AUTORADIOBUTTON,102,87,
-                    37,10
-    GROUPBOX        "",IDC_STATIC,94,74,127,45,WS_GROUP
-    CONTROL         "Вправо",IDC_MOVERIGHT,"Button",BS_AUTORADIOBUTTON,159,
-                    87,41,10
-    CONTROL         "Вверх",IDC_MOVEUP,"Button",BS_AUTORADIOBUTTON,102,101,
-                    36,10
-    CONTROL         "Вниз",IDC_MOVEDOWN,"Button",BS_AUTORADIOBUTTON,159,101,
-                    33,10
-    GROUPBOX        "",IDC_STATIC,93,22,127,45,WS_GROUP
-    GROUPBOX        "",IDC_STATIC,94,126,127,45,WS_GROUP
-    CONTROL         "Если ... то ...",IDC_IFONE,"Button",BS_AUTORADIOBUTTON,
-                    102,139,58,10
-    CONTROL         "Если ... то ... иначе...",IDC_IFTWO,"Button",
-                    BS_AUTORADIOBUTTON,102,153,85,10
+    GROUPBOX        "",IDC_STATIC,80,106,146,45,WS_GROUP
+    CONTROL         "Стенка слева",IDC_CONDLEFT,"Button",BS_AUTORADIOBUTTON,
+                    87,119,62,10
+    CONTROL         "Стенка справа",IDC_CONDRIGHT,"Button",
+                    BS_AUTORADIOBUTTON,155,119,66,10
+    CONTROL         "Стенка сверху",IDC_CONDUP,"Button",BS_AUTORADIOBUTTON,
+                    87,133,65,10
+    CONTROL         "Стенка снизу",IDC_CONDDOWN,"Button",BS_AUTORADIOBUTTON,
+                    155,133,61,10
 END
 
 
@@ -245,7 +284,7 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 294
         TOPMARGIN, 7
-        BOTTOMMARGIN, 181
+        BOTTOMMARGIN, 159
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -365,6 +404,21 @@ END
 STRINGTABLE DISCARDABLE 
 BEGIN
     IDC_CMDNEW              "Создать новую команду программы"
+    IDC_CMDCHANGE           "Изменить текущую команду"
+    IDC_CMDDELETE           "Удалить выбранную команду"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDC_CMDPAINT_WHITE      "Закрасить поле белым цветом"
+    IDC_CMDPAINT_RED        "Закрасить поле красным цветом"
+    IDC_CMDPAINT_YELLOW     "Закрасить поле желтым цветом"
+    IDC_CMDPAINT_GREEN      "Закрасить поле зеленым цветом"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDC_CMDPAINT_BLACK      "Закрасить поле черным цветом"
 END
 
 #endif    // Russian resources

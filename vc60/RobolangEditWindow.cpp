@@ -145,7 +145,7 @@ void CRobolangEditWindow::startSelectRobot( int item )
 {
 	CCommand *cmd = getCommand( item );
 	if( cmd == NULL )
-		cmd = insertCommand( item );
+		return;
 }
 
 CCommand *CRobolangEditWindow::getCommand( int item )
@@ -154,9 +154,14 @@ CCommand *CRobolangEditWindow::getCommand( int item )
 	return( ( CCommand * )lc.GetItemData( item ) );
 }
 
-CCommand *CRobolangEditWindow::insertCommand( int item )
+CCommand *CRobolangEditWindow::getCurrentCommand()
 {
-	return( NULL );
+	CListCtrl &lc = CListView::GetListCtrl();
+	int item = lc.GetNextItem( -1 , LVNI_FOCUSED );
+	if( item < 0 )
+		return( NULL );
+
+	return( getCommand( item ) );
 }
 
 /*#########################################################################*/
@@ -170,7 +175,13 @@ BEGIN_MESSAGE_MAP(CRobolangEditWindow, CListView)
 	ON_WM_CONTEXTMENU()
 	ON_UPDATE_COMMAND_UI(IDC_CMDNEW, OnUpdateCmdnew)
 	ON_COMMAND(IDC_CMDNEW, OnCmdnew)
+	ON_COMMAND(IDC_CMDCHANGE, OnCmdchange)
+	ON_UPDATE_COMMAND_UI(IDC_CMDCHANGE, OnUpdateCmdchange)
+	ON_COMMAND(IDC_CMDDELETE, OnCmddelete)
+	ON_UPDATE_COMMAND_UI(IDC_CMDDELETE, OnUpdateCmddelete)
 	//}}AFX_MSG_MAP
+	ON_COMMAND_RANGE( IDC_CMDRANGE_FIRST , IDC_CMDRANGE_LAST , OnCmdRange )
+	ON_UPDATE_COMMAND_UI_RANGE( IDC_CMDRANGE_FIRST , IDC_CMDRANGE_LAST , OnUpdateCmdRange )
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -264,17 +275,62 @@ void CRobolangEditWindow::OnContextMenu(CWnd* pWnd, CPoint point)
 	menu.LoadMenu( IDR_MAINFRAME );
 	CMenu *mp = menu.GetSubMenu( 2 );
 
-	mp -> TrackPopupMenu( TPM_LEFTALIGN | TPM_LEFTBUTTON , point.x , point.y , this );
+	mp -> TrackPopupMenu( TPM_LEFTALIGN | TPM_LEFTBUTTON , point.x , point.y , AfxGetMainWnd() );
 }
 
 void CRobolangEditWindow::OnUpdateCmdnew(CCmdUI* pCmdUI) 
 {
 	// TODO: Add your command update UI handler code here
-	
 }
 
 void CRobolangEditWindow::OnCmdnew() 
 {
 	// TODO: Add your command handler code here
 	CDlgNew::createCommand();
+}
+
+void CRobolangEditWindow::OnCmdchange() 
+{
+	// TODO: Add your command handler code here
+	CCommand *cmd = getCurrentCommand();
+	if( cmd == NULL )
+		return;
+
+	CDlgNew::updateCommand( cmd );
+}
+
+void CRobolangEditWindow::OnUpdateCmdchange(CCmdUI* pCmdUI) 
+{
+	// TODO: Add your command update UI handler code here
+	CCommand *cmd = getCurrentCommand();
+	pCmdUI -> Enable( cmd != NULL );
+}
+
+void CRobolangEditWindow::OnCmddelete() 
+{
+	// TODO: Add your command handler code here
+	CCommand *cmd = getCurrentCommand();
+	if( cmd == NULL )
+		return;
+
+	CProgramUI *ui = IControl::getInstance() -> getCProgramUI();
+	ui -> onEditDelete( cmd );
+}
+
+void CRobolangEditWindow::OnUpdateCmddelete(CCmdUI* pCmdUI) 
+{
+	// TODO: Add your command update UI handler code here
+	CCommand *cmd = getCurrentCommand();
+	pCmdUI -> Enable( cmd != NULL );
+}
+
+void CRobolangEditWindow::OnCmdRange( UINT nCmd )
+{
+}
+
+void CRobolangEditWindow::OnUpdateCmdRange(CCmdUI* pCmdUI) 
+{
+	// TODO: Add your command update UI handler code here
+	CCommand *cmd = getCurrentCommand();
+	pCmdUI -> Enable( TRUE );
 }
