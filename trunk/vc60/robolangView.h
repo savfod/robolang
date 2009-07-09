@@ -9,6 +9,8 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+/*#########################################################################*/
+/*#########################################################################*/
 
 class CRobolangView : public CView
 {
@@ -22,6 +24,7 @@ public:
 
 // Operations
 public:
+	void createViews( CCreateContext* pContext );
 
 // Overrides
 	// ClassWizard generated virtual function overrides
@@ -60,6 +63,9 @@ protected:
 inline CRobolangDoc* CRobolangView::GetDocument()
    { return (CRobolangDoc*)m_pDocument; }
 #endif
+
+/*#########################################################################*/
+/*#########################################################################*/
 
 /////////////////////////////////////////////////////////////////////////////
 

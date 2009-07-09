@@ -28,6 +28,9 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
+/*#########################################################################*/
+/*#########################################################################*/
+
 static UINT indicators[] =
 {
 	ID_SEPARATOR,           // status line indicator
@@ -48,6 +51,19 @@ CMainFrame::CMainFrame()
 CMainFrame::~CMainFrame()
 {
 }
+
+void CMainFrame::resizeSplitters()
+{
+	m_wndSplitter.SetColumnInfo( 0 , 300 , 100 );
+	m_wndSplitter.RecalcLayout();
+
+	CRobolangView *rightView = GetRightPane();
+	rightView -> splitter.SetRowInfo( 0 , 400 , 100 );
+	rightView -> splitter.RecalcLayout();
+}
+
+/*#########################################################################*/
+/*#########################################################################*/
 
 int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
@@ -104,6 +120,9 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT /*lpcs*/,
 		return FALSE;
 	}
 
+	CRobolangView *rightView = GetRightPane();
+	rightView -> createViews( pContext );
+
 	return TRUE;
 }
 
@@ -142,14 +161,3 @@ CRobolangView* CMainFrame::GetRightPane()
 	CRobolangView* pView = DYNAMIC_DOWNCAST(CRobolangView, pWnd);
 	return pView;
 }
-
-void CMainFrame::resizeSplitters()
-{
-	m_wndSplitter.SetColumnInfo( 0 , 300 , 100 );
-	m_wndSplitter.RecalcLayout();
-
-	CRobolangView *rightView = GetRightPane();
-	rightView -> splitter.SetRowInfo( 0 , 400 , 100 );
-	rightView -> splitter.RecalcLayout();
-}
-

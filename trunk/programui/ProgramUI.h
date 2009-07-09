@@ -11,6 +11,9 @@
 
 #include "..\program\program.h"
 
+/*#########################################################################*/
+/*#########################################################################*/
+
 class IEditWindow
 {
 public:
@@ -19,26 +22,28 @@ public:
 	virtual void removeAllCommands() = 0;
 };
 
+/*#########################################################################*/
+/*#########################################################################*/
+
 class CProgramUI  
 {
 public:
 	CProgramUI( IEditWindow *iw );
 	virtual ~CProgramUI();
 
-	void ReUploadProgram();
+// CRobolangEditWindow
+	void onEditAdd( CCommand *cmd , CCommand *whereToAdd );
+	void onEditUpdate( CCommand *cmd );
+	void onEditDelete( CCommand *cmd );
 
-//CRobolangEditWindow
-	void onEditAdd(CCommand* whereToAdd, CString commandName); 
-	void onEditDelete(CCommand* command);
-	void onEditSave();//what parameters?
-	void onEditOpen();//what parameters?
-	void onEditClose();
-	void onEditNew();
-//CProgram
-	void onProgramSmthChanged();
+// CProgram
+	void onProgramChanged();
 
 private:
 	IEditWindow *iw;
 };
+
+/*#########################################################################*/
+/*#########################################################################*/
 
 #endif // !defined(AFX_PROGRAMUI_H__428B1B90_3CEF_4E31_B454_D2494C1D3A7E__INCLUDED_)

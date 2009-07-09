@@ -30,18 +30,28 @@ BEGIN_MESSAGE_MAP(CRobolangView, CView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, CView::OnFilePrintPreview)
 END_MESSAGE_MAP()
 
+/*#########################################################################*/
+/*#########################################################################*/
+
 /////////////////////////////////////////////////////////////////////////////
 // CRobolangView construction/destruction
 
 CRobolangView::CRobolangView()
 {
 	// TODO: add construction code here
-
 }
 
 CRobolangView::~CRobolangView()
 {
 }
+
+void CRobolangView::createViews( CCreateContext* pContext )
+{
+	splitter.Create( this , NULL , pContext );
+}
+
+/*#########################################################################*/
+/*#########################################################################*/
 
 BOOL CRobolangView::PreCreateWindow(CREATESTRUCT& cs)
 {
@@ -64,7 +74,6 @@ void CRobolangView::OnInitialUpdate()
 
 	// TODO: You may populate your ListView with items by directly accessing
 	//  its list control through a call to GetListCtrl().
-	splitter.Create( this , NULL , NULL );
 }
 
 /////////////////////////////////////////////////////////////////////////////

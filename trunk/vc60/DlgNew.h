@@ -8,6 +8,9 @@
 //
 #include "..\program\program.h"
 
+/*#########################################################################*/
+/*#########################################################################*/
+
 /////////////////////////////////////////////////////////////////////////////
 // CDlgNew dialog
 
@@ -18,11 +21,19 @@ public:
 	CDlgNew(CWnd* pParent = NULL);   // standard constructor
 
 	static CCommand *createCommand();
+	static bool updateCommand( CCommand *cmd );
+
+private:
+	void enableControls( CommandType type );
+
+public:
+	CCommand *cmd;
+	COLORREF currentColor;
 
 // Dialog Data
 	//{{AFX_DATA(CDlgNew)
 	enum { IDD = IDD_CMDNEW };
-		// NOTE: the ClassWizard will add data members here
+	CStatic	m_wndColor;
 	//}}AFX_DATA
 
 // Overrides
@@ -37,10 +48,18 @@ protected:
 
 	// Generated message map functions
 	//{{AFX_MSG(CDlgNew)
-		// NOTE: the ClassWizard will add member functions here
+	afx_msg void OnCmdtypeif();
+	afx_msg void OnCmdtypemove();
+	afx_msg void OnCmdtypepaint();
+	afx_msg void OnColor();
+	virtual void OnOK();
+	virtual BOOL OnInitDialog();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };
+
+/*#########################################################################*/
+/*#########################################################################*/
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.

@@ -10,14 +10,39 @@
 #define IDC_CMDTYPEPAINT                1000
 #define IDC_CMDTYPEMOVE                 1001
 #define IDC_CMDTYPEIF                   1002
-#define IDC_BUTTON1                     1003
+#define IDC_COLOR                       1003
 #define IDC_MOVELEFT                    1004
 #define IDC_MOVERIGHT                   1005
 #define IDC_MOVEUP                      1006
 #define IDC_MOVEDOWN                    1007
-#define IDC_IFONE                       1008
-#define IDC_IFTWO                       1009
+#define IDC_CMDTYPEWHILE                1008
+#define IDC_CONDLEFT                    1009
+#define IDC_RECT                        1010
+#define IDC_CONDRIGHT                   1011
+#define IDC_CONDUP                      1012
+#define IDC_CONDDOWN                    1013
+#define IDC_CMDRANGE_FIRST              31001
+#define IDC_CMDPAINT_BLACK              31775
+#define IDC_CMDPAINT_WHITE              31776
+#define IDC_CMDPAINT_RED                31777
+#define IDC_CMDPAINT_YELLOW             31778
+#define IDC_CMDPAINT_GREEN              31779
+#define IDC_CMDMOVE_LEFT                31781
+#define IDC_CMDMOVE_RIGHT               31782
+#define IDC_CMDMOVE_UP                  31783
+#define IDC_CMDMOVE_DOWN                31784
+#define IDC_CMDIF_WALLLEFT              31786
+#define IDC_CMDIF_WALLRIGHT             31787
+#define IDC_CMDIF_WALLUP                31788
+#define IDC_CMDIF_WALLDOWN              31789
+#define IDC_CMDWHILE_WALLLEFT           31790
+#define IDC_CMDWHILE_WALLRIGHT          31791
+#define IDC_CMDWHILE_WALLUP             31792
+#define IDC_CMDWHILE_WALLDOWN           31793
+#define IDC_CMDRANGE_LAST               31999
 #define IDC_CMDNEW                      32771
+#define IDC_CMDCHANGE                   32772
+#define IDC_CMDDELETE                   32773
 
 // Next default values for new objects
 // 
@@ -25,8 +50,8 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        131
-#define _APS_NEXT_COMMAND_VALUE         32772
-#define _APS_NEXT_CONTROL_VALUE         1005
+#define _APS_NEXT_COMMAND_VALUE         32790
+#define _APS_NEXT_CONTROL_VALUE         1011
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
