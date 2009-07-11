@@ -13,7 +13,7 @@ CProgram::CProgram( IControl *p_ic )
 :	ic( p_ic )
 {
 	program = new CCommand;
-	program -> type = CMDTYPE_PROCEDURE;
+	program -> type = CMDTYPE_UNKNOWN;
 }
 
 CProgram::~CProgram()

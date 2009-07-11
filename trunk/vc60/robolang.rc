@@ -144,17 +144,17 @@ BEGIN
         END
         POPUP "Если (условие)"
         BEGIN
-            MENUITEM "Стенка справа",               IDC_CMDIF_WALLLEFT
+            MENUITEM "Стенка слева",                IDC_CMDIF_WALLLEFT
             MENUITEM "Стенка справа",               IDC_CMDIF_WALLRIGHT
             MENUITEM "Стенка сверху",               IDC_CMDIF_WALLUP
             MENUITEM "Стенка снизу",                IDC_CMDIF_WALLDOWN
         END
         POPUP "Цикл пока (условие)"
         BEGIN
-            MENUITEM "Стенка справа",               IDC_CMDIF_WALLLEFT
-            MENUITEM "Стенка справа",               IDC_CMDIF_WALLRIGHT
-            MENUITEM "Стенка сверху",               IDC_CMDIF_WALLUP
-            MENUITEM "Стенка снизу",                IDC_CMDIF_WALLDOWN
+            MENUITEM "Стенка слева",                IDC_CMDWHILE_WALLLEFT
+            MENUITEM "Стенка справа",               IDC_CMDWHILE_WALLRIGHT
+            MENUITEM "Стенка сверху",               IDC_CMDWHILE_WALLUP
+            MENUITEM "Стенка снизу",                IDC_CMDWHILE_WALLDOWN
         END
         MENUITEM SEPARATOR
         MENUITEM "Добавить...",                 IDC_CMDNEW
@@ -414,11 +414,27 @@ BEGIN
     IDC_CMDPAINT_RED        "Закрасить поле красным цветом"
     IDC_CMDPAINT_YELLOW     "Закрасить поле желтым цветом"
     IDC_CMDPAINT_GREEN      "Закрасить поле зеленым цветом"
+    IDC_CMDMOVE_LEFT        "Пойти налево"
+    IDC_CMDMOVE_RIGHT       "Пойти направо"
+    IDC_CMDMOVE_UP          "Пойти вверх"
+    IDC_CMDMOVE_DOWN        "Пойти вниз"
+    IDC_CMDIF_WALLLEFT      "Если стенка слева, выполнить..."
+    IDC_CMDIF_WALLRIGHT     "Если стенка справа, выполнить..."
+    IDC_CMDIF_WALLUP        "Если стенка сверху, выполнить..."
+    IDC_CMDIF_WALLDOWN      "Если стенка снизу, выполнить..."
+    IDC_CMDWHILE_WALLLEFT   "Цикл пока стенка слева"
+    IDC_CMDWHILE_WALLRIGHT  "Цикл пока стенка справа"
 END
 
 STRINGTABLE DISCARDABLE 
 BEGIN
     IDC_CMDPAINT_BLACK      "Закрасить поле черным цветом"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDC_CMDWHILE_WALLUP     "Цикл пока стенка сверху"
+    IDC_CMDWHILE_WALLDOWN   "Цикл пока стенка снизу"
 END
 
 #endif    // Russian resources

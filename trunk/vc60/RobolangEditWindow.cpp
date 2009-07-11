@@ -326,6 +326,11 @@ void CRobolangEditWindow::OnUpdateCmddelete(CCmdUI* pCmdUI)
 
 void CRobolangEditWindow::OnCmdRange( UINT nCmd )
 {
+	CCommand *cmd = getCurrentCommand();
+	if( cmd != NULL )
+		CDlgNew::setCommand( cmd , nCmd );
+	else
+		CDlgNew::createCommand( nCmd );
 }
 
 void CRobolangEditWindow::OnUpdateCmdRange(CCmdUI* pCmdUI) 

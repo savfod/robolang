@@ -231,10 +231,6 @@ SOURCE=..\program\Command.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\program\Command.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\program\Program.cpp
 # End Source File
 # Begin Source File

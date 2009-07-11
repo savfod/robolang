@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
-#include "Command.h"
+#include "program.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -11,6 +11,11 @@
 
 CCommand::CCommand()
 {
+	robot = 0;
+	type = CMDTYPE_UNKNOWN;
+	color = 0;
+	direction = 'U';
+	condition = CMDCOND_UNKNOWN;
 }
 
 CCommand::~CCommand()
@@ -54,3 +59,28 @@ CString CCommand::getEndifName()
 {
 	return( "йнмеж еякх" );
 }
+
+void CCommand::setPaint( COLORREF p_color )
+{
+	type = CMDTYPE_PAINT;
+	color = p_color;
+}
+
+void CCommand::setMove( char p_direction )
+{
+	type = CMDTYPE_MOVE;
+	direction = p_direction;
+}
+
+void CCommand::setIf( CommandCondition p_condition )
+{
+	type = CMDTYPE_IF;
+	condition = p_condition;
+}
+
+void CCommand::setWhile( CommandCondition p_condition )
+{
+	type = CMDTYPE_WHILE;
+	condition = p_condition;
+}
+
