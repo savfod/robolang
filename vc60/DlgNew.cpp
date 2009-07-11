@@ -3,6 +3,8 @@
 
 #include "stdafx.h"
 #include "robolang.h"
+
+#include "..\programui\programui.h"
 #include "DlgNew.h"
 
 #ifdef _DEBUG
@@ -44,8 +46,52 @@ bool CDlgNew::updateCommand( CCommand *cmd )
 	return( dlg.DoModal() == IDOK );
 }
 
-/*#########################################################################*/
-/*#########################################################################*/
+bool CDlgNew::setCommand( CCommand *cmd , int nCmd )
+{
+	CDlgNew::setCommandTo( cmd , nCmd );
+
+	CProgramUI *ui = IControl::getInstance() -> getCProgramUI();
+	ui -> onEditUpdate( cmd );
+	return( true );
+}
+
+bool CDlgNew::createCommand( int nCmd )
+{
+	CCommand *cmd = new CCommand;
+	CDlgNew::setCommandTo( cmd , nCmd );
+
+	CProgramUI *ui = IControl::getInstance() -> getCProgramUI();
+	ui -> onEditAdd( cmd , NULL , NULL );
+	return( true );
+}
+
+void CDlgNew::setCommandTo( CCommand *cmd , int nCmd )
+{
+	switch( nCmd )
+		{
+			case IDC_CMDPAINT_BLACK              :	cmd -> setPaint( RGB( 0 , 0 , 0 ) ); break;
+			case IDC_CMDPAINT_WHITE              :	cmd -> setPaint( RGB( 255 , 255 , 255 ) ); break;
+			case IDC_CMDPAINT_RED                :	cmd -> setPaint( RGB( 255 , 0 , 0 ) ); break;
+			case IDC_CMDPAINT_YELLOW             :	cmd -> setPaint( RGB( 255 , 0 , 255 ) ); break;
+			case IDC_CMDPAINT_GREEN              :	cmd -> setPaint( RGB( 0 , 255 , 0 ) ); break;
+			case IDC_CMDMOVE_LEFT                :	cmd -> setMove( 'L' ); break;
+			case IDC_CMDMOVE_RIGHT               :	cmd -> setMove( 'R' ); break;
+			case IDC_CMDMOVE_UP                  :	cmd -> setMove( 'U' ); break;
+			case IDC_CMDMOVE_DOWN                :	cmd -> setMove( 'D' ); break;
+			case IDC_CMDIF_WALLLEFT              :	cmd -> setIf( CMDCOND_WALLLEFT ); break;
+			case IDC_CMDIF_WALLRIGHT             :	cmd -> setIf( CMDCOND_WALLRIGHT ); break;
+			case IDC_CMDIF_WALLUP                :	cmd -> setIf( CMDCOND_WALLUP ); break;
+			case IDC_CMDIF_WALLDOWN              :	cmd -> setIf( CMDCOND_WALLDOWN ); break;
+			case IDC_CMDWHILE_WALLLEFT           :	cmd -> setWhile( CMDCOND_WALLLEFT ); break;
+			case IDC_CMDWHILE_WALLRIGHT          :	cmd -> setWhile( CMDCOND_WALLRIGHT ); break;
+			case IDC_CMDWHILE_WALLUP             :	cmd -> setWhile( CMDCOND_WALLUP ); break;
+			case IDC_CMDWHILE_WALLDOWN           :	cmd -> setWhile( CMDCOND_WALLDOWN ); break;
+
+			default :
+				AfxMessageBox( "Unknown command" );
+				break;
+		}
+}
 
 void CDlgNew::enableControls( CommandType type )
 {

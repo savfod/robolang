@@ -7,7 +7,6 @@
 // RobolangEditWindow.h : header file
 //
 
-#include "..\Program\Command.h"
 #include "..\ProgramUI\ProgramUI.h"
 
 /////////////////////////////////////////////////////////////////////////////

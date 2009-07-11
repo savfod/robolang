@@ -34,7 +34,7 @@ void CProgramUI::onProgramChanged()
 /*#########################################################################*/
 /*#########################################################################*/
 
-void CProgramUI::onEditAdd( CCommand *cmd , CCommand *whereToAdd )
+void CProgramUI::onEditAdd( CCommand *cmd , CCommand *parent , CCommand *before )
 {
 }
 

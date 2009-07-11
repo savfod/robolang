@@ -32,7 +32,7 @@ public:
 	virtual ~CProgramUI();
 
 // CRobolangEditWindow
-	void onEditAdd( CCommand *cmd , CCommand *whereToAdd );
+	void onEditAdd( CCommand *cmd , CCommand *parent , CCommand *before );
 	void onEditUpdate( CCommand *cmd );
 	void onEditDelete( CCommand *cmd );
 
