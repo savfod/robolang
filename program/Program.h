@@ -12,16 +12,15 @@
 #include <afxtempl.h>
 #include "..\control\control.h"
 
-/*#########################################################################*/
-/*#########################################################################*/
-
 class CProgram;
 class CCommand;
 class CProcedure;
 
+/*#########################################################################*/
+/*#########################################################################*/
 
 typedef CArray<CCommand *, CCommand *> CCommandArray;
-typedef CArray<CProcedure *, CProcedure *> CProcedureArray;
+typedef CMap<CString, LPCSTR, CProcedure *, CProcedure *> CProcedureMap;
 
 typedef enum {
 	CMDTYPE_UNKNOWN = 0 ,
@@ -55,6 +54,10 @@ public:
 	CString getCommandString();
 	CString getElseName();
 	CString getEndifName();
+	CString getEndName();
+
+	// command types
+	bool isCompound();
 
 	// sets
 	void setPaint( COLORREF color );
@@ -71,14 +74,24 @@ public:
 	CommandCondition condition;
 
 	CString callingProcedureName;
-	CCommandArray primaryChildCommands;
-	CCommandArray secondaryChildCommands;
+	CCommandArray childCommands;
 };
+
+/*#########################################################################*/
+/*#########################################################################*/
+
 class CProcedure
 {
 public:
-	CCommandArray childCommands;
-	CString Name;
+	CProcedure( CString name );
+	~CProcedure();
+
+	CString getProcLine();
+	void addCommand( CCommand *cmd , CCommand *parent , CCommand *before );
+	int findCommand( CCommandArray *cmdList , CCommand *cmd );
+
+	CCommandArray commands;
+	CString name;
 };
 	
 /*#########################################################################*/
@@ -90,17 +103,23 @@ public:
 	CProgram( IControl *ic );
 	virtual ~CProgram();
 
-	const CProcedureArray* GetProgram();
-	CString GetProgramText(); //procedures -> text
-	void SetProgram(CString program); // text -> procedure
-	
-	
+	void createNew();
+
+	CProcedure *addProcedure( CString name );
+	CProcedure *getMainProcedure();
+	CProcedure *getProcedureByName( CString name );
+
+	CString getProgramText(); //procedures -> text
+	void setProgram( CString program ); // text -> procedure
 	
 private:
+	void clear();
+	void deleteCommand( CCommand *command );
+	void deleteProcedure( CProcedure *procedure );
+
+private:
 	IControl *ic;
-	CProcedureArray program;
-	void DeleteCommand(CCommand* command);
-	void DeleteProcedure(CProcedure* procedure);
+	CProcedureMap procedures;
 };
 
 /*#########################################################################*/

@@ -46,6 +46,8 @@ public:
 	CControl( IControl *ic );
 	virtual ~CControl();
 
+	void newProgram();
+
 private:
 	IControl *ic;
 };

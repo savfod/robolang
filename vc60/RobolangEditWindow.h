@@ -22,16 +22,16 @@ public:
 // Operations
 public:
 	void addCommand( CCommand *command );
-	void setProgram( const CProcedureArray* program);
+	void setProcedure( CProcedure *proc );
 	void removeAllCommands();
 
 private:
-	void addProcedure(CProcedure *procedure);
 	int addCommand( int pos , CCommand *command, int depth );
 	void adjustLastColumnWidth();
 	CCommand *getCurrentCommand();
 
-	void addItem( int pos , CString robot , CString command , int depth , void *data );
+	void addItem( int pos , CString robot , CString command , int depth , short type , void *data );
+	short getItemType( int pos );
 	int hitTest( int& subItem );
 	CString addTabulations( const CString string, int tabulationCount );
 

@@ -18,7 +18,7 @@ class IEditWindow
 {
 public:
 	// interface to program edit window
-	virtual void setProgram( const CProcedureArray* program) = 0;
+	virtual void setProcedure( CProcedure *program ) = 0;
 	virtual void removeAllCommands() = 0;
 };
 
@@ -40,7 +40,13 @@ public:
 	void onProgramChanged();
 
 private:
+	void skipUpdates();
+	void restoreUpdates();
+
+private:
 	IEditWindow *iw;
+	CProcedure *procedure;
+	bool isProcessUpdates;
 };
 
 /*#########################################################################*/

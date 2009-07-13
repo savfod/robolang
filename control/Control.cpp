@@ -4,6 +4,7 @@
 
 #include "stdafx.h"
 #include "Control.h"
+#include "..\program\program.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -16,4 +17,12 @@ CControl::CControl( IControl *p_ic )
 
 CControl::~CControl()
 {
+}
+
+void CControl::newProgram()
+{
+	CProgram *prog = ic -> getCProgram();
+	CRoboMap *map = ic -> getCRoboMap();
+
+	prog -> createNew();
 }

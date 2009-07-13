@@ -13,10 +13,22 @@
 CProgramUI::CProgramUI( IEditWindow *p_iw )
 :	iw( p_iw )
 {
+	procedure = NULL;
+	isProcessUpdates = true;
 }
 
 CProgramUI::~CProgramUI()
 {
+}
+
+void CProgramUI::skipUpdates()
+{
+	isProcessUpdates = false;
+}
+
+void CProgramUI::restoreUpdates()
+{
+	isProcessUpdates = true;
 }
 
 /*#########################################################################*/
@@ -24,11 +36,16 @@ CProgramUI::~CProgramUI()
 
 void CProgramUI::onProgramChanged()
 {
+	if( !isProcessUpdates )
+		return;
+
 	//finding CProgram, "singleton"
 	CProgram *program = IControl::getInstance() -> getCProgram();
 
 	iw -> removeAllCommands();
-	iw -> setProgram( program -> GetProgram() );
+
+	procedure = program -> getMainProcedure();
+	iw -> setProcedure( procedure );
 }
 
 /*#########################################################################*/
@@ -36,6 +53,11 @@ void CProgramUI::onProgramChanged()
 
 void CProgramUI::onEditAdd( CCommand *cmd , CCommand *parent , CCommand *before )
 {
+	skipUpdates();
+	procedure -> addCommand( cmd , parent , before );
+	restoreUpdates();
+
+	iw -> setProcedure( procedure );
 }
 
 void CProgramUI::onEditUpdate( CCommand *cmd )
