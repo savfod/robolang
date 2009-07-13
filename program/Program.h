@@ -17,15 +17,19 @@
 
 class CProgram;
 class CCommand;
+class CProcedure;
+
 
 typedef CArray<CCommand *, CCommand *> CCommandArray;
+typedef CArray<CProcedure *, CProcedure *> CProcedureArray;
 
 typedef enum {
 	CMDTYPE_UNKNOWN = 0 ,
 	CMDTYPE_PAINT = 1 ,
 	CMDTYPE_MOVE = 2 ,
 	CMDTYPE_IF = 3 ,
-	CMDTYPE_WHILE = 4
+	CMDTYPE_WHILE = 4 ,
+	CMDTYPE_CALL = 5
 } CommandType;
 
 typedef enum {
@@ -66,10 +70,17 @@ public:
 	char direction; // LRTB
 	CommandCondition condition;
 
+	CString callingProcedureName;
 	CCommandArray primaryChildCommands;
 	CCommandArray secondaryChildCommands;
 };
-
+class CProcedure
+{
+public:
+	CCommandArray childCommands;
+	CString Name;
+};
+	
 /*#########################################################################*/
 /*#########################################################################*/
 
@@ -79,16 +90,17 @@ public:
 	CProgram( IControl *ic );
 	virtual ~CProgram();
 
-	CCommand* GetMainCommand();
-	void Open();//parameters?
-	void Save();//parameters?
-	void Close();
+	const CProcedureArray* GetProgram();
+	CString GetProgramText(); //procedures -> text
+	void SetProgram(CString program); // text -> procedure
+	
 	
 	
 private:
 	IControl *ic;
-	CCommand* program;
+	CProcedureArray program;
 	void DeleteCommand(CCommand* command);
+	void DeleteProcedure(CProcedure* procedure);
 };
 
 /*#########################################################################*/

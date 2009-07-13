@@ -12,19 +12,21 @@
 CProgram::CProgram( IControl *p_ic )
 :	ic( p_ic )
 {
-	program = new CCommand;
-	program -> type = CMDTYPE_UNKNOWN;
+	
 }
 
 CProgram::~CProgram()
 {
-	Close();
+	for( int i = 0; i < (CProgram::program).GetSize(); i++ )
+		DeleteProcedure((CProgram::program)[i]);
+	(CProgram::program).RemoveAll;
+
 }
 
 /////////////////////////////////////////////////////////////////////
 // Other
 
-CCommand* CProgram::GetMainCommand()
+const CProcedureArray* CProgram::GetProgram()
 {
 	//for debug only
 	/*CCommand* result = new CCommand();
@@ -43,14 +45,9 @@ CCommand* CProgram::GetMainCommand()
 	result->Commands[2]->Commands.Add(new CCommand());
 	result->Commands[2]->Commands[0]->Name = "here";*/
 
-	return program;
+	return &program;
 }
 
-void CProgram::Close()
-{
-	DeleteCommand(program);
-	program = NULL;
-}
 
 void CProgram::DeleteCommand( CCommand* command )
 {
@@ -64,3 +61,25 @@ void CProgram::DeleteCommand( CCommand* command )
 
 	delete command;
 }
+void CProgram::DeleteProcedure( CProcedure* procedure )
+{
+	CCommandArray& cmdList = procedure->childCommands;
+	for( int i = 0; i < cmdList.GetSize(); i++)
+		DeleteCommand( cmdList[i] );
+	delete procedure;
+}
+
+
+CString CProgram::GetProgramText()
+{
+	// debug
+	CString res;
+	return res;
+}
+void CProgram::SetProgram(CString program)
+{
+	// debug
+	
+	(CProgram::program).Add(new CProcedure);
+}
+	

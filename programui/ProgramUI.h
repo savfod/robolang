@@ -18,7 +18,7 @@ class IEditWindow
 {
 public:
 	// interface to program edit window
-	virtual void addCommand( CCommand *command ) = 0;
+	virtual void setProgram( const CProcedureArray* program) = 0;
 	virtual void removeAllCommands() = 0;
 };
 

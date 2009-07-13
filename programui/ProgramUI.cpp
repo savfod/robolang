@@ -28,7 +28,7 @@ void CProgramUI::onProgramChanged()
 	CProgram *program = IControl::getInstance() -> getCProgram();
 
 	iw -> removeAllCommands();
-	iw -> addCommand( program -> GetMainCommand() );
+	iw -> setProgram( program -> GetProgram() );
 }
 
 /*#########################################################################*/
