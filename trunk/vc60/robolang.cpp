@@ -108,10 +108,10 @@ BOOL CRobolangApp::InitInstance()
 
 	createClasses();
 	initMode = false;
+	OnFileNew();
 
 	return TRUE;
 }
-
 
 /////////////////////////////////////////////////////////////////////////////
 // CAboutDlg dialog used for App About
@@ -177,6 +177,8 @@ void CRobolangApp::OnFileNew()
 			CWinApp::OnFileNew();
 			return;
 		}
+
+	IControl::vCControl -> newProgram();
 }
 
 // operations

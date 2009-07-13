@@ -17,6 +17,11 @@ static char THIS_FILE[] = __FILE__;
 // CRobolangEditWindow
 IMPLEMENT_DYNCREATE( CRobolangEditWindow , CListView )
 
+#define LINETYPE_PROCEDURE			1
+#define LINETYPE_ONELINECOMMAND		2
+#define LINETYPE_COMMANDSTART		3
+#define LINETYPE_COMMANDSTOP		4
+
 /*#########################################################################*/
 /*#########################################################################*/
 
@@ -28,33 +33,22 @@ CRobolangEditWindow::~CRobolangEditWindow()
 {
 }
 
-void CRobolangEditWindow::setProgram( const CProcedureArray* program)
-{
-	for(int i = 0; i < program -> GetSize(); i++)
-	{
-		addProcedure(program -> GetAt(i));
-		if(i != program -> GetSize() - 1)
-		{
-			CListCtrl &lc = CListView::GetListCtrl();
-			lc.InsertItem(lc.GestItemCount(), "");
-		}
-	}
-}
-void CRobolangEditWindow::addProcedure(CProcedure* procedure)
+void CRobolangEditWindow::setProcedure( CProcedure *proc )
 {
 	CListCtrl &lc = CListView::GetListCtrl();
 
+	removeAllCommands();
+
 	// procedure
-	CString cmdLine = procedure -> Name;
-	CString robot("");
+	CString cmdLine = proc -> getProcLine();
+	CString robot( "" );
 	int pos = lc.GetItemCount(); 
-	addItem( pos++ , robot , cmdLine , 0 , procedure ); //itemData - Procedure*!
+	addItem( pos++ , robot , cmdLine , 0 , LINETYPE_PROCEDURE , proc ); //itemData - Procedure*!
 
 	// Commands inside command
-	CCommandArray& cmdList = procedure -> childCommands;
+	CCommandArray& cmdList = proc -> commands;
 	for( int i = 0; i < cmdList.GetSize(); i++ )
 		pos = addCommand( pos , cmdList.GetAt(i), 1 );
-
 }
 
 void CRobolangEditWindow::addCommand( CCommand *command )
@@ -106,27 +100,20 @@ int CRobolangEditWindow::addCommand( int pos , CCommand *command , int depth )
 	// command
 	CString robot = command -> getRobotName();
 	CString cmdLine = command -> getCommandString();
-	addItem( pos++ , robot , cmdLine , depth , command );
 
-	// Commands inside command
-	CCommandArray& cmdList = command -> primaryChildCommands;
-	for( int i = 0; i < cmdList.GetSize(); i++ )
-		pos = addCommand( pos , cmdList.GetAt(i), depth + 1 );
+	int opType = ( command -> isCompound() )? LINETYPE_COMMANDSTART : LINETYPE_ONELINECOMMAND;
+	addItem( pos++ , robot , cmdLine , depth , opType , command );
 
-	// secondary list - for if/else
-	CommandType cmdType = command -> getType();
-	if( cmdType == CMDTYPE_IF )
+	// secondary list - for if
+	if( command -> isCompound() )
 		{
 			// check has else section
-			CCommandArray& cmdList = command -> secondaryChildCommands;
-			if( cmdList.GetSize() > 0 )
-				addItem( pos++ , robot , command -> getElseName() , depth , command );
-
+			CCommandArray& cmdList = command -> childCommands;
 			for( int i = 0; i < cmdList.GetSize(); i++ )
 				pos = addCommand( pos , cmdList.GetAt(i), depth + 1 );
 
-			// if termination
-			addItem( pos++ , robot , command -> getEndifName() , depth , command );
+			// compound termination
+			addItem( pos++ , robot , command -> getEndName() , depth , LINETYPE_COMMANDSTOP , command );
 		}
 
 	return( pos );
@@ -150,15 +137,36 @@ int CRobolangEditWindow::hitTest( int& subItem )
 	return( item );
 }
 
-void CRobolangEditWindow::addItem( int pos , CString robot , CString command , int depth , void *data )
+void CRobolangEditWindow::addItem( int pos , CString robot , CString command , int depth , short type , void *data )
 {
 	CListCtrl &lc = CListView::GetListCtrl();
 
 	CString tabbedCommand = addTabulations( command , depth );
 
 	int item = lc.InsertItem( pos , robot );
-	lc.SetItemText( item , 1 , tabbedCommand );
 	lc.SetItemData( item , ( unsigned long )data );
+	lc.SetItemText( item , 1 , tabbedCommand );
+
+	LVITEM lvi;
+	lvi.iItem = pos;
+	lvi.iSubItem = 0;
+	lvi.mask = LVIF_IMAGE;
+	lvi.iImage = type;
+	lc.SetItem( &lvi );
+}
+
+short CRobolangEditWindow::getItemType( int pos )
+{
+	CListCtrl &lc = CListView::GetListCtrl();
+
+	LVITEM lvi;
+	lvi.iItem = pos;
+	lvi.iSubItem = 0;
+	lvi.mask = LVIF_IMAGE;
+	if( lc.GetItem( &lvi ) < 0 )
+		return( 0 );
+
+	return( ( short )lvi.iImage );
 }
 
 CString CRobolangEditWindow::addTabulations( const CString string , int tabulationCount )
@@ -175,11 +183,18 @@ void CRobolangEditWindow::startSelectRobot( int item )
 	CCommand *cmd = getCommand( item );
 	if( cmd == NULL )
 		return;
+
+	short type = getItemType( item );
 }
 
 CCommand *CRobolangEditWindow::getCommand( int item )
 {
 	CListCtrl &lc = CListView::GetListCtrl();
+
+	short type = getItemType( item );
+	if( type == LINETYPE_PROCEDURE )
+		return( NULL );
+
 	return( ( CCommand * )lc.GetItemData( item ) );
 }
 

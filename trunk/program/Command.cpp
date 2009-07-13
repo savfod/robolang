@@ -20,11 +20,21 @@ CCommand::CCommand()
 
 CCommand::~CCommand()
 {
+	CCommandArray& cmdList1 = childCommands;
+	for( int i = 0; i < cmdList1.GetSize(); i++ )
+		delete cmdList1[i];
+
+	cmdList1.RemoveAll();
 }
 
 CommandType CCommand::getType()
 {
 	return( type );
+}
+
+bool CCommand::isCompound()
+{
+	return( type == CMDTYPE_IF || type == CMDTYPE_WHILE );
 }
 
 CString CCommand::getRobotName()
@@ -58,6 +68,17 @@ CString CCommand::getElseName()
 CString CCommand::getEndifName()
 {
 	return( "ÊÎÍÅÖ ÅÑËÈ" );
+}
+
+CString CCommand::getEndName()
+{
+	if( type == CMDTYPE_IF )
+		return( "ÊÎÍÅÖ ÅÑËÈ" );
+	if( type == CMDTYPE_WHILE )
+		return( "ÊÎÍÅÖ ÖÈÊËÀ" );
+
+	ASSERT( FALSE );
+	return( "" );
 }
 
 void CCommand::setPaint( COLORREF p_color )

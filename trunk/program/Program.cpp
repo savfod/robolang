@@ -4,6 +4,7 @@
 
 #include "stdafx.h"
 #include "Program.h"
+#include "..\programui\ProgramUI.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -11,22 +12,6 @@
 
 CProgram::CProgram( IControl *p_ic )
 :	ic( p_ic )
-{
-	
-}
-
-CProgram::~CProgram()
-{
-	for( int i = 0; i < (CProgram::program).GetSize(); i++ )
-		DeleteProcedure((CProgram::program)[i]);
-	(CProgram::program).RemoveAll;
-
-}
-
-/////////////////////////////////////////////////////////////////////
-// Other
-
-const CProcedureArray* CProgram::GetProgram()
 {
 	//for debug only
 	/*CCommand* result = new CCommand();
@@ -44,42 +29,72 @@ const CProcedureArray* CProgram::GetProgram()
 
 	result->Commands[2]->Commands.Add(new CCommand());
 	result->Commands[2]->Commands[0]->Name = "here";*/
-
-	return &program;
 }
 
-
-void CProgram::DeleteCommand( CCommand* command )
+CProgram::~CProgram()
 {
-	CCommandArray& cmdList1 = command -> primaryChildCommands;
-	for( int i = 0; i < cmdList1.GetSize(); i++ )
-		DeleteCommand( cmdList1[i] );
-
-	CCommandArray& cmdList2 = command -> secondaryChildCommands;
-	for( i = 0; i < cmdList2.GetSize(); i++ )
-		DeleteCommand( cmdList2[i] );
-
-	delete command;
+	clear();
 }
-void CProgram::DeleteProcedure( CProcedure* procedure )
+
+void CProgram::clear()
 {
-	CCommandArray& cmdList = procedure->childCommands;
-	for( int i = 0; i < cmdList.GetSize(); i++)
-		DeleteCommand( cmdList[i] );
-	delete procedure;
+	CString key;
+	CProcedure *proc;
+	for( POSITION pos = procedures.GetStartPosition(); pos != NULL; )
+		{
+			procedures.GetNextAssoc( pos , key , ( CProcedure *& ) proc );
+			delete proc;
+		}
+	procedures.RemoveAll();
 }
 
+/////////////////////////////////////////////////////////////////////
+// Other
 
-CString CProgram::GetProgramText()
+void CProgram::createNew()
+{
+	// create empty program
+	addProcedure( "main" );
+
+	// notify ui
+	CProgramUI *ui = ic -> getCProgramUI();
+	ui -> onProgramChanged();
+}
+
+CProcedure *CProgram::addProcedure( CString name )
+{
+	CProcedure *proc;
+	if( procedures.Lookup( name , proc ) )
+		ASSERT( FALSE );
+
+	// create empty program
+	proc = new CProcedure( name );
+	procedures.SetAt( name , proc );
+	return( proc );
+}
+
+CProcedure *CProgram::getMainProcedure()
+{
+	return( getProcedureByName( "main" ) );
+}
+
+CString CProgram::getProgramText()
 {
 	// debug
 	CString res;
 	return res;
 }
-void CProgram::SetProgram(CString program)
+
+void CProgram::setProgram( CString program )
 {
 	// debug
-	
-	(CProgram::program).Add(new CProcedure);
+	createNew();
 }
-	
+
+CProcedure *CProgram::getProcedureByName( CString name )
+{
+	CProcedure *proc;
+	if( procedures.Lookup( name , proc ) )
+		return( proc );
+	return( NULL );
+}
