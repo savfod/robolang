@@ -28,6 +28,35 @@ CRobolangEditWindow::~CRobolangEditWindow()
 {
 }
 
+void CRobolangEditWindow::setProgram( const CProcedureArray* program)
+{
+	for(int i = 0; i < program -> GetSize(); i++)
+	{
+		addProcedure(program -> GetAt(i));
+		if(i != program -> GetSize() - 1)
+		{
+			CListCtrl &lc = CListView::GetListCtrl();
+			lc.InsertItem(lc.GestItemCount(), "");
+		}
+	}
+}
+void CRobolangEditWindow::addProcedure(CProcedure* procedure)
+{
+	CListCtrl &lc = CListView::GetListCtrl();
+
+	// procedure
+	CString cmdLine = procedure -> Name;
+	CString robot("");
+	int pos = lc.GetItemCount(); 
+	addItem( pos++ , robot , cmdLine , 0 , procedure ); //itemData - Procedure*!
+
+	// Commands inside command
+	CCommandArray& cmdList = procedure -> childCommands;
+	for( int i = 0; i < cmdList.GetSize(); i++ )
+		pos = addCommand( pos , cmdList.GetAt(i), 1 );
+
+}
+
 void CRobolangEditWindow::addCommand( CCommand *command )
 {
 	CListCtrl &lc = CListView::GetListCtrl();

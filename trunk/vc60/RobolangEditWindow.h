@@ -22,9 +22,11 @@ public:
 // Operations
 public:
 	void addCommand( CCommand *command );
+	void setProgram( const CProcedureArray* program);
 	void removeAllCommands();
 
 private:
+	void addProcedure(CProcedure *procedure);
 	int addCommand( int pos , CCommand *command, int depth );
 	void adjustLastColumnWidth();
 	CCommand *getCurrentCommand();
