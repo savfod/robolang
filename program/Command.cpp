@@ -57,25 +57,74 @@ CString CCommand::getCommandName()
 
 CString CCommand::getCommandString()
 {
-	return( getCommandName() );
+	switch( type )
+		{
+			case CMDTYPE_PAINT : 
+			{
+				switch( color )
+				{
+					case ( RGB( 0 , 0 , 0 ) ) : return( "Красить в чёрный" );
+					case ( RGB( 255 , 255 , 255  ) ) : return( "Красить в белый" );
+					case ( RGB( 255 , 0 , 0 ) ) : return( "Красить в красный" );
+					case ( RGB( 255 , 0 , 255 ) ) : return( "Красить в жёлтый" );
+					case ( RGB( 0 , 255 , 0 ) ) : return( "Красить в зелёный" );
+				}
+				return("Красить в необычный цвет");
+			}
+
+			case CMDTYPE_MOVE : 
+			{
+				switch( direction )
+				{
+					case 'L' : return( "Идти налево" );
+					case 'R' : return( "Идти направо" );
+					case 'U' : return( "Идти вверх" );
+					case 'D' : return( "Идти вниз" );
+				}
+				return( "идти в неизвестном направлении" );
+			}							
+			case CMDTYPE_IF : 
+			{
+				switch( condition )
+				{
+					case CMDCOND_WALLLEFT : return( "Если слева стена" );
+					case CMDCOND_WALLRIGHT : return( "Если справа стена" );
+					case CMDCOND_WALLUP : return( "Если сверху стена" );
+					case CMDCOND_WALLDOWN : return( "Если снизу стена" );
+				}
+				return( "Если не пойми что" );
+			}
+			case CMDTYPE_WHILE : 
+			{
+				switch( condition )
+				{
+					case CMDCOND_WALLLEFT : return( "Пока слева стена" );
+					case CMDCOND_WALLRIGHT : return( "Пока справа стена" );
+					case CMDCOND_WALLUP : return( "Пока сверху стена" );
+					case CMDCOND_WALLDOWN : return( "Пока снизу стена" );
+				}
+				return( "Пока не пойми что" );
+			}
+	}
+	return( "?" );
 }
 
 CString CCommand::getElseName()
 {
-	return( "ИНАЧЕ" );
+	return( "Иначе" );
 }
 
 CString CCommand::getEndifName()
 {
-	return( "КОНЕЦ ЕСЛИ" );
+	return( "Конец если" );
 }
 
 CString CCommand::getEndName()
 {
 	if( type == CMDTYPE_IF )
-		return( "КОНЕЦ ЕСЛИ" );
+		return( "Конец если" );
 	if( type == CMDTYPE_WHILE )
-		return( "КОНЕЦ ЦИКЛА" );
+		return( "Конец цикла" );
 
 	ASSERT( FALSE );
 	return( "" );

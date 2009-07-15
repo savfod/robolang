@@ -110,17 +110,24 @@ public:
 	CProcedure *getProcedureByName( CString name );
 
 	CString getProgramText(); //procedures -> text
-	CString getProcedureText(CProcedure* proc);
-	void setProgram( CString program ); // text -> procedure
+	
+	void setProgram( CString program ); // text -> procedures
 	
 private:
 	void clear();
 	void deleteCommand( CCommand *command );
 	void deleteProcedure( CProcedure *procedure );
+	
+	CString getProcedureText(CProcedure* proc);
+	CString getCommandText(CCommand *cmd);
+	CString getBlockOfCommandsText(CCommandArray *commands);
+
+	bool isLetter(TCHAR c);
 
 private:
 	IControl *ic;
 	CProcedureMap procedures;
+
 };
 
 /*#########################################################################*/

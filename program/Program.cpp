@@ -113,14 +113,74 @@ CString CProgram::getProgramText()
 
 CString CProgram::getProcedureText(CProcedure *proc)
 {
-	CString a("was procedure");
-	return a;
+	//procedure
+	CString result("Процедура");
+	result += ' ';
+	result += proc->name;
+
+	//commands
+	result += '\n';
+	result += getBlockOfCommandsText( &(proc -> commands) );
+
+	return result;
 }
+
+CString CProgram::getCommandText(CCommand *cmd)
+{
+	CString result = cmd -> getCommandString();
+	
+	switch( cmd -> getType() )
+	
+		case CMDTYPE_WHILE:
+		{
+			result += '\n';
+			result += getBlockOfCommandsText( &(cmd -> childCommands) );
+		}
+	return result;
+		
+}
+CString CProgram::getBlockOfCommandsText(CCommandArray *commands)
+{
+	CString result;
+	
+	result += '{';
+	result += '\n';
+	for( int i = 0 ; i < commands -> GetSize() ; i++)
+	{
+		result += getCommandText( commands -> GetAt(i) );
+		result += '\n';
+	}
+	result += '}';
+
+	return result;
+
+}
+
 
 void CProgram::setProgram( CString program )
 {
-	// debug
-	createNew();
+	/*while( program.size() )
+	{
+		while( !isLetter( program.GetAt(0) ) )
+			program.Delete(0);
+		
+
+	
+
+
+	}*/
 }
+bool isLetter(TCHAR c)
+{
+	return		(
+		(( 'a' <= c ) && ( c <= 'z' )) ||
+		(( 'A' <= c ) && ( c <= 'Z' )) ||
+		(( 'а' <= c ) && ( c <= 'я' )) ||
+		(( 'А' <= c ) && ( c <= 'Я' ))
+				);
+}
+
+	
+
 /////////////////////////////////////////////////////////////////////
 // 
