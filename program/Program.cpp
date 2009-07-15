@@ -78,18 +78,7 @@ CProcedure *CProgram::getMainProcedure()
 	return( getProcedureByName( "main" ) );
 }
 
-CString CProgram::getProgramText()
-{
-	// debug
-	CString res;
-	return res;
-}
 
-void CProgram::setProgram( CString program )
-{
-	// debug
-	createNew();
-}
 
 CProcedure *CProgram::getProcedureByName( CString name )
 {
@@ -98,3 +87,40 @@ CProcedure *CProgram::getProcedureByName( CString name )
 		return( proc );
 	return( NULL );
 }
+
+/////////////////////////////////////////////////////////////////////
+// open/save
+
+
+CString CProgram::getProgramText()
+{
+	CString result;
+
+	CString key;
+	CProcedure* value;
+	POSITION pos = procedures.GetStartPosition();
+	while(pos != 0)
+	{
+		procedures.GetNextAssoc(pos, key, value);
+		
+		result += getProcedureText(value);
+		CString emptyStrings;
+		emptyStrings.Format("\n\n\n"); // 3 empty strings
+	}
+	return result;
+}
+
+
+CString CProgram::getProcedureText(CProcedure *proc)
+{
+	CString a("was procedure");
+	return a;
+}
+
+void CProgram::setProgram( CString program )
+{
+	// debug
+	createNew();
+}
+/////////////////////////////////////////////////////////////////////
+// 

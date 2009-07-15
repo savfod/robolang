@@ -42,7 +42,7 @@ void CProcedure::addCommand( CCommand *cmd , CCommand *parent , CCommand *before
 			list.InsertAt( pos , cmd );
 		}
 	else
-		list.Add( cmd );
+		list.InsertAt(0, cmd);
 }
 
 int CProcedure::findCommand( CCommandArray *cmdList , CCommand *cmd )
