@@ -110,6 +110,7 @@ public:
 	CProcedure *getProcedureByName( CString name );
 
 	CString getProgramText(); //procedures -> text
+	CString getProcedureText(CProcedure* proc);
 	void setProgram( CString program ); // text -> procedure
 	
 private:

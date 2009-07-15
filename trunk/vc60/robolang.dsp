@@ -231,7 +231,7 @@ SOURCE=..\program\Command.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\program\procedure.cpp
+SOURCE=..\program\Procedure.cpp
 # End Source File
 # Begin Source File
 
