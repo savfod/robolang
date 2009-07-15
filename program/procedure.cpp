@@ -29,6 +29,8 @@ CString CProcedure::getProcLine()
 
 void CProcedure::addCommand( CCommand *cmd , CCommand *parent , CCommand *before )
 {
+	if( before != NULL )
+		parent = findParent( NULL , &commands , before );
 	CCommandArray& list = ( parent == NULL )? commands : parent -> childCommands;
 
 	// find before if any
@@ -42,7 +44,7 @@ void CProcedure::addCommand( CCommand *cmd , CCommand *parent , CCommand *before
 			list.InsertAt( pos , cmd );
 		}
 	else
-		list.InsertAt(0, cmd);
+		list.Add( cmd );
 }
 
 int CProcedure::findCommand( CCommandArray *cmdList , CCommand *cmd )
@@ -54,3 +56,33 @@ int CProcedure::findCommand( CCommandArray *cmdList , CCommand *cmd )
 	return( -1 );
 }
 
+CCommand *CProcedure::findParent( CCommand *cmdListOwner , CCommandArray *cmdList , CCommand *cmdFind )
+{
+	for( int k = 0; k < cmdList -> GetSize(); k++ )
+		{
+			CCommand *cmd = cmdList -> GetAt( k );
+
+			// find in owned commands
+			if( cmd == cmdFind )
+				return( cmdListOwner );
+
+			// find in childs
+			cmd = findParent( cmd , &cmd -> childCommands , cmdFind );
+			if( cmd != NULL )
+				return( cmd );
+		}
+
+	return( NULL );
+}
+
+void CProcedure::deleteCommand( CCommand *cmd )
+{
+	CCommand *parent = findParent( NULL , &commands , cmd );
+	CCommandArray& list = ( parent == NULL )? commands : parent -> childCommands;
+	int pos = findCommand( &list , cmd );
+	if( pos < 0 )
+		ASSERT( FALSE );
+
+	list.RemoveAt( pos );
+	delete cmd;
+}

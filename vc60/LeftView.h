@@ -23,6 +23,7 @@ public:
 
 // Operations
 public:
+	HTREEITEM addItem( HTREEITEM parent , CString name , int type );
 
 // Overrides
 	// ClassWizard generated virtual function overrides

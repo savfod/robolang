@@ -43,6 +43,7 @@ public:
 public:
 	// operations
 	void createClasses();
+	void messageBox( CString msg );
 
 private:
 	// data

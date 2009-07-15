@@ -53,6 +53,8 @@ void CProgram::clear()
 
 void CProgram::createNew()
 {
+	clear();
+
 	// create empty program
 	addProcedure( "main" );
 
@@ -78,8 +80,6 @@ CProcedure *CProgram::getMainProcedure()
 	return( getProcedureByName( "main" ) );
 }
 
-
-
 CProcedure *CProgram::getProcedureByName( CString name )
 {
 	CProcedure *proc;
@@ -90,7 +90,6 @@ CProcedure *CProgram::getProcedureByName( CString name )
 
 /////////////////////////////////////////////////////////////////////
 // open/save
-
 
 CString CProgram::getProgramText()
 {
@@ -156,7 +155,6 @@ CString CProgram::getBlockOfCommandsText(CCommandArray *commands)
 
 }
 
-
 void CProgram::setProgram( CString program )
 {
 	/*while( program.size() )
@@ -170,6 +168,7 @@ void CProgram::setProgram( CString program )
 
 	}*/
 }
+
 bool isLetter(TCHAR c)
 {
 	return		(
@@ -179,8 +178,6 @@ bool isLetter(TCHAR c)
 		(( 'À' <= c ) && ( c <= 'ß' ))
 				);
 }
-
-	
 
 /////////////////////////////////////////////////////////////////////
 // 

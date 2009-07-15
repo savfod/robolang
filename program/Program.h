@@ -60,6 +60,7 @@ public:
 	bool isCompound();
 
 	// sets
+	void setProps( CCommand *cmdData );
 	void setPaint( COLORREF color );
 	void setMove( char direction );
 	void setIf( CommandCondition condition );
@@ -88,7 +89,10 @@ public:
 
 	CString getProcLine();
 	void addCommand( CCommand *cmd , CCommand *parent , CCommand *before );
+	void deleteCommand( CCommand *cmd );
+
 	int findCommand( CCommandArray *cmdList , CCommand *cmd );
+	CCommand *findParent( CCommand *cmdListOwner , CCommandArray *cmdList , CCommand *cmd );
 
 	CCommandArray commands;
 	CString name;

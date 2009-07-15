@@ -200,12 +200,19 @@ CCommand *CRobolangEditWindow::getCommand( int item )
 
 CCommand *CRobolangEditWindow::getCurrentCommand()
 {
-	CListCtrl &lc = CListView::GetListCtrl();
-	int item = lc.GetNextItem( -1 , LVNI_FOCUSED );
+	int item = getCurrentItem();
 	if( item < 0 )
 		return( NULL );
 
 	return( getCommand( item ) );
+}
+
+int CRobolangEditWindow::getCurrentItem()
+{
+	CListCtrl &lc = CListView::GetListCtrl();
+	int item = lc.GetNextItem( -1 , LVNI_SELECTED );
+
+	return( item );
 }
 
 /*#########################################################################*/
@@ -370,11 +377,29 @@ void CRobolangEditWindow::OnUpdateCmddelete(CCmdUI* pCmdUI)
 
 void CRobolangEditWindow::OnCmdRange( UINT nCmd )
 {
-	CCommand *cmd = getCurrentCommand();
+	int item = getCurrentItem();
+	CCommand *cmd = NULL;
+	if( item >= 0 )
+		cmd = getCommand( item );
+
+	// change command - if shift pressed
+	bool change = ( ::GetKeyState( VK_SHIFT ) & 0x8000 )? true : false;
+	if( change == true && cmd != NULL )
+		{
+			CDlgNew::setCommand( cmd , nCmd );
+			return;
+		}
+
+	// find parent - if current command != NULL, for compound operator on LINETYPE_COMMANDSTOP (then before is NULL), otherwise it is "before" command
+	CCommand *parent = NULL;
+	CCommand *before = NULL;
 	if( cmd != NULL )
-		CDlgNew::setCommand( cmd , nCmd );
-	else
-		CDlgNew::createCommand( nCmd );
+		if( cmd -> isCompound() && getItemType( item ) == LINETYPE_COMMANDSTOP )
+			parent = cmd;
+		else
+			before = cmd;
+
+	CDlgNew::createCommand( nCmd , parent , before );
 }
 
 void CRobolangEditWindow::OnUpdateCmdRange(CCmdUI* pCmdUI) 
