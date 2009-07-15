@@ -27,6 +27,15 @@ CCommand::~CCommand()
 	cmdList1.RemoveAll();
 }
 
+void CCommand::setProps( CCommand *cmdData )
+{
+	robot = cmdData -> robot;
+	type = cmdData -> type;
+	color = cmdData -> color;
+	direction = cmdData -> direction;
+	condition = cmdData -> condition;
+}
+
 CommandType CCommand::getType()
 {
 	return( type );

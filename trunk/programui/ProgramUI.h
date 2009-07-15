@@ -33,7 +33,7 @@ public:
 
 // CRobolangEditWindow
 	void onEditAdd( CCommand *cmd , CCommand *parent , CCommand *before );
-	void onEditUpdate( CCommand *cmd );
+	void onEditUpdate( CCommand *cmd , CCommand *cmdData );
 	void onEditDelete( CCommand *cmd );
 
 // CProgram

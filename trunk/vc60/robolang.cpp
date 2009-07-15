@@ -42,6 +42,9 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CRobolangApp construction
 
+/*#########################################################################*/
+/*#########################################################################*/
+
 CRobolangApp::CRobolangApp()
 {
 	// TODO: add construction code here,
@@ -58,6 +61,31 @@ IControl *IControl::getInstance()
 {
 	return( &theApp );
 }
+
+// operations
+void CRobolangApp::createClasses()
+{
+	CMainFrame *mainframe = ( CMainFrame * )AfxGetMainWnd();
+	CLeftView *controlWindow = ( CLeftView * )mainframe -> m_wndSplitter.GetPane( 0 , 0 );
+	CRobolangView *rightView = mainframe -> GetRightPane();
+	CRobolangEditWindow *editWindow = ( CRobolangEditWindow * )rightView -> splitter.GetPane( 0 , 0 );
+	CRobolangMap *mapWindow = ( CRobolangMap * )rightView -> splitter.GetPane( 1 , 0 );
+
+	IControl::vCInterpreter = new CInterpreter( this );
+	IControl::vCProgram = new CProgram( this );
+	IControl::vCRoboMap = new CRoboMap( this );
+	IControl::vCControl = new CControl( this );
+	IControl::vCProgramUI = new CProgramUI( editWindow );
+	IControl::vCRoboMapUI = new CRoboMapUI( mapWindow );
+}
+
+void CRobolangApp::messageBox( CString msg )
+{
+	AfxMessageBox( msg );
+}
+
+/*#########################################################################*/
+/*#########################################################################*/
 
 /////////////////////////////////////////////////////////////////////////////
 // CRobolangApp initialization
@@ -179,23 +207,6 @@ void CRobolangApp::OnFileNew()
 		}
 
 	IControl::vCControl -> newProgram();
-}
-
-// operations
-void CRobolangApp::createClasses()
-{
-	CMainFrame *mainframe = ( CMainFrame * )AfxGetMainWnd();
-	CLeftView *controlWindow = ( CLeftView * )mainframe -> m_wndSplitter.GetPane( 0 , 0 );
-	CRobolangView *rightView = mainframe -> GetRightPane();
-	CRobolangEditWindow *editWindow = ( CRobolangEditWindow * )rightView -> splitter.GetPane( 0 , 0 );
-	CRobolangMap *mapWindow = ( CRobolangMap * )rightView -> splitter.GetPane( 1 , 0 );
-
-	IControl::vCInterpreter = new CInterpreter( this );
-	IControl::vCProgram = new CProgram( this );
-	IControl::vCRoboMap = new CRoboMap( this );
-	IControl::vCControl = new CControl( this );
-	IControl::vCProgramUI = new CProgramUI( editWindow );
-	IControl::vCRoboMapUI = new CRoboMapUI( mapWindow );
 }
 
 int CRobolangApp::ExitInstance() 

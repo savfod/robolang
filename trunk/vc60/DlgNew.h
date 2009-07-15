@@ -23,7 +23,7 @@ public:
 	static CCommand *createCommand();
 	static bool updateCommand( CCommand *cmd );
 	static bool setCommand( CCommand *cmd , int nCmd );
-	static bool createCommand( int nCmd );
+	static bool createCommand( int nCmd , CCommand *parent , CCommand *before );
 
 private:
 	void enableControls( CommandType type );

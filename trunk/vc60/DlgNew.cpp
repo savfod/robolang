@@ -48,20 +48,22 @@ bool CDlgNew::updateCommand( CCommand *cmd )
 
 bool CDlgNew::setCommand( CCommand *cmd , int nCmd )
 {
-	CDlgNew::setCommandTo( cmd , nCmd );
+	CCommand cmdCopy;
+	CDlgNew::setCommandTo( &cmdCopy , nCmd );
 
 	CProgramUI *ui = IControl::getInstance() -> getCProgramUI();
-	ui -> onEditUpdate( cmd );
+	
+	ui -> onEditUpdate( cmd , &cmdCopy );
 	return( true );
 }
 
-bool CDlgNew::createCommand( int nCmd )
+bool CDlgNew::createCommand( int nCmd , CCommand *parent , CCommand *before )
 {
 	CCommand *cmd = new CCommand;
 	CDlgNew::setCommandTo( cmd , nCmd );
 
 	CProgramUI *ui = IControl::getInstance() -> getCProgramUI();
-	ui -> onEditAdd( cmd , NULL , NULL );
+	ui -> onEditAdd( cmd , parent , before );
 	return( true );
 }
 

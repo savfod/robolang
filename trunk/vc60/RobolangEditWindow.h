@@ -37,6 +37,7 @@ private:
 
 	void startSelectRobot( int item );
 	CCommand *getCommand( int item );
+	int getCurrentItem();
 
 // windows stuff
 private:

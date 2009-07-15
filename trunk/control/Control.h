@@ -16,6 +16,9 @@ class CRoboMap;
 class CRoboMapUI;
 class CInterpreter;
 
+/*#########################################################################*/
+/*#########################################################################*/
+
 // application interface
 class IControl
 {
@@ -29,6 +32,10 @@ public:
 	CRoboMapUI *getCRoboMapUI() { return( vCRoboMapUI ); };
 	CInterpreter *getCInterpreter() { return( vCInterpreter ); };
 
+public:
+	// generic functions
+	virtual void messageBox( CString msg ) = 0;
+
 protected:
 	// core classes - singletons
 	CControl *vCControl;
@@ -38,6 +45,9 @@ protected:
 	CRoboMapUI *vCRoboMapUI;
 	CInterpreter *vCInterpreter;
 };
+
+/*#########################################################################*/
+/*#########################################################################*/
 
 // controller class
 class CControl  
@@ -51,5 +61,8 @@ public:
 private:
 	IControl *ic;
 };
+
+/*#########################################################################*/
+/*#########################################################################*/
 
 #endif // !defined(AFX_CONTROL_H__A5996464_A2C1_4ABB_A5B5_EEAA5382D49C__INCLUDED_)

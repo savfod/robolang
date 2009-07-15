@@ -29,6 +29,11 @@ BEGIN_MESSAGE_MAP(CLeftView, CTreeView)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, CTreeView::OnFilePrintPreview)
 END_MESSAGE_MAP()
 
+#define TREEITEMTYPE_PROCHEADING	1
+#define TREEITEMTYPE_PROC			2
+#define TREEITEMTYPE_HISTORYHEADING	3
+#define TREEITEMTYPE_HISTORY		4
+
 /////////////////////////////////////////////////////////////////////////////
 // CLeftView construction/destruction
 
@@ -46,6 +51,7 @@ BOOL CLeftView::PreCreateWindow(CREATESTRUCT& cs)
 {
 	// TODO: Modify the Window class or styles here by modifying
 	//  the CREATESTRUCT cs
+	cs.style |= TVS_DISABLEDRAGDROP | TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT; 
 
 	return CTreeView::PreCreateWindow(cs);
 }
@@ -60,7 +66,6 @@ void CLeftView::OnDraw(CDC* pDC)
 
 	// TODO: add draw code for native data here
 }
-
 
 /////////////////////////////////////////////////////////////////////////////
 // CLeftView printing
@@ -87,6 +92,18 @@ void CLeftView::OnInitialUpdate()
 
 	// TODO: You may populate your TreeView with items by directly accessing
 	//  its tree control through a call to GetTreeCtrl().
+	addItem( NULL , "Процедуры текущей программы" , TREEITEMTYPE_PROCHEADING );
+	addItem( NULL , "Известные программы" , TREEITEMTYPE_HISTORYHEADING );
+}
+
+HTREEITEM CLeftView::addItem( HTREEITEM parent , CString name , int type )
+{
+	CTreeCtrl& tc = GetTreeCtrl();
+
+	HTREEITEM item = tc.InsertItem( name , parent );
+	tc.SetItemData( item , ( DWORD )type );
+
+	return( item );
 }
 
 /////////////////////////////////////////////////////////////////////////////
