@@ -23,8 +23,15 @@ public:
 
 // Operations
 public:
-	HTREEITEM addItem( HTREEITEM parent , CString name , int type );
+	void removeProcedures();
+	void addProcedure( CProcedure *p );
 
+private:
+	HTREEITEM addItem( HTREEITEM parent , CString name , int type );
+	HTREEITEM getProceduresItem();
+	int getItemType( HTREEITEM item );
+
+public:
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CLeftView)
@@ -51,8 +58,7 @@ protected:
 // Generated message map functions
 protected:
 	//{{AFX_MSG(CLeftView)
-		// NOTE - the ClassWizard will add and remove member functions here.
-		//    DO NOT EDIT what you see in these blocks of generated code !
+	afx_msg void OnBeginlabeledit(NMHDR* pNMHDR, LRESULT* pResult);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

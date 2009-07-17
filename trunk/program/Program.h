@@ -93,6 +93,7 @@ public:
 
 	int findCommand( CCommandArray *cmdList , CCommand *cmd );
 	CCommand *findParent( CCommand *cmdListOwner , CCommandArray *cmdList , CCommand *cmd );
+	bool isMain();
 
 	CCommandArray commands;
 	CString name;
@@ -112,6 +113,8 @@ public:
 	CProcedure *addProcedure( CString name );
 	CProcedure *getMainProcedure();
 	CProcedure *getProcedureByName( CString name );
+	int getProcedureCount();
+	CProcedure *getProcedureByIndex( int index );
 
 	CString getProgramText(); //procedures -> text
 	
@@ -131,7 +134,6 @@ private:
 private:
 	IControl *ic;
 	CProcedureMap procedures;
-
 };
 
 /*#########################################################################*/

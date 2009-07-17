@@ -179,5 +179,22 @@ bool isLetter(TCHAR c)
 				);
 }
 
-/////////////////////////////////////////////////////////////////////
-// 
+int CProgram::getProcedureCount()
+{
+	return( procedures.GetCount() );
+}
+
+CProcedure *CProgram::getProcedureByIndex( int index )
+{
+	POSITION pos = procedures.GetStartPosition();
+	if( pos == NULL )
+		return( NULL );
+
+	CString key;
+	CProcedure *proc;
+	for( int k = 0; k <= index; k++ )
+		procedures.GetNextAssoc( pos , key , proc );
+
+	return( proc );			
+}
+

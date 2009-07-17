@@ -6,6 +6,7 @@
 
 #include "robolangDoc.h"
 #include "LeftView.h"
+#include "..\program\program.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -20,8 +21,7 @@ IMPLEMENT_DYNCREATE(CLeftView, CTreeView)
 
 BEGIN_MESSAGE_MAP(CLeftView, CTreeView)
 	//{{AFX_MSG_MAP(CLeftView)
-		// NOTE - the ClassWizard will add and remove mapping macros here.
-		//    DO NOT EDIT what you see in these blocks of generated code!
+	ON_NOTIFY_REFLECT(TVN_BEGINLABELEDIT, OnBeginlabeledit)
 	//}}AFX_MSG_MAP
 	// Standard printing commands
 	ON_COMMAND(ID_FILE_PRINT, CTreeView::OnFilePrint)
@@ -31,11 +31,15 @@ END_MESSAGE_MAP()
 
 #define TREEITEMTYPE_PROCHEADING	1
 #define TREEITEMTYPE_PROC			2
-#define TREEITEMTYPE_HISTORYHEADING	3
-#define TREEITEMTYPE_HISTORY		4
+#define TREEITEMTYPE_PROCMAIN		3
+#define TREEITEMTYPE_HISTORYHEADING	4
+#define TREEITEMTYPE_HISTORY		5
 
 /////////////////////////////////////////////////////////////////////////////
 // CLeftView construction/destruction
+
+/*#########################################################################*/
+/*#########################################################################*/
 
 CLeftView::CLeftView()
 {
@@ -47,11 +51,79 @@ CLeftView::~CLeftView()
 {
 }
 
+void CLeftView::removeProcedures()
+{
+	CTreeCtrl& tc = GetTreeCtrl();
+	HTREEITEM item = getProceduresItem();
+	if( item == NULL )
+		return;
+	
+	while( true )
+		{
+			HTREEITEM ci = tc.GetChildItem( item );
+			if( ci == NULL )
+				break;
+
+			tc.DeleteItem( ci );
+		}
+}
+
+void CLeftView::addProcedure( CProcedure *p )
+{
+	HTREEITEM parent = getProceduresItem();
+
+	CString name = p -> name;
+	int type = ( p -> isMain() )? TREEITEMTYPE_PROCMAIN : TREEITEMTYPE_PROC;
+	addItem( parent , name , type );
+
+	CTreeCtrl& tc = GetTreeCtrl();
+	tc.SortChildren( parent );
+}
+
+/*#########################################################################*/
+/*#########################################################################*/
+
+HTREEITEM CLeftView::addItem( HTREEITEM parent , CString name , int type )
+{
+	CTreeCtrl& tc = GetTreeCtrl();
+
+	HTREEITEM item = tc.InsertItem( name , parent );
+	tc.SetItemData( item , ( DWORD )type );
+
+	return( item );
+}
+
+HTREEITEM CLeftView::getProceduresItem()
+{
+	CTreeCtrl& tc = GetTreeCtrl();
+	HTREEITEM item = tc.GetRootItem();
+
+	while( item != NULL )
+		{
+			int type = getItemType( item );
+			if( type == TREEITEMTYPE_PROCHEADING )
+				return( item );
+
+			item = tc.GetNextSiblingItem( item );
+		}
+
+	return( NULL );
+}
+
+int CLeftView::getItemType( HTREEITEM item )
+{
+	CTreeCtrl& tc = GetTreeCtrl();
+	return( ( int )tc.GetItemData( item ) );
+}
+
+/*#########################################################################*/
+/*#########################################################################*/
+
 BOOL CLeftView::PreCreateWindow(CREATESTRUCT& cs)
 {
 	// TODO: Modify the Window class or styles here by modifying
 	//  the CREATESTRUCT cs
-	cs.style |= TVS_DISABLEDRAGDROP | TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT; 
+	cs.style |= TVS_DISABLEDRAGDROP | TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_EDITLABELS; 
 
 	return CTreeView::PreCreateWindow(cs);
 }
@@ -96,16 +168,6 @@ void CLeftView::OnInitialUpdate()
 	addItem( NULL , "Известные программы" , TREEITEMTYPE_HISTORYHEADING );
 }
 
-HTREEITEM CLeftView::addItem( HTREEITEM parent , CString name , int type )
-{
-	CTreeCtrl& tc = GetTreeCtrl();
-
-	HTREEITEM item = tc.InsertItem( name , parent );
-	tc.SetItemData( item , ( DWORD )type );
-
-	return( item );
-}
-
 /////////////////////////////////////////////////////////////////////////////
 // CLeftView diagnostics
 
@@ -129,3 +191,12 @@ CRobolangDoc* CLeftView::GetDocument() // non-debug version is inline
 
 /////////////////////////////////////////////////////////////////////////////
 // CLeftView message handlers
+
+void CLeftView::OnBeginlabeledit(NMHDR* pNMHDR, LRESULT* pResult) 
+{
+	TV_DISPINFO* pTVDispInfo = (TV_DISPINFO*)pNMHDR;
+	// TODO: Add your control notification handler code here
+
+	int type = getItemType( pTVDispInfo -> item.hItem );
+	*pResult = ( type == TREEITEMTYPE_PROC )? 0 : 1;
+}

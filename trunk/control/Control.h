@@ -11,6 +11,7 @@
 
 class CControl;
 class CProgram;
+class CProcedure;
 class CProgramUI;
 class CRoboMap;
 class CRoboMapUI;
@@ -35,6 +36,8 @@ public:
 public:
 	// generic functions
 	virtual void messageBox( CString msg ) = 0;
+	virtual void removeProcedures() = 0;
+	virtual void addProcedure( CProcedure *p ) = 0;
 
 protected:
 	// core classes - singletons
