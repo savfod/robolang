@@ -47,6 +47,11 @@ void CProcedure::addCommand( CCommand *cmd , CCommand *parent , CCommand *before
 		list.Add( cmd );
 }
 
+bool CProcedure::isMain()
+{
+	return( name.Compare( "main" ) == 0 );
+}
+
 int CProcedure::findCommand( CCommandArray *cmdList , CCommand *cmd )
 {
 	for( int k = 0; k < cmdList -> GetSize(); k++ )

@@ -25,4 +25,13 @@ void CControl::newProgram()
 	CRoboMap *map = ic -> getCRoboMap();
 
 	prog -> createNew();
+
+	ic -> removeProcedures();
+	
+	int n = prog -> getProcedureCount();
+	for( int k = 0; k < n; k++ )
+		{
+			CProcedure *p = prog -> getProcedureByIndex( k );
+			ic -> addProcedure( p );
+		}
 }

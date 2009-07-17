@@ -63,6 +63,26 @@ IControl *IControl::getInstance()
 }
 
 // operations
+void CRobolangApp::messageBox( CString msg )
+{
+	AfxMessageBox( msg );
+}
+
+void CRobolangApp::removeProcedures()
+{
+	CLeftView *lv = getControlWindow();
+	lv -> removeProcedures();
+}
+
+void CRobolangApp::addProcedure( CProcedure *p )
+{
+	CLeftView *lv = getControlWindow();
+	lv -> addProcedure( p );
+}
+
+/*#########################################################################*/
+/*#########################################################################*/
+
 void CRobolangApp::createClasses()
 {
 	CMainFrame *mainframe = ( CMainFrame * )AfxGetMainWnd();
@@ -79,9 +99,12 @@ void CRobolangApp::createClasses()
 	IControl::vCRoboMapUI = new CRoboMapUI( mapWindow );
 }
 
-void CRobolangApp::messageBox( CString msg )
+CLeftView *CRobolangApp::getControlWindow()
 {
-	AfxMessageBox( msg );
+	CMainFrame *mainframe = ( CMainFrame * )AfxGetMainWnd();
+	CLeftView *controlWindow = ( CLeftView * )mainframe -> m_wndSplitter.GetPane( 0 , 0 );
+
+	return( controlWindow );
 }
 
 /*#########################################################################*/

@@ -20,11 +20,19 @@
 // See robolang.cpp for the implementation of this class
 //
 
+class CLeftView;
+
 class CRobolangApp : public CWinApp, IControl
 {
 public:
 	CRobolangApp();
 
+public:
+	virtual void messageBox( CString msg );
+	virtual void removeProcedures();
+	virtual void addProcedure( CProcedure *p );
+
+public:
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CRobolangApp)
@@ -40,16 +48,14 @@ public:
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 
-public:
-	// operations
+private:
 	void createClasses();
-	void messageBox( CString msg );
+	CLeftView *getControlWindow();
 
 private:
 	// data
 	bool initMode;
 };
-
 
 /////////////////////////////////////////////////////////////////////////////
 
