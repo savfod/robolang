@@ -229,7 +229,7 @@ void CRobolangApp::OnFileNew()
 			return;
 		}
 
-	IControl::vCControl -> newProgram();
+	IControl::vCControl -> onAppNewProgram();
 }
 
 int CRobolangApp::ExitInstance() 

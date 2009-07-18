@@ -91,3 +91,31 @@ void CProcedure::deleteCommand( CCommand *cmd )
 	list.RemoveAt( pos );
 	delete cmd;
 }
+
+bool CProcedure::checkValidProcName( CString name )
+{
+	// check not empty
+	if( name.GetLength() == 0 )
+		return( false );
+
+	// check first char is not digit
+	unsigned char cf = name.GetAt( 0 );
+	if( cf >= '0' && cf <= '9' )
+		return( false );
+
+	for( int k = 0; k < name.GetLength(); k++ )
+		{
+			unsigned short c = name.GetAt( k );
+			if( c >= 'a' && c <= 'z' ||
+				c >= 'A' && c <= 'Z' ||
+				c >= ( unsigned short )'à' && c <= ( unsigned short )'ÿ' ||
+				c >= ( unsigned short )'À' && c <= ( unsigned short )'ß' ||
+				c >= '0' && c <= '9' ||
+				c == '_' )
+				continue;
+
+			return( false );
+		}
+
+	return( true );
+}

@@ -198,3 +198,13 @@ CProcedure *CProgram::getProcedureByIndex( int index )
 	return( proc );			
 }
 
+void CProgram::renameProcedure( CProcedure *p , CString newName )
+{
+	procedures.RemoveKey( p -> name );
+	p -> name = newName;
+	procedures.SetAt( p -> name , p );
+
+	// notify
+	CProgramUI *ui = ic -> getCProgramUI();
+	ui -> onProgramProcRenamed( p );
+}

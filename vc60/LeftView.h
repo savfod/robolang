@@ -30,6 +30,8 @@ private:
 	HTREEITEM addItem( HTREEITEM parent , CString name , int type );
 	HTREEITEM getProceduresItem();
 	int getItemType( HTREEITEM item );
+	HTREEITEM getCurrentItem();
+	CProcedure *getProcedure( HTREEITEM item );
 
 public:
 // Overrides
@@ -59,6 +61,15 @@ protected:
 protected:
 	//{{AFX_MSG(CLeftView)
 	afx_msg void OnBeginlabeledit(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnCmdprocAdd();
+	afx_msg void OnUpdateCmdprocAdd(CCmdUI* pCmdUI);
+	afx_msg void OnCmdprocChange();
+	afx_msg void OnUpdateCmdprocChange(CCmdUI* pCmdUI);
+	afx_msg void OnCmdprocDelete();
+	afx_msg void OnUpdateCmdprocDelete(CCmdUI* pCmdUI);
+	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
+	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnEndlabeledit(NMHDR* pNMHDR, LRESULT* pResult);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

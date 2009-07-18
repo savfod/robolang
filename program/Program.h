@@ -94,6 +94,7 @@ public:
 	int findCommand( CCommandArray *cmdList , CCommand *cmd );
 	CCommand *findParent( CCommand *cmdListOwner , CCommandArray *cmdList , CCommand *cmd );
 	bool isMain();
+	static bool checkValidProcName( CString name );
 
 	CCommandArray commands;
 	CString name;
@@ -115,6 +116,7 @@ public:
 	CProcedure *getProcedureByName( CString name );
 	int getProcedureCount();
 	CProcedure *getProcedureByIndex( int index );
+	void renameProcedure( CProcedure *p , CString newName );
 
 	CString getProgramText(); //procedures -> text
 	

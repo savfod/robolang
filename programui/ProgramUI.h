@@ -20,6 +20,7 @@ public:
 	// interface to program edit window
 	virtual void setProcedure( CProcedure *program ) = 0;
 	virtual void removeAllCommands() = 0;
+	virtual void notifyProcNamed( CProcedure *program ) = 0;
 };
 
 /*#########################################################################*/
@@ -38,6 +39,7 @@ public:
 
 // CProgram
 	void onProgramChanged();
+	void onProgramProcRenamed( CProcedure *p );
 
 private:
 	void skipUpdates();

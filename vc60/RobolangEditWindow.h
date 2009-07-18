@@ -21,11 +21,12 @@ public:
 
 // Operations
 public:
-	void addCommand( CCommand *command );
-	void setProcedure( CProcedure *proc );
-	void removeAllCommands();
+	virtual void setProcedure( CProcedure *proc );
+	virtual void removeAllCommands();
+	virtual void notifyProcNamed( CProcedure *program );
 
 private:
+	void addCommand( CCommand *command );
 	int addCommand( int pos , CCommand *command, int depth );
 	void adjustLastColumnWidth();
 	CCommand *getCurrentCommand();

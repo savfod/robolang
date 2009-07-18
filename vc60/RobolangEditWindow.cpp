@@ -51,20 +51,24 @@ void CRobolangEditWindow::setProcedure( CProcedure *proc )
 		pos = addCommand( pos , cmdList.GetAt(i), 1 );
 }
 
-void CRobolangEditWindow::addCommand( CCommand *command )
-{
-	CListCtrl &lc = CListView::GetListCtrl();
-	addCommand( lc.GetItemCount() , command , 0 );
-}
-
 void CRobolangEditWindow::removeAllCommands()
 {
 	CListCtrl &lc = CListView::GetListCtrl();
 	lc.DeleteAllItems();
 }
 
+void CRobolangEditWindow::notifyProcNamed( CProcedure *program )
+{
+}
+
 /*#########################################################################*/
 /*#########################################################################*/
+
+void CRobolangEditWindow::addCommand( CCommand *command )
+{
+	CListCtrl &lc = CListView::GetListCtrl();
+	addCommand( lc.GetItemCount() , command , 0 );
+}
 
 void CRobolangEditWindow::adjustLastColumnWidth()
 {

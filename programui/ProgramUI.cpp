@@ -48,6 +48,15 @@ void CProgramUI::onProgramChanged()
 	iw -> setProcedure( procedure );
 }
 
+void CProgramUI::onProgramProcRenamed( CProcedure *p )
+{
+	if( !isProcessUpdates )
+		return;
+
+	if( procedure == p )
+		iw -> notifyProcNamed( p );
+}
+
 /*#########################################################################*/
 /*#########################################################################*/
 
