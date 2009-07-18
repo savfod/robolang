@@ -59,7 +59,9 @@ public:
 	CControl( IControl *ic );
 	virtual ~CControl();
 
-	void newProgram();
+	void onAppNewProgram();
+	CProcedure *onAppCreateProcedure();
+	bool onAppRenameProcedure( CProcedure *p , CString newName );
 
 private:
 	IControl *ic;

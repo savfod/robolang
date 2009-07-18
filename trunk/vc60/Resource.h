@@ -43,6 +43,9 @@
 #define IDC_CMDNEW                      32771
 #define IDC_CMDCHANGE                   32772
 #define IDC_CMDDELETE                   32773
+#define IDC_CMDPROC_ADD                 32790
+#define IDC_CMDPROC_CHANGE              32791
+#define IDC_CMDPROC_DELETE              32792
 
 // Next default values for new objects
 // 
@@ -50,7 +53,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        131
-#define _APS_NEXT_COMMAND_VALUE         32790
+#define _APS_NEXT_COMMAND_VALUE         32793
 #define _APS_NEXT_CONTROL_VALUE         1011
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

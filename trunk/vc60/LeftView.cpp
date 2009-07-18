@@ -22,6 +22,15 @@ IMPLEMENT_DYNCREATE(CLeftView, CTreeView)
 BEGIN_MESSAGE_MAP(CLeftView, CTreeView)
 	//{{AFX_MSG_MAP(CLeftView)
 	ON_NOTIFY_REFLECT(TVN_BEGINLABELEDIT, OnBeginlabeledit)
+	ON_COMMAND(IDC_CMDPROC_ADD, OnCmdprocAdd)
+	ON_UPDATE_COMMAND_UI(IDC_CMDPROC_ADD, OnUpdateCmdprocAdd)
+	ON_COMMAND(IDC_CMDPROC_CHANGE, OnCmdprocChange)
+	ON_UPDATE_COMMAND_UI(IDC_CMDPROC_CHANGE, OnUpdateCmdprocChange)
+	ON_COMMAND(IDC_CMDPROC_DELETE, OnCmdprocDelete)
+	ON_UPDATE_COMMAND_UI(IDC_CMDPROC_DELETE, OnUpdateCmdprocDelete)
+	ON_WM_CONTEXTMENU()
+	ON_WM_RBUTTONDOWN()
+	ON_NOTIFY_REFLECT(TVN_ENDLABELEDIT, OnEndlabeledit)
 	//}}AFX_MSG_MAP
 	// Standard printing commands
 	ON_COMMAND(ID_FILE_PRINT, CTreeView::OnFilePrint)
@@ -74,10 +83,16 @@ void CLeftView::addProcedure( CProcedure *p )
 
 	CString name = p -> name;
 	int type = ( p -> isMain() )? TREEITEMTYPE_PROCMAIN : TREEITEMTYPE_PROC;
-	addItem( parent , name , type );
+	HTREEITEM item = addItem( parent , name , type );
 
 	CTreeCtrl& tc = GetTreeCtrl();
 	tc.SortChildren( parent );
+
+	if( p -> isMain() )
+		{
+			tc.Expand( parent , TVE_EXPAND );
+			tc.SelectItem( item );
+		}
 }
 
 /*#########################################################################*/
@@ -114,6 +129,26 @@ int CLeftView::getItemType( HTREEITEM item )
 {
 	CTreeCtrl& tc = GetTreeCtrl();
 	return( ( int )tc.GetItemData( item ) );
+}
+
+HTREEITEM CLeftView::getCurrentItem()
+{
+	CTreeCtrl& tc = GetTreeCtrl();
+	return( tc.GetSelectedItem() );
+}
+
+CProcedure *CLeftView::getProcedure( HTREEITEM item )
+{
+	CTreeCtrl& tc = GetTreeCtrl();
+	int type = getItemType( item );
+	if( type == TREEITEMTYPE_PROC || type == TREEITEMTYPE_PROCMAIN )
+		{
+			CString s = tc.GetItemText( item );
+			CProgram *prog = IControl::getInstance() -> getCProgram();
+			return( prog -> getProcedureByName( s ) );
+		}
+
+	return( NULL );
 }
 
 /*#########################################################################*/
@@ -199,4 +234,99 @@ void CLeftView::OnBeginlabeledit(NMHDR* pNMHDR, LRESULT* pResult)
 
 	int type = getItemType( pTVDispInfo -> item.hItem );
 	*pResult = ( type == TREEITEMTYPE_PROC )? 0 : 1;
+}
+
+void CLeftView::OnCmdprocAdd() 
+{
+	// TODO: Add your command handler code here
+	CTreeCtrl& tc = GetTreeCtrl();
+
+	CControl *cc = IControl::getInstance() -> getCControl();
+	CProcedure *p = cc -> onAppCreateProcedure();
+	if( p == NULL )
+		return;
+
+	HTREEITEM parent = getProceduresItem();
+	HTREEITEM item = addItem( parent , p -> name , TREEITEMTYPE_PROC );
+	tc.SelectItem( item );
+
+	tc.EditLabel( item );
+}
+
+void CLeftView::OnUpdateCmdprocAdd(CCmdUI* pCmdUI) 
+{
+	// TODO: Add your command update UI handler code here
+	pCmdUI -> Enable( TRUE );
+}
+
+void CLeftView::OnCmdprocChange() 
+{
+	// TODO: Add your command handler code here
+	CTreeCtrl& tc = GetTreeCtrl();
+	HTREEITEM item = getCurrentItem();
+	tc.EditLabel( item );
+}
+
+void CLeftView::OnUpdateCmdprocChange(CCmdUI* pCmdUI) 
+{
+	// TODO: Add your command update UI handler code here
+	HTREEITEM item = getCurrentItem();
+	int type = getItemType( item );
+
+	pCmdUI -> Enable( type == TREEITEMTYPE_PROC || type == TREEITEMTYPE_HISTORY );
+}
+
+void CLeftView::OnCmdprocDelete() 
+{
+	// TODO: Add your command handler code here
+	
+}
+
+void CLeftView::OnUpdateCmdprocDelete(CCmdUI* pCmdUI) 
+{
+	// TODO: Add your command update UI handler code here
+	HTREEITEM item = getCurrentItem();
+	int type = getItemType( item );
+
+	pCmdUI -> Enable( type == TREEITEMTYPE_PROC || type == TREEITEMTYPE_HISTORY );
+}
+
+void CLeftView::OnContextMenu(CWnd* pWnd, CPoint point) 
+{
+	// TODO: Add your message handler code here
+	CMenu menu;
+	menu.LoadMenu( IDR_MAINFRAME );
+	CMenu *mp = menu.GetSubMenu( 1 );
+
+	mp -> TrackPopupMenu( TPM_LEFTALIGN | TPM_LEFTBUTTON , point.x , point.y , AfxGetMainWnd() );
+}
+
+void CLeftView::OnRButtonDown(UINT nFlags, CPoint point) 
+{
+	// TODO: Add your message handler code here and/or call default
+	CTreeCtrl& tc = GetTreeCtrl();
+	HTREEITEM item = tc.HitTest( point );
+	if( item != NULL )
+		tc.SelectItem( item );
+
+	ClientToScreen( &point );
+	OnContextMenu( this , point );	
+}
+
+void CLeftView::OnEndlabeledit(NMHDR* pNMHDR, LRESULT* pResult) 
+{
+	TV_DISPINFO* pTVDispInfo = (TV_DISPINFO*)pNMHDR;
+	// TODO: Add your control notification handler code here
+	TVITEM& item = pTVDispInfo -> item;
+	if( item.mask & TVIF_TEXT && item.pszText != NULL )
+		{
+			CControl *cc = IControl::getInstance() -> getCControl();
+			CProcedure *p = getProcedure( item.hItem );
+			if( p != NULL && cc -> onAppRenameProcedure( p , item.pszText ) )
+				{
+					*pResult = TRUE;
+					return;
+				}
+		}
+	*pResult = 0;
 }

@@ -119,11 +119,10 @@ BEGIN
     END
     POPUP "&Правка"
     BEGIN
-        MENUITEM "&Отменить\tCtrl+Z",           ID_EDIT_UNDO
+        MENUITEM "&Добавить процедуру",         IDC_CMDPROC_ADD
+        MENUITEM "Переименовать",               IDC_CMDPROC_CHANGE
         MENUITEM SEPARATOR
-        MENUITEM "Вы&резать\tCtrl+X",           ID_EDIT_CUT
-        MENUITEM "&Скопировать\tCtrl+C",        ID_EDIT_COPY
-        MENUITEM "&Вставить\tCtrl+V",           ID_EDIT_PASTE
+        MENUITEM "Удалить процедуру",           IDC_CMDPROC_DELETE
     END
     POPUP "Команды"
     BEGIN
@@ -181,20 +180,21 @@ END
 
 IDR_MAINFRAME ACCELERATORS PRELOAD MOVEABLE PURE 
 BEGIN
-    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
-    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
-    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
-    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
-    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
-    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
-    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
-    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
-    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
-    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
-    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
-    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
-    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
-    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL, NOINVERT
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL, NOINVERT
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT, NOINVERT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT, NOINVERT
+    VK_F2,          IDC_CMDPROC_CHANGE,     VIRTKEY, NOINVERT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT, NOINVERT
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL, NOINVERT
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL, NOINVERT
 END
 
 
@@ -435,6 +435,13 @@ STRINGTABLE DISCARDABLE
 BEGIN
     IDC_CMDWHILE_WALLUP     "Цикл пока стенка сверху"
     IDC_CMDWHILE_WALLDOWN   "Цикл пока стенка снизу"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDC_CMDPROC_ADD         "Добавить новую процедуру"
+    IDC_CMDPROC_CHANGE      "Изменить название процедуры"
+    IDC_CMDPROC_DELETE      "Удалить указанную в дереве процедуру"
 END
 
 #endif    // Russian resources
