@@ -7,6 +7,7 @@
 #include "robolangDoc.h"
 #include "LeftView.h"
 #include "..\program\program.h"
+#include "..\programui\programUI.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -31,6 +32,7 @@ BEGIN_MESSAGE_MAP(CLeftView, CTreeView)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONDOWN()
 	ON_NOTIFY_REFLECT(TVN_ENDLABELEDIT, OnEndlabeledit)
+	ON_WM_LBUTTONDBLCLK()
 	//}}AFX_MSG_MAP
 	// Standard printing commands
 	ON_COMMAND(ID_FILE_PRINT, CTreeView::OnFilePrint)
@@ -279,7 +281,21 @@ void CLeftView::OnUpdateCmdprocChange(CCmdUI* pCmdUI)
 void CLeftView::OnCmdprocDelete() 
 {
 	// TODO: Add your command handler code here
-	
+	HTREEITEM item = getCurrentItem();
+	int type = getItemType( item );
+
+	if( type == TREEITEMTYPE_PROC )
+	{
+		CTreeCtrl& tc = GetTreeCtrl();
+		CControl*  cc = IControl::getInstance() -> getCControl();
+		CString name = tc.GetItemText( item );
+		bool wasDeleted = cc -> onAppDeleteProc( name );
+		if(wasDeleted)
+		{
+			CTreeCtrl& tc = GetTreeCtrl();
+			tc.DeleteItem(item);
+		}
+	}
 }
 
 void CLeftView::OnUpdateCmdprocDelete(CCmdUI* pCmdUI) 
@@ -329,4 +345,22 @@ void CLeftView::OnEndlabeledit(NMHDR* pNMHDR, LRESULT* pResult)
 				}
 		}
 	*pResult = 0;
+}
+
+void CLeftView::OnLButtonDblClk(UINT nFlags, CPoint point) 
+{
+	// TODO: Add your message handler code here and/or call default
+	CTreeView::OnLButtonDblClk(nFlags, point);
+	HTREEITEM item = getCurrentItem();
+	
+	int type = getItemType( item );
+	if( type == TREEITEMTYPE_PROC      ||
+	    type == TREEITEMTYPE_PROCMAIN   )
+	{
+		//show this procedure
+		CTreeCtrl& tc = GetTreeCtrl();
+		CControl*  cc = IControl::getInstance() -> getCControl();
+		CString name = tc.GetItemText( item );
+		cc -> onAppProcActivated( name );
+	}
 }

@@ -5,6 +5,7 @@
 #include "robolang.h"
 
 #include "robolangDoc.h"
+#include "..\program\program.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -54,6 +55,9 @@ void CRobolangDoc::Serialize(CArchive& ar)
 	if (ar.IsStoring())
 	{
 		// TODO: add storing code here
+		CProgram *prog = IControl::getInstance() -> getCProgram();
+		CString text = prog -> getProgramText();
+		ar.WriteString( text );
 	}
 	else
 	{
@@ -78,3 +82,5 @@ void CRobolangDoc::Dump(CDumpContext& dc) const
 
 /////////////////////////////////////////////////////////////////////////////
 // CRobolangDoc commands
+
+
