@@ -5,6 +5,7 @@
 #include "stdafx.h"
 #include "Control.h"
 #include "..\program\program.h"
+#include "..\programui\programUI.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -39,7 +40,22 @@ void CControl::onAppNewProgram()
 CProcedure *CControl::onAppCreateProcedure()
 {
 	CProgram *prog = ic -> getCProgram();
-	return( prog -> addProcedure( "Новая" ) );
+	
+	CString name = "Новая";
+	CProcedure *p = prog -> getProcedureByName ( name );
+	if( p != NULL)
+	{
+		int i = 2;
+		CString nameEnd;
+		nameEnd.Format("%d", i);
+		while( prog -> getProcedureByName (name + nameEnd) != NULL)
+		{
+			i++;
+			nameEnd.Format("%d", i);
+		}
+		name += nameEnd;
+	}
+	return( prog -> addProcedure( name ) );
 }
 
 bool CControl::onAppRenameProcedure( CProcedure *p , CString newName )
@@ -63,3 +79,16 @@ bool CControl::onAppRenameProcedure( CProcedure *p , CString newName )
 
 	return( true );
 }
+
+void CControl::onAppProcActivated( CString name )
+{
+	CProgramUI* ui = IControl::getInstance() -> getCProgramUI();
+	ui -> onControlProcActivated( name );
+}
+
+bool CControl::onAppDeleteProc( CString name )
+{
+	CProgram* prog = IControl::getInstance() -> getCProgram();
+	return( prog -> deleteProcedure( name ) );
+}
+

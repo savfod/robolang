@@ -21,9 +21,9 @@ public:
 
 // Operations
 public:
-	virtual void setProcedure( CProcedure *proc );
+	virtual void setProcedure( CProcedure *p );
 	virtual void removeAllCommands();
-	virtual void notifyProcNamed( CProcedure *program );
+	virtual void notifyProcRenamed( CProcedure *p );
 
 private:
 	void addCommand( CCommand *command );
@@ -40,6 +40,7 @@ private:
 	CCommand *getCommand( int item );
 	int getCurrentItem();
 
+	int getProcedureItem( CProcedure *p );
 // windows stuff
 private:
 // Overrides

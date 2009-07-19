@@ -34,6 +34,22 @@ void CProgramUI::restoreUpdates()
 /*#########################################################################*/
 /*#########################################################################*/
 
+void CProgramUI::onControlProcActivated( CString name )
+{
+	procName = name;
+	
+	//finding CProgram, "singleton"
+	CProgram *program = IControl::getInstance() -> getCProgram();
+	
+	iw -> removeAllCommands();
+
+	procedure = program -> getProcedureByName( procName );
+	iw -> setProcedure( procedure );
+}
+
+/*#########################################################################*/
+/*#########################################################################*/
+
 void CProgramUI::onProgramChanged()
 {
 	if( !isProcessUpdates )
@@ -44,7 +60,7 @@ void CProgramUI::onProgramChanged()
 
 	iw -> removeAllCommands();
 
-	procedure = program -> getMainProcedure();
+	procedure = program -> getMainProcedure(); 
 	iw -> setProcedure( procedure );
 }
 
@@ -54,8 +70,26 @@ void CProgramUI::onProgramProcRenamed( CProcedure *p )
 		return;
 
 	if( procedure == p )
-		iw -> notifyProcNamed( p );
+	{
+		procName = p -> name;
+		iw -> notifyProcRenamed( p );
+	}
 }
+
+void CProgramUI::onProgramProcDeleted( CString name )
+{
+	if(name == procName)
+	{
+		CProgram *program = IControl::getInstance() -> getCProgram();
+		procedure = program -> getMainProcedure(); 
+		procName = procedure -> name;
+
+		iw -> removeAllCommands();
+		iw -> setProcedure( procedure );
+	}
+}
+	
+
 
 /*#########################################################################*/
 /*#########################################################################*/

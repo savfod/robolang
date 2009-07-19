@@ -57,8 +57,13 @@ void CRobolangEditWindow::removeAllCommands()
 	lc.DeleteAllItems();
 }
 
-void CRobolangEditWindow::notifyProcNamed( CProcedure *program )
+void CRobolangEditWindow::notifyProcRenamed( CProcedure *p )
 {
+	int item = getProcedureItem( p );
+	CString line = p -> getProcLine();
+	
+	CListCtrl &lc = CListView::GetListCtrl();
+	lc.SetItemText( item, 1, line );
 }
 
 /*#########################################################################*/
@@ -217,6 +222,23 @@ int CRobolangEditWindow::getCurrentItem()
 	int item = lc.GetNextItem( -1 , LVNI_SELECTED );
 
 	return( item );
+}
+
+int CRobolangEditWindow::getProcedureItem( CProcedure *p )
+{
+	CListCtrl &lc = CListView::GetListCtrl();
+	int n = lc.GetItemCount();
+	for( int i = 0; i < n; i++ )
+	{
+		int type = getItemType( i );
+		if( type == LINETYPE_PROCEDURE )
+		{
+			CProcedure* pLine = ( CProcedure* ) lc.GetItemData( i );
+			if( pLine == p )
+				return i;
+		}
+	}
+	return -1;
 }
 
 /*#########################################################################*/

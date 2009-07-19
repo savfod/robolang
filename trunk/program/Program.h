@@ -117,15 +117,13 @@ public:
 	int getProcedureCount();
 	CProcedure *getProcedureByIndex( int index );
 	void renameProcedure( CProcedure *p , CString newName );
+	bool deleteProcedure( CString name );
 
 	CString getProgramText(); //procedures -> text
-	
 	void setProgram( CString program ); // text -> procedures
 	
 private:
 	void clear();
-	void deleteCommand( CCommand *command );
-	void deleteProcedure( CProcedure *procedure );
 	
 	CString getProcedureText(CProcedure* proc);
 	CString getCommandText(CCommand *cmd);

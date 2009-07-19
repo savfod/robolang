@@ -18,9 +18,9 @@ class IEditWindow
 {
 public:
 	// interface to program edit window
-	virtual void setProcedure( CProcedure *program ) = 0;
+	virtual void setProcedure( CProcedure *p ) = 0;
 	virtual void removeAllCommands() = 0;
-	virtual void notifyProcNamed( CProcedure *program ) = 0;
+	virtual void notifyProcRenamed( CProcedure *p ) = 0;
 };
 
 /*#########################################################################*/
@@ -32,6 +32,9 @@ public:
 	CProgramUI( IEditWindow *iw );
 	virtual ~CProgramUI();
 
+//CControl
+	void onControlProcActivated( CString name );
+
 // CRobolangEditWindow
 	void onEditAdd( CCommand *cmd , CCommand *parent , CCommand *before );
 	void onEditUpdate( CCommand *cmd , CCommand *cmdData );
@@ -40,6 +43,7 @@ public:
 // CProgram
 	void onProgramChanged();
 	void onProgramProcRenamed( CProcedure *p );
+	void onProgramProcDeleted( CString name );
 
 private:
 	void skipUpdates();
@@ -48,6 +52,7 @@ private:
 private:
 	IEditWindow *iw;
 	CProcedure *procedure;
+	CString procName;
 	bool isProcessUpdates;
 };
 

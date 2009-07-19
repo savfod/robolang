@@ -19,7 +19,7 @@ protected: // create from serialization only
 
 // Attributes
 public:
-	CRobolangDoc* GetDocument();
+	CRobolangDoc* GetDocument();	  
 
 // Operations
 public:
@@ -70,6 +70,7 @@ protected:
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnEndlabeledit(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };

@@ -13,22 +13,6 @@
 CProgram::CProgram( IControl *p_ic )
 :	ic( p_ic )
 {
-	//for debug only
-	/*CCommand* result = new CCommand();
-	result->Name = "now";
-	result->Commands.Add(new CCommand());
-	result->Commands.Add(new CCommand());
-	result->Commands.Add(new CCommand());
-
-	result->Commands[0]->Name = "commands";
-	result->Commands[1]->Name = "can";
-	result->Commands[2]->Name = "displayed";
-
-	result->Commands[1]->Commands.Add(new CCommand());
-	result->Commands[1]->Commands[0]->Name = "be";
-
-	result->Commands[2]->Commands.Add(new CCommand());
-	result->Commands[2]->Commands[0]->Name = "here";*/
 }
 
 CProgram::~CProgram()
@@ -98,58 +82,52 @@ CString CProgram::getProgramText()
 	CString key;
 	CProcedure* value;
 	POSITION pos = procedures.GetStartPosition();
-	while(pos != 0)
+	while(pos != NULL)
 	{
 		procedures.GetNextAssoc(pos, key, value);
 		
-		result += getProcedureText(value);
-		CString emptyStrings;
-		emptyStrings.Format("\n\n\n"); // 3 empty strings
+		result += getProcedureText( value );
+		if( pos != NULL )
+			result += "\r\n";
 	}
 	return result;
 }
 
-
 CString CProgram::getProcedureText(CProcedure *proc)
 {
 	//procedure
-	CString result("Процедура");
+	CString result( "Процедура" );
 	result += ' ';
-	result += proc->name;
+	result += proc -> name;
+	result += "\r\n";
 
 	//commands
-	result += '\n';
 	result += getBlockOfCommandsText( &(proc -> commands) );
 
 	return result;
 }
 
-CString CProgram::getCommandText(CCommand *cmd)
+CString CProgram::getCommandText( CCommand *cmd )
 {
 	CString result = cmd -> getCommandString();
+	result += "\r\n";
+
+	if( cmd -> isCompound() )
+		result += getBlockOfCommandsText( &( cmd -> childCommands ) );
 	
-	switch( cmd -> getType() )
-	
-		case CMDTYPE_WHILE:
-		{
-			result += '\n';
-			result += getBlockOfCommandsText( &(cmd -> childCommands) );
-		}
 	return result;
-		
 }
+
 CString CProgram::getBlockOfCommandsText(CCommandArray *commands)
 {
 	CString result;
 	
-	result += '{';
-	result += '\n';
-	for( int i = 0 ; i < commands -> GetSize() ; i++)
-	{
+	result += "{\r\n";
+	
+	for( int i = 0; i < commands -> GetSize(); i++ )
 		result += getCommandText( commands -> GetAt(i) );
-		result += '\n';
-	}
-	result += '}';
+
+	result += "}\r\n";
 
 	return result;
 
@@ -160,16 +138,11 @@ void CProgram::setProgram( CString program )
 	/*while( program.size() )
 	{
 		while( !isLetter( program.GetAt(0) ) )
-			program.Delete(0);
-		
-
-	
-
-
+			program.Delete(0);	
 	}*/
 }
 
-bool isLetter(TCHAR c)
+bool CProgram::isLetter(TCHAR c)
 {
 	return		(
 		(( 'a' <= c ) && ( c <= 'z' )) ||
@@ -207,4 +180,18 @@ void CProgram::renameProcedure( CProcedure *p , CString newName )
 	// notify
 	CProgramUI *ui = ic -> getCProgramUI();
 	ui -> onProgramProcRenamed( p );
+}
+
+bool CProgram::deleteProcedure( CString name )
+{
+	CProcedure* p;
+	BOOL wasFound = procedures.Lookup( name , p );
+	ASSERT( wasFound );
+	delete p;
+	procedures.RemoveKey( name );
+
+	CProgramUI *ui = ic -> getCProgramUI();
+	ui -> onProgramProcDeleted( name );
+	
+	return( true );
 }
