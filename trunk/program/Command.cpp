@@ -34,6 +34,7 @@ void CCommand::setProps( CCommand *cmdData )
 	color = cmdData -> color;
 	direction = cmdData -> direction;
 	condition = cmdData -> condition;
+	callingProcedureName = cmdData -> callingProcedureName;
 }
 
 CommandType CCommand::getType()
@@ -60,6 +61,7 @@ CString CCommand::getCommandName()
 			case CMDTYPE_PAINT : return( "ЗАКРАСИТЬ" );
 			case CMDTYPE_MOVE : return( "ПЕРЕЙТИ" );
 			case CMDTYPE_IF : return( "ЕСЛИ" );
+			case CMDTYPE_CALL : return( "ВЫЗВАТЬ" );
 		}
 	return( "?" );
 }
@@ -100,6 +102,7 @@ CString CCommand::getCommandString()
 					case CMDCOND_WALLRIGHT : return( "Если справа стена" );
 					case CMDCOND_WALLUP : return( "Если сверху стена" );
 					case CMDCOND_WALLDOWN : return( "Если снизу стена" );
+					case CMDCOND_PAINTED : return( "Если поле закрашено" );
 				}
 				return( "Если не пойми что" );
 			}
@@ -111,8 +114,15 @@ CString CCommand::getCommandString()
 					case CMDCOND_WALLRIGHT : return( "Пока справа стена" );
 					case CMDCOND_WALLUP : return( "Пока сверху стена" );
 					case CMDCOND_WALLDOWN : return( "Пока снизу стена" );
+					case CMDCOND_PAINTED : return( "Пока поле закрашено" );
 				}
 				return( "Пока не пойми что" );
+			}
+			case CMDTYPE_CALL : 
+			{
+				CString s = "Вызвать продедуру: ";
+				s += callingProcedureName;
+				return( s );
 			}
 	}
 	return( "?" );
@@ -151,6 +161,12 @@ void CCommand::setMove( char p_direction )
 	direction = p_direction;
 }
 
+void CCommand::setCall( CString name )
+{
+	type = CMDTYPE_CALL;
+	callingProcedureName = name;
+}
+
 void CCommand::setIf( CommandCondition p_condition )
 {
 	type = CMDTYPE_IF;
@@ -162,4 +178,3 @@ void CCommand::setWhile( CommandCondition p_condition )
 	type = CMDTYPE_WHILE;
 	condition = p_condition;
 }
-

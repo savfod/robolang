@@ -126,6 +126,13 @@ BEGIN
     END
     POPUP "Команды"
     BEGIN
+        POPUP "Перейти"
+        BEGIN
+            MENUITEM "Налево",                      IDC_CMDMOVE_LEFT
+            MENUITEM "Направо",                     IDC_CMDMOVE_RIGHT
+            MENUITEM "Вверх",                       IDC_CMDMOVE_UP
+            MENUITEM "Вниз",                        IDC_CMDMOVE_DOWN
+        END
         POPUP "Закрасить"
         BEGIN
             MENUITEM "Белый",                       IDC_CMDPAINT_WHITE
@@ -134,19 +141,13 @@ BEGIN
             MENUITEM "Желтый",                      IDC_CMDPAINT_YELLOW
             MENUITEM "Зеленый",                     IDC_CMDPAINT_GREEN
         END
-        POPUP "Перейти"
-        BEGIN
-            MENUITEM "Налево",                      IDC_CMDMOVE_LEFT
-            MENUITEM "Направо",                     IDC_CMDMOVE_RIGHT
-            MENUITEM "Вверх",                       IDC_CMDMOVE_UP
-            MENUITEM "Вниз",                        IDC_CMDMOVE_DOWN
-        END
         POPUP "Если (условие)"
         BEGIN
             MENUITEM "Стенка слева",                IDC_CMDIF_WALLLEFT
             MENUITEM "Стенка справа",               IDC_CMDIF_WALLRIGHT
             MENUITEM "Стенка сверху",               IDC_CMDIF_WALLUP
             MENUITEM "Стенка снизу",                IDC_CMDIF_WALLDOWN
+            MENUITEM "Закрашено",                   IDC_CMDIF_PAINTED
         END
         POPUP "Цикл пока (условие)"
         BEGIN
@@ -154,6 +155,12 @@ BEGIN
             MENUITEM "Стенка справа",               IDC_CMDWHILE_WALLRIGHT
             MENUITEM "Стенка сверху",               IDC_CMDWHILE_WALLUP
             MENUITEM "Стенка снизу",                IDC_CMDWHILE_WALLDOWN
+            MENUITEM "Закрашено",                   IDC_CMDWHILE_PAINTED
+        END
+        POPUP "Вызвать процедуру"
+        BEGIN
+            MENUITEM "(нет процедур)",              IDC_CMDPROC_NOTHINGTOCALL
+            , GRAYED
         END
         MENUITEM SEPARATOR
         MENUITEM "Добавить...",                 IDC_CMDNEW
@@ -435,6 +442,7 @@ STRINGTABLE DISCARDABLE
 BEGIN
     IDC_CMDWHILE_WALLUP     "Цикл пока стенка сверху"
     IDC_CMDWHILE_WALLDOWN   "Цикл пока стенка снизу"
+    IDC_CMDPROC_CALLFIRST   "Нет процедур, которые можно вызвать"
 END
 
 STRINGTABLE DISCARDABLE 
@@ -442,6 +450,8 @@ BEGIN
     IDC_CMDPROC_ADD         "Добавить новую процедуру"
     IDC_CMDPROC_CHANGE      "Изменить название процедуры"
     IDC_CMDPROC_DELETE      "Удалить указанную в дереве процедуру"
+    IDC_CMDIF_PAINTED       "Текущее поле, где стоит робот, закрашено"
+    IDC_CMDWHILE_PAINTED    "Текущее поле, где стоит робот, закрашено"
 END
 
 #endif    // Russian resources

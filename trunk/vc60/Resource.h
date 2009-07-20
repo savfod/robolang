@@ -39,6 +39,9 @@
 #define IDC_CMDWHILE_WALLRIGHT          31791
 #define IDC_CMDWHILE_WALLUP             31792
 #define IDC_CMDWHILE_WALLDOWN           31793
+#define IDC_CMDPROC_CALLFIRST           31794
+#define IDC_CMDIF_PAINTED               31795
+#define IDC_CMDWHILE_PAINTED            31796
 #define IDC_CMDRANGE_LAST               31999
 #define IDC_CMDNEW                      32771
 #define IDC_CMDCHANGE                   32772
@@ -46,6 +49,7 @@
 #define IDC_CMDPROC_ADD                 32790
 #define IDC_CMDPROC_CHANGE              32791
 #define IDC_CMDPROC_DELETE              32792
+#define IDC_CMDPROC_NOTHINGTOCALL       32793
 
 // Next default values for new objects
 // 
@@ -53,7 +57,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        131
-#define _APS_NEXT_COMMAND_VALUE         32793
+#define _APS_NEXT_COMMAND_VALUE         32796
 #define _APS_NEXT_CONTROL_VALUE         1011
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

@@ -352,6 +352,28 @@ void CRobolangEditWindow::OnContextMenu(CWnd* pWnd, CPoint point)
 	menu.LoadMenu( IDR_MAINFRAME );
 	CMenu *mp = menu.GetSubMenu( 2 );
 
+	// set procedure list
+	CMenu *mpp = mp -> GetSubMenu( 4 );
+
+	CProgram *prog = IControl::getInstance() -> getCProgram();
+	int n = prog -> getProcedureCount();
+	
+	// if not only main procedure
+	if( n > 1 )
+		{
+			mpp -> RemoveMenu( 0 , MF_BYPOSITION );
+			for( int k = 0; k < n; k++ )
+				{
+					CProcedure *p = prog -> getProcedureByIndex( k );
+
+					// cannot use main
+					if( p -> isMain() )
+						continue;
+
+					mpp -> AppendMenu( MF_STRING | MF_ENABLED , IDC_CMDPROC_CALLFIRST + k , p -> name );
+				}
+		}
+
 	mp -> TrackPopupMenu( TPM_LEFTALIGN | TPM_LEFTBUTTON , point.x , point.y , AfxGetMainWnd() );
 }
 

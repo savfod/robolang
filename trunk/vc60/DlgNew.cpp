@@ -84,12 +84,23 @@ void CDlgNew::setCommandTo( CCommand *cmd , int nCmd )
 			case IDC_CMDIF_WALLRIGHT             :	cmd -> setIf( CMDCOND_WALLRIGHT ); break;
 			case IDC_CMDIF_WALLUP                :	cmd -> setIf( CMDCOND_WALLUP ); break;
 			case IDC_CMDIF_WALLDOWN              :	cmd -> setIf( CMDCOND_WALLDOWN ); break;
+			case IDC_CMDIF_PAINTED               :	cmd -> setIf( CMDCOND_PAINTED ); break;
 			case IDC_CMDWHILE_WALLLEFT           :	cmd -> setWhile( CMDCOND_WALLLEFT ); break;
 			case IDC_CMDWHILE_WALLRIGHT          :	cmd -> setWhile( CMDCOND_WALLRIGHT ); break;
 			case IDC_CMDWHILE_WALLUP             :	cmd -> setWhile( CMDCOND_WALLUP ); break;
 			case IDC_CMDWHILE_WALLDOWN           :	cmd -> setWhile( CMDCOND_WALLDOWN ); break;
+			case IDC_CMDWHILE_PAINTED            :	cmd -> setWhile( CMDCOND_PAINTED ); break;
 
 			default :
+				if( nCmd >= IDC_CMDPROC_CALLFIRST )
+					{
+						// get procedure by corresponding index
+						CProgram *prog = IControl::getInstance() -> getCProgram();
+						CProcedure *p = prog -> getProcedureByIndex( nCmd - IDC_CMDPROC_CALLFIRST );
+						cmd -> setCall( p -> name );
+						break;
+					}
+
 				AfxMessageBox( "Unknown command" );
 				break;
 		}
