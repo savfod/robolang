@@ -37,6 +37,7 @@ typedef enum {
 	CMDCOND_WALLRIGHT = 2 ,
 	CMDCOND_WALLUP = 3 ,
 	CMDCOND_WALLDOWN = 4 ,
+	CMDCOND_PAINTED = 5
 } CommandCondition;
 
 class CCommand  
@@ -65,6 +66,7 @@ public:
 	void setMove( char direction );
 	void setIf( CommandCondition condition );
 	void setWhile( CommandCondition condition );
+	void setCall( CString name );
 
 // data
 public:
