@@ -8,4 +8,4 @@ components:
 4. PROGRAM: managing program structure and container of commands
 5. PROGRAMUI: connect program to program window
 6. MAP: managing logic of map, contains topology of map
-7. MAPUI: connect map to program window
+7. MAPUI: connect map to map window
