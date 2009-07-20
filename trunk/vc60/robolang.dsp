@@ -93,7 +93,15 @@ LINK32=link.exe
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
 # Begin Source File
 
+SOURCE=.\Resource.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\res\robolang.ico
+# End Source File
+# Begin Source File
+
+SOURCE=.\robolang.rc
 # End Source File
 # Begin Source File
 
@@ -134,19 +142,11 @@ SOURCE=.\MainFrm.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resource.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\robolang.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\robolang.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\robolang.rc
 # End Source File
 # Begin Source File
 
