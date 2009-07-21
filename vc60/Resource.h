@@ -39,9 +39,9 @@
 #define IDC_CMDWHILE_WALLRIGHT          31791
 #define IDC_CMDWHILE_WALLUP             31792
 #define IDC_CMDWHILE_WALLDOWN           31793
-#define IDC_CMDPROC_CALLFIRST           31794
 #define IDC_CMDIF_PAINTED               31795
 #define IDC_CMDWHILE_PAINTED            31796
+#define IDC_CMDPROC_CALLFIRST           31900
 #define IDC_CMDRANGE_LAST               31999
 #define IDC_CMDNEW                      32771
 #define IDC_CMDCHANGE                   32772
@@ -50,6 +50,7 @@
 #define IDC_CMDPROC_CHANGE              32791
 #define IDC_CMDPROC_DELETE              32792
 #define IDC_CMDPROC_NOTHINGTOCALL       32793
+#define IDC_CMDPROC_NOTHINGTOCALL2      32794
 
 // Next default values for new objects
 // 
