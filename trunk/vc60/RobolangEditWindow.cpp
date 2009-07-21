@@ -361,7 +361,6 @@ void CRobolangEditWindow::OnContextMenu(CWnd* pWnd, CPoint point)
 	// if not only main procedure
 	if( n > 1 )
 		{
-			mpp -> RemoveMenu( 0 , MF_BYPOSITION );
 			for( int k = 0; k < n; k++ )
 				{
 					CProcedure *p = prog -> getProcedureByIndex( k );
@@ -370,8 +369,11 @@ void CRobolangEditWindow::OnContextMenu(CWnd* pWnd, CPoint point)
 					if( p -> isMain() )
 						continue;
 
-					mpp -> AppendMenu( MF_STRING | MF_ENABLED , IDC_CMDPROC_CALLFIRST + k , p -> name );
+					int id = IDC_CMDPROC_CALLFIRST + k;
+					mpp -> AppendMenu( MF_STRING | MF_ENABLED , id , p -> name );
 				}
+
+			mpp -> RemoveMenu( 0 , MF_BYPOSITION );
 		}
 
 	mp -> TrackPopupMenu( TPM_LEFTALIGN | TPM_LEFTBUTTON , point.x , point.y , AfxGetMainWnd() );

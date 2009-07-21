@@ -442,7 +442,8 @@ STRINGTABLE DISCARDABLE
 BEGIN
     IDC_CMDWHILE_WALLUP     "Цикл пока стенка сверху"
     IDC_CMDWHILE_WALLDOWN   "Цикл пока стенка снизу"
-    IDC_CMDPROC_CALLFIRST   "Нет процедур, которые можно вызвать"
+    IDC_CMDIF_PAINTED       "Текущее поле, где стоит робот, закрашено"
+    IDC_CMDWHILE_PAINTED    "Текущее поле, где стоит робот, закрашено"
 END
 
 STRINGTABLE DISCARDABLE 
@@ -450,8 +451,7 @@ BEGIN
     IDC_CMDPROC_ADD         "Добавить новую процедуру"
     IDC_CMDPROC_CHANGE      "Изменить название процедуры"
     IDC_CMDPROC_DELETE      "Удалить указанную в дереве процедуру"
-    IDC_CMDIF_PAINTED       "Текущее поле, где стоит робот, закрашено"
-    IDC_CMDWHILE_PAINTED    "Текущее поле, где стоит робот, закрашено"
+    IDC_CMDPROC_NOTHINGTOCALL "Нет процедур, доступных для вызова"
 END
 
 #endif    // Russian resources
