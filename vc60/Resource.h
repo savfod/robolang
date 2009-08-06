@@ -7,6 +7,7 @@
 #define IDR_MAINFRAME                   128
 #define IDR_ROBOLATYPE                  129
 #define IDD_CMDNEW                      130
+#define IDI_ICON1                       131
 #define IDC_CMDTYPEPAINT                1000
 #define IDC_CMDTYPEMOVE                 1001
 #define IDC_CMDTYPEIF                   1002
@@ -57,7 +58,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        131
+#define _APS_NEXT_RESOURCE_VALUE        132
 #define _APS_NEXT_COMMAND_VALUE         32796
 #define _APS_NEXT_CONTROL_VALUE         1011
 #define _APS_NEXT_SYMED_VALUE           101

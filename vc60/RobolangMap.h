@@ -8,6 +8,16 @@
 //
 
 #include "..\mapui\RoboMapUI.h"
+#include "..\map\RoboMap.h"
+
+typedef enum {
+	TYPE_UNKNOWN = 0 ,
+	TYPE_INWALLC = 1 ,
+	TYPE_INWALLH = 2 ,
+	TYPE_INWALLV = 3 ,
+	TYPE_INCELL = 4 ,
+	TYPE_OUTOFMAP = 5
+} LocationType;
 
 /////////////////////////////////////////////////////////////////////////////
 // CRobolangMap window
@@ -21,14 +31,24 @@ public:
 
 // Attributes
 public:
-
+private:
+	
+	CPoint startPoint;
+	CSize wallH; // horizontal
+	CSize wallV; // vertical
+	CSize wallC; // wall in corner
+	CSize cell;
+	CString capturedRobot;
 // Operations
 public:
+	void identificatePoint( CPoint point, Location &resLoc, LocationType &resType );
+
+	virtual void updateMap();
 
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CRobolangMap)
-	void OnDraw( CDC *dc );
+	virtual void OnDraw( CDC *dc );
 	//}}AFX_VIRTUAL
 
 // Implementation
@@ -38,8 +58,9 @@ public:
 	// Generated message map functions
 protected:
 	//{{AFX_MSG(CRobolangMap)
-	afx_msg void OnPaint();
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };
