@@ -13,6 +13,7 @@ class IRoboMapWindow
 {
 public:
 	// interface for map window
+	virtual void updateMap() = 0;
 };
 
 class CRoboMapUI  
@@ -21,6 +22,11 @@ public:
 	CRoboMapUI( IRoboMapWindow *mw );
 	virtual ~CRoboMapUI();
 
+	void onViewCellChanged( int indexX, int indexY);
+	void onViewWallVChanged( int indexX, int indexY);
+	void onViewWallHChanged( int indexX, int indexY);
+
+	void onMapChanged();
 private:
 	IRoboMapWindow *iw;
 };

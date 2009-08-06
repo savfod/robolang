@@ -68,6 +68,7 @@ END
 // remains consistent on all systems.
 IDR_MAINFRAME           ICON    DISCARDABLE     "res\\robolang.ico"
 IDR_ROBOLATYPE          ICON    DISCARDABLE     "res\\robolangDoc.ico"
+IDI_ICON1               ICON    DISCARDABLE     "res\\icon1.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //

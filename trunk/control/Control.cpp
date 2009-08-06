@@ -4,6 +4,7 @@
 
 #include "stdafx.h"
 #include "Control.h"
+#include "..\map\RoboMap.h"
 #include "..\program\program.h"
 #include "..\programui\programUI.h"
 
@@ -26,6 +27,7 @@ void CControl::onAppNewProgram()
 	CRoboMap *map = ic -> getCRoboMap();
 
 	prog -> createNew();
+	map -> createNew();
 
 	ic -> removeProcedures();
 	

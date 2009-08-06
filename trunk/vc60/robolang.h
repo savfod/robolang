@@ -22,7 +22,7 @@
 
 class CLeftView;
 
-class CRobolangApp : public CWinApp, IControl
+class CRobolangApp : public CWinApp, public IControl
 {
 public:
 	CRobolangApp();

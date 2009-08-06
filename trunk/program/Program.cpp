@@ -26,7 +26,7 @@ void CProgram::clear()
 	CProcedure *proc;
 	for( POSITION pos = procedures.GetStartPosition(); pos != NULL; )
 		{
-			procedures.GetNextAssoc( pos , key , ( CProcedure *& ) proc );
+			procedures.GetNextAssoc( pos , key , proc );
 			delete proc;
 		}
 	procedures.RemoveAll();
