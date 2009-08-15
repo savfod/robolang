@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "RoboMap.h"
 #include "..\mapUI\RoboMapUI.h"
-#include "..\program\Program.h"
+
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -112,6 +112,12 @@ bool CRoboMap::executeCommand( CCommand *cmd )
 	}
 	TRACE("in CRoboMap::executeCommand unexpected command");
 	return false;
+}
+
+bool checkCondition( Location loc, CommandCondition condition)
+{ 
+	//not finished
+	return true;
 }
 
 void CRoboMap::setSize( RoboMapSize size )

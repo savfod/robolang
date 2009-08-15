@@ -9,6 +9,11 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+#include "..\program\Program.h"
+#include "..\map\RoboMap.h"
+
+class CCommand;
+class CProcedure;
 class IControl;
 
 class CInterpreter  
@@ -16,8 +21,14 @@ class CInterpreter
 public:
 	CInterpreter( IControl *ic );
 	virtual ~CInterpreter();
-
+	void startInterpretating();
+	
 private:
+	void interpretCommand( CCommand* cmd );
+	void interpretProcedure( CProcedure* proc );
+	void interpretCommandArray( CCommandArray *cmdArray );
+	
+
 	IControl *ic;
 };
 

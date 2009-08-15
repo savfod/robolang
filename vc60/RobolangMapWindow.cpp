@@ -1,9 +1,9 @@
-// RobolangMap.cpp : implementation file
+// RobolangMapWindow.cpp : implementation file
 //
 
 #include "stdafx.h"
 #include "robolang.h"
-#include "RobolangMap.h"
+#include "RobolangMapWindow.h"
 #include "..\map\RoboMap.h"
 
 #ifdef _DEBUG
@@ -13,10 +13,10 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
-// CRobolangMap
-IMPLEMENT_DYNCREATE( CRobolangMap , CView )
+// CRobolangMapWindow
+IMPLEMENT_DYNCREATE( CRobolangMapWindow , CView )
 
-CRobolangMap::CRobolangMap()
+CRobolangMapWindow::CRobolangMapWindow()
 {
 	startPoint = CPoint( 0, 0 );
 	cell = CSize( 20, 20 );
@@ -25,12 +25,12 @@ CRobolangMap::CRobolangMap()
 	wallV = CSize( wallC.cx, cell.cy );
 }
 
-CRobolangMap::~CRobolangMap()
+CRobolangMapWindow::~CRobolangMapWindow()
 {
 }
 
-BEGIN_MESSAGE_MAP(CRobolangMap, CView)
-	//{{AFX_MSG_MAP(CRobolangMap)
+BEGIN_MESSAGE_MAP(CRobolangMapWindow, CView)
+	//{{AFX_MSG_MAP(CRobolangMapWindow)
 	ON_WM_ERASEBKGND()
 	ON_WM_LBUTTONUP()
 	ON_WM_LBUTTONDOWN()
@@ -38,9 +38,9 @@ BEGIN_MESSAGE_MAP(CRobolangMap, CView)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
-// CRobolangMap message handlers
+// CRobolangMapWindow message handlers
 
-void CRobolangMap::OnDraw( CDC *dc ) 
+void CRobolangMapWindow::OnDraw( CDC *dc ) 
 {
 	// not finished
 	// TODO: Add your message handler code here
@@ -123,7 +123,7 @@ void CRobolangMap::OnDraw( CDC *dc )
 	DestroyIcon( robot );
 }
 
-BOOL CRobolangMap::OnEraseBkgnd(CDC* pDC) 
+BOOL CRobolangMapWindow::OnEraseBkgnd(CDC* pDC) 
 {
 	// TODO: Add your message handler code here and/or call default
 	CDC *dc = GetDC();
@@ -138,7 +138,7 @@ BOOL CRobolangMap::OnEraseBkgnd(CDC* pDC)
 	return TRUE;
 }
 
-void CRobolangMap::updateMap()
+void CRobolangMapWindow::updateMap()
 {
 	CDC *dc = GetDC();
 	OnDraw(dc);
@@ -146,7 +146,7 @@ void CRobolangMap::updateMap()
 	ReleaseDC(dc);
 }
 
-void CRobolangMap::OnLButtonUp(UINT nFlags, CPoint point) 
+void CRobolangMapWindow::OnLButtonUp(UINT nFlags, CPoint point) 
 {
 	// TODO: Add your message handler code here and/or call default
 	
@@ -187,7 +187,7 @@ void CRobolangMap::OnLButtonUp(UINT nFlags, CPoint point)
 
 	CView::OnLButtonUp(nFlags, point);
 }
-void CRobolangMap::OnLButtonDown(UINT nFlags, CPoint point) 
+void CRobolangMapWindow::OnLButtonDown(UINT nFlags, CPoint point) 
 {
 	// TODO: Add your message handler code here and/or call default
 	Location loc;
@@ -213,7 +213,7 @@ void CRobolangMap::OnLButtonDown(UINT nFlags, CPoint point)
 	CView::OnLButtonDown(nFlags, point);
 }
 
-void CRobolangMap::identificatePoint( CPoint point, Location &resLoc, LocationType &resType )
+void CRobolangMapWindow::identificatePoint( CPoint point, Location &resLoc, LocationType &resType )
 {
 	//map starts at startPoint
 	point.x -= startPoint.x;
@@ -284,3 +284,10 @@ void CRobolangMap::identificatePoint( CPoint point, Location &resLoc, LocationTy
 
 
 
+
+BOOL CRobolangMapWindow::Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, CCreateContext* pContext) 
+{
+	// TODO: Add your specialized code here and/or call the base class
+	
+	return CWnd::Create(lpszClassName, lpszWindowName, dwStyle, rect, pParentWnd, nID, pContext);
+}

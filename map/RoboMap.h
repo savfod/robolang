@@ -11,6 +11,7 @@
  
 #include <afxtempl.h>
 #include "..\control\control.h"
+#include "..\program\Program.h"
 class CCommand;
 
 typedef enum {
@@ -49,6 +50,7 @@ public:
 
 
 	bool executeCommand( CCommand *cmd );
+	bool checkCondition( Location loc, CommandCondition condition);
 	
 	void setSize( RoboMapSize size );
 	RoboMapSize getSize();

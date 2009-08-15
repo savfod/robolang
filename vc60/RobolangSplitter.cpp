@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "robolang.h"
 #include "RobolangEditWindow.h"
-#include "RobolangMap.h"
+#include "RobolangMapWindow.h"
 #include "RobolangSplitter.h"
 #include "MainFrm.h"
 
@@ -35,11 +35,11 @@ BOOL CRobolangSplitter::Create( CWnd *parent , LPCREATESTRUCT /*lpcs*/, CCreateC
 	if( !CSplitterWnd::CreateView( 0 , 0 , RUNTIME_CLASS( CRobolangEditWindow ) , CSize( 20 , 20 ) , pContext ) )
 		return( FALSE );
 
-	if( !CSplitterWnd::CreateView( 1 , 0 , RUNTIME_CLASS( CRobolangMap ) , CSize( 20 , 20 ) , pContext ) )
+	if( !CSplitterWnd::CreateView( 1 , 0 , RUNTIME_CLASS( CRobolangMapWindow ) , CSize( 20 , 20 ) , pContext ) )
 		return( FALSE );
 
 	editPane = ( CRobolangEditWindow * )CSplitterWnd::GetPane( 0 , 0 );
-	mapPane = ( CRobolangMap * )CSplitterWnd::GetPane( 1 , 0 );
+	mapPane = ( CRobolangMapWindow * )CSplitterWnd::GetPane( 1 , 0 );
 
 	return( TRUE );
 }
