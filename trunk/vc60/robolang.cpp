@@ -10,7 +10,7 @@
 #include "RobolangSplitter.h"
 #include "RobolangEditWindow.h"
 #include "RobolangView.h"
-#include "RobolangMap.h"
+#include "RobolangMapWindow.h"
 
 #include "..\interpreter\interpreter.h"
 #include "..\program\program.h"
@@ -89,7 +89,7 @@ void CRobolangApp::createClasses()
 	CLeftView *controlWindow = ( CLeftView * )mainframe -> m_wndSplitter.GetPane( 0 , 0 );
 	CRobolangView *rightView = mainframe -> GetRightPane();
 	CRobolangEditWindow *editWindow = ( CRobolangEditWindow * )rightView -> splitter.GetPane( 0 , 0 );
-	CRobolangMap *mapWindow = ( CRobolangMap * )rightView -> splitter.GetPane( 1 , 0 );
+	CRobolangMapWindow *mapWindow = ( CRobolangMapWindow * )rightView -> splitter.GetPane( 1 , 0 );
 
 	IControl::vCInterpreter = new CInterpreter( this );
 	IControl::vCProgram = new CProgram( this );

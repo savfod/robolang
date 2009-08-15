@@ -170,11 +170,11 @@ SOURCE=.\RobolangEditWindow.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\RobolangMap.cpp
+SOURCE=.\RobolangMapWindow.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\RobolangMap.h
+SOURCE=.\robolangmapwindow.h
 # End Source File
 # Begin Source File
 

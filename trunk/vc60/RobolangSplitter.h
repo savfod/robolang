@@ -15,7 +15,7 @@
 #endif
 
 class CRobolangEditWindow;
-class CRobolangMap;
+class CRobolangMapWindow;
 
 class CRobolangSplitter : public CSplitterWnd
 {
@@ -25,7 +25,7 @@ public:
 // Attributes
 protected:
 	CRobolangEditWindow *editPane;
-	CRobolangMap *mapPane;
+	CRobolangMapWindow *mapPane;
 
 // Operations
 public:

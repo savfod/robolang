@@ -62,6 +62,7 @@ CProcedure *CControl::onAppCreateProcedure()
 
 bool CControl::onAppRenameProcedure( CProcedure *p , CString newName )
 {
+	//not finished ( procedure calls must rename )
 	CProgram *prog = ic -> getCProgram();
 	CProcedure *pOther = prog -> getProcedureByName( newName );
 	if( pOther != NULL && pOther != p )
@@ -90,6 +91,7 @@ void CControl::onAppProcActivated( CString name )
 
 bool CControl::onAppDeleteProc( CString name )
 {
+	//not finished ( procedure calls must be changed )
 	CProgram* prog = IControl::getInstance() -> getCProgram();
 	return( prog -> deleteProcedure( name ) );
 }
