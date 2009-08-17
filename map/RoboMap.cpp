@@ -114,7 +114,7 @@ bool CRoboMap::executeCommand( CCommand *cmd )
 	return false;
 }
 
-bool CRoboMap::robotMoved( CString name, char direction ) //LRTB 
+bool CRoboMap::robotMoved( CString name, char direction ) //LRUD 
 {
 	Location loc;
 	BOOL wasFound =  robots.Lookup( name , loc );
@@ -153,8 +153,8 @@ bool CRoboMap::robotMoved( CString name, char direction ) //LRTB
 				return true;
 			}
 		}
-		case 'T':
-		case 't':
+		case 'U':
+		case 'u':
 		{
 			if( getExistenceWallV( loc.CrdX , loc.CrdY ) )
 			{
@@ -168,8 +168,8 @@ bool CRoboMap::robotMoved( CString name, char direction ) //LRTB
 				return true;
 			}
 		}
-		case 'B':
-		case 'b':
+		case 'D':
+		case 'd':
 		{
 			if( getExistenceWallV( loc.CrdX , loc.CrdY + 1 ) )
 			{ 
