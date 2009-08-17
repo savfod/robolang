@@ -73,7 +73,7 @@ public:
 	int robot;
 	CommandType type;
 	COLORREF color;
-	char direction; // LRTB
+	char direction; // LRUD
 	CommandCondition condition;
 
 	CString callingProcedureName;
