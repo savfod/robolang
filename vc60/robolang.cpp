@@ -31,6 +31,7 @@ BEGIN_MESSAGE_MAP(CRobolangApp, CWinApp)
 	//{{AFX_MSG_MAP(CRobolangApp)
 	ON_COMMAND(ID_APP_ABOUT, OnAppAbout)
 	ON_COMMAND(ID_FILE_NEW, OnFileNew)
+	ON_COMMAND(ID_START, OnStartInterpreter)
 	//}}AFX_MSG_MAP
 	// Standard file based document commands
 	ON_COMMAND(ID_FILE_NEW, CWinApp::OnFileNew)
@@ -243,4 +244,11 @@ int CRobolangApp::ExitInstance()
 	delete IControl::vCControl;
 	
 	return CWinApp::ExitInstance();
+}
+
+void CRobolangApp::OnStartInterpreter() 
+{
+	// TODO: Add your command handler code here
+	CInterpreter* interpreter = getCInterpreter();
+	interpreter -> startInterpretating();
 }

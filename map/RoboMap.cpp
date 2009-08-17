@@ -77,8 +77,8 @@ bool CRoboMap::executeCommand( CCommand *cmd )
 					return true;
 				}
 			}
-			case 'T':
-			case 't':
+			case 'U':
+			case 'u':
 			{
 				if( getExistenceWallV( loc.CrdX , loc.CrdY ) )
 				{
@@ -92,8 +92,8 @@ bool CRoboMap::executeCommand( CCommand *cmd )
 					return true;
 				}
 			}
-			case 'B':
-			case 'b':
+			case 'D':
+			case 'd':
 			{
 				if( getExistenceWallV( loc.CrdX , loc.CrdY + 1 ) )
 				{ 
@@ -114,10 +114,119 @@ bool CRoboMap::executeCommand( CCommand *cmd )
 	return false;
 }
 
-bool checkCondition( Location loc, CommandCondition condition)
+bool CRoboMap::robotMoved( CString name, char direction ) //LRTB 
+{
+	Location loc;
+	BOOL wasFound =  robots.Lookup( name , loc );
+	if( !wasFound )
+		return false;
+	
+	switch( direction )
+	{
+		case 'L':
+		case 'l':
+		{
+			if( getExistenceWallV( loc.CrdX, loc.CrdY ) )
+			{
+				MessageBox(NULL, "Робот не может пройти сквозь стену", NULL, IDOK);
+				return false;
+			}
+			else
+			{
+				loc.CrdX--;
+				setRobotLocation( name, loc );
+				return true;
+			}
+		}
+		case 'R':
+		case 'r':
+		{
+			if( getExistenceWallV( loc.CrdX + 1, loc.CrdY ) )
+			{
+				MessageBox(NULL, "Робот не может пройти сквозь стену", NULL, IDOK);
+				return false;
+			}
+			else
+			{
+				loc.CrdX++;
+				setRobotLocation( name, loc );
+				return true;
+			}
+		}
+		case 'T':
+		case 't':
+		{
+			if( getExistenceWallV( loc.CrdX , loc.CrdY ) )
+			{
+				MessageBox(NULL, "Робот не может пройти сквозь стену", NULL, IDOK);
+				return false;
+			}
+			else
+			{
+				loc.CrdY--;
+				setRobotLocation( name, loc );
+				return true;
+			}
+		}
+		case 'B':
+		case 'b':
+		{
+			if( getExistenceWallV( loc.CrdX , loc.CrdY + 1 ) )
+			{ 
+				MessageBox(NULL, "Робот не может пройти сквозь стену", NULL, IDOK);
+				return false;
+			}
+			else
+			{
+				loc.CrdY++;
+				setRobotLocation( name, loc );
+				return true;
+			}
+		}
+	}
+	return false;
+}
+void CRoboMap::robotPaint( CString name, COLORREF color )
+{
+	Location loc;
+	getRobotLocation( name, loc );
+
+	setCellColor( color, loc.CrdX, loc.CrdY );
+}
+
+bool CRoboMap::checkCondition( Location loc, CommandCondition condition)
 { 
-	//not finished
-	return true;
+	switch( condition )
+	{
+		case CMDCOND_UNKNOWN:
+		{
+			TRACE(" CMDCOND_UNKNOWN in CRoboMap::checkCondition ");
+			return false;
+		}
+		case CMDCOND_WALLLEFT:
+		{
+			return( getExistenceWallV( loc.CrdX, loc.CrdY ) );
+		}
+		case CMDCOND_WALLRIGHT:
+		{
+			return( getExistenceWallV( loc.CrdX + 1, loc.CrdY ) );
+		}
+		case CMDCOND_WALLUP:
+		{
+			return( getExistenceWallH( loc.CrdX, loc.CrdY ) );
+		}
+		case CMDCOND_WALLDOWN:
+		{
+			return( getExistenceWallH( loc.CrdX, loc.CrdY + 1 ) );
+		}
+		case CMDCOND_PAINTED:
+		{
+			COLORREF color = getCellColor( loc.CrdX, loc.CrdY );
+			return( color != RGB( 0, 0, 0) );
+		}				  
+	}
+
+	return false;
 }
 
 void CRoboMap::setSize( RoboMapSize size )

@@ -74,7 +74,7 @@ void CDlgNew::setCommandTo( CCommand *cmd , int nCmd )
 			case IDC_CMDPAINT_BLACK              :	cmd -> setPaint( RGB( 0 , 0 , 0 ) ); break;
 			case IDC_CMDPAINT_WHITE              :	cmd -> setPaint( RGB( 255 , 255 , 255 ) ); break;
 			case IDC_CMDPAINT_RED                :	cmd -> setPaint( RGB( 255 , 0 , 0 ) ); break;
-			case IDC_CMDPAINT_YELLOW             :	cmd -> setPaint( RGB( 255 , 0 , 255 ) ); break;
+			case IDC_CMDPAINT_YELLOW             :	cmd -> setPaint( RGB( 255 , 255 , 0 ) ); break;
 			case IDC_CMDPAINT_GREEN              :	cmd -> setPaint( RGB( 0 , 255 , 0 ) ); break;
 			case IDC_CMDMOVE_LEFT                :	cmd -> setMove( 'L' ); break;
 			case IDC_CMDMOVE_RIGHT               :	cmd -> setMove( 'R' ); break;

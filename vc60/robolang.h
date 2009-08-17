@@ -45,6 +45,7 @@ public:
 	//{{AFX_MSG(CRobolangApp)
 	afx_msg void OnAppAbout();
 	afx_msg void OnFileNew();
+	afx_msg void OnStartInterpreter();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 

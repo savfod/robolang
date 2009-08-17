@@ -28,6 +28,7 @@ private:
 	void interpretProcedure( CProcedure* proc );
 	void interpretCommandArray( CCommandArray *cmdArray );
 	
+	bool wasStopped;
 
 	IControl *ic;
 };
