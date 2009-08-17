@@ -44,6 +44,6 @@ void CRoboMapUI::onViewCellChanged(int indexX, int indexY)
 	COLORREF oldValue = map -> getCellColor( indexX, indexY );
 	if( oldValue == RGB( 0, 0, 0 ) )
 		map -> setCellColor( RGB( 0, 255, 0 ) , indexX, indexY);
-	else if( oldValue == RGB( 0, 255, 0 ) )
+	else if( oldValue != RGB( 0, 0, 0 ) )
 		map -> setCellColor( RGB( 0, 0 , 0 ) , indexX, indexY);
 }

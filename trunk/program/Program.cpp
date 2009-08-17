@@ -25,10 +25,10 @@ void CProgram::clear()
 	CString key;
 	CProcedure *proc;
 	for( POSITION pos = procedures.GetStartPosition(); pos != NULL; )
-		{
-			procedures.GetNextAssoc( pos , key , proc );
-			delete proc;
-		}
+	{
+		procedures.GetNextAssoc( pos , key , proc );
+		delete proc;
+	}
 	procedures.RemoveAll();
 }
 

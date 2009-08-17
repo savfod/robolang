@@ -77,7 +77,7 @@ CString CCommand::getCommandString()
 					case ( RGB( 0 , 0 , 0 ) ) : return( "Красить в чёрный" );
 					case ( RGB( 255 , 255 , 255  ) ) : return( "Красить в белый" );
 					case ( RGB( 255 , 0 , 0 ) ) : return( "Красить в красный" );
-					case ( RGB( 255 , 0 , 255 ) ) : return( "Красить в жёлтый" );
+					case ( RGB( 255 , 255 , 0 ) ) : return( "Красить в жёлтый" );
 					case ( RGB( 0 , 255 , 0 ) ) : return( "Красить в зелёный" );
 				}
 				return("Красить в необычный цвет");

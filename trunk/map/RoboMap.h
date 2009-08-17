@@ -51,7 +51,9 @@ public:
 
 	bool executeCommand( CCommand *cmd );
 	bool checkCondition( Location loc, CommandCondition condition);
-	
+	bool robotMoved( CString name, char direction ); //LRTB //if successful return true
+	void robotPaint( CString name	, COLORREF color );
+
 	void setSize( RoboMapSize size );
 	RoboMapSize getSize();
 
