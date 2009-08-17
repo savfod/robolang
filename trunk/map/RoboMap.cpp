@@ -80,7 +80,7 @@ bool CRoboMap::executeCommand( CCommand *cmd )
 			case 'U':
 			case 'u':
 			{
-				if( getExistenceWallV( loc.CrdX , loc.CrdY ) )
+				if( getExistenceWallH( loc.CrdX , loc.CrdY ) )
 				{
 					MessageBox(NULL, "Робот не может пройти сквозь стену", NULL, IDOK);
 					return false;
@@ -95,7 +95,7 @@ bool CRoboMap::executeCommand( CCommand *cmd )
 			case 'D':
 			case 'd':
 			{
-				if( getExistenceWallV( loc.CrdX , loc.CrdY + 1 ) )
+				if( getExistenceWallH( loc.CrdX , loc.CrdY + 1 ) )
 				{ 
 					MessageBox(NULL, "Робот не может пройти сквозь стену", NULL, IDOK);
 					return false;
@@ -156,7 +156,7 @@ bool CRoboMap::robotMoved( CString name, char direction ) //LRUD
 		case 'U':
 		case 'u':
 		{
-			if( getExistenceWallV( loc.CrdX , loc.CrdY ) )
+			if( getExistenceWallH( loc.CrdX , loc.CrdY ) )
 			{
 				MessageBox(NULL, "Робот не может пройти сквозь стену", NULL, IDOK);
 				return false;
@@ -171,7 +171,7 @@ bool CRoboMap::robotMoved( CString name, char direction ) //LRUD
 		case 'D':
 		case 'd':
 		{
-			if( getExistenceWallV( loc.CrdX , loc.CrdY + 1 ) )
+			if( getExistenceWallH( loc.CrdX , loc.CrdY + 1 ) )
 			{ 
 				MessageBox(NULL, "Робот не может пройти сквозь стену", NULL, IDOK);
 				return false;
