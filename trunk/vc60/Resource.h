@@ -42,6 +42,16 @@
 #define IDC_CMDWHILE_WALLDOWN           31793
 #define IDC_CMDIF_PAINTED               31795
 #define IDC_CMDWHILE_PAINTED            31796
+#define IDC_CMDIF_NOTWALLLEFT           31798
+#define IDC_CMDIF_NOTWALLRIGHT          31799
+#define IDC_CMDIF_NOTWALLUP             31800
+#define IDC_CMDIF_NOTWALLDOWN           31801
+#define IDC_CMDIF_NOTPAINTED            31802
+#define IDC_CMDWHILE_NOTWALLLEFT        31803
+#define IDC_CMDWHILE_NOTWALLRIGHT       31804
+#define IDC_CMDWHILE_NOTWALLUP          31805
+#define IDC_CMDWHILE_NOTWALLDOWN        31806
+#define IDC_CMDWHILE_NOTPAINTED         31807
 #define IDC_CMDPROC_CALLFIRST           31900
 #define IDC_CMDRANGE_LAST               31999
 #define IDC_CMDNEW                      32771
@@ -60,7 +70,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        132
-#define _APS_NEXT_COMMAND_VALUE         32797
+#define _APS_NEXT_COMMAND_VALUE         32808
 #define _APS_NEXT_CONTROL_VALUE         1011
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

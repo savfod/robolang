@@ -31,14 +31,34 @@ typedef enum {
 	CMDTYPE_CALL = 5
 } CommandType;
 
-typedef enum {
+/*typedef enum {
 	CMDCOND_UNKNOWN = 0 ,
 	CMDCOND_WALLLEFT = 1 ,
 	CMDCOND_WALLRIGHT = 2 ,
 	CMDCOND_WALLUP = 3 ,
 	CMDCOND_WALLDOWN = 4 ,
 	CMDCOND_PAINTED = 5
-} CommandCondition;
+} CommandCondition; */
+
+typedef enum {
+	CONDTYPE_UNKNOWN = 0 ,
+	CONDTYPE_WALLLEFT = 1 ,
+	CONDTYPE_WALLRIGHT = 2 ,
+	CONDTYPE_WALLUP = 3 ,
+	CONDTYPE_WALLDOWN = 4 ,
+	CONDTYPE_PAINTED = 5 ,
+	CONDTYPE_NOT = 6 ,
+	CONDTYPE_OR= 7 ,
+	CONDTYPE_AND = 8
+} CommandConditionType;
+
+struct CommandCondition
+{
+	CommandConditionType type;
+	CommandCondition* cond1; //for not, or, and
+	CommandCondition* cond2; //for or, and
+	CString getConditionName();
+};
 
 class CCommand  
 {
@@ -50,7 +70,7 @@ public:
 	CommandType getType();
 	CString getRobotName();
 	CString getCommandName();
-
+	
 	// command representations
 	CString getCommandString();
 	CString getElseName();
@@ -64,8 +84,10 @@ public:
 	void setProps( CCommand *cmdData );
 	void setPaint( COLORREF color );
 	void setMove( char direction );
-	void setIf( CommandCondition condition );
-	void setWhile( CommandCondition condition );
+	void setIf( CommandConditionType condition );
+	void setIfNot( CommandConditionType condition );
+	void setWhile( CommandConditionType condition );
+	void setWhileNot( CommandConditionType condition );
 	void setCall( CString name );
 
 // data
@@ -75,6 +97,8 @@ public:
 	COLORREF color;
 	char direction; // LRUD
 	CommandCondition condition;
+	
+
 
 	CString callingProcedureName;
 	CCommandArray childCommands;

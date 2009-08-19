@@ -146,6 +146,17 @@ BEGIN
         END
         POPUP "Если (условие)"
         BEGIN
+            POPUP "Не"
+            BEGIN
+                MENUITEM "Стенка слева",                IDC_CMDIF_NOTWALLLEFT
+
+                MENUITEM "Стенка справа",               IDC_CMDIF_NOTWALLRIGHT
+
+                MENUITEM "Стенка сверху",               IDC_CMDIF_NOTWALLUP
+                MENUITEM "Стенка снизу",                IDC_CMDIF_NOTWALLDOWN
+
+                MENUITEM "Закрашено",                   IDC_CMDIF_NOTPAINTED
+            END
             MENUITEM "Стенка слева",                IDC_CMDIF_WALLLEFT
             MENUITEM "Стенка справа",               IDC_CMDIF_WALLRIGHT
             MENUITEM "Стенка сверху",               IDC_CMDIF_WALLUP
@@ -154,6 +165,19 @@ BEGIN
         END
         POPUP "Цикл пока (условие)"
         BEGIN
+            POPUP "Не"
+            BEGIN
+                MENUITEM "Стенка слева",                IDC_CMDWHILE_NOTWALLLEFT
+
+                MENUITEM "Стенка справа",               IDC_CMDWHILE_NOTWALLRIGHT
+
+                MENUITEM "Стенка сверху",               IDC_CMDWHILE_NOTWALLUP
+
+                MENUITEM "Стенка снизу",                IDC_CMDWHILE_NOTWALLDOWN
+
+                MENUITEM "Закрашено",                   IDC_CMDWHILE_NOTPAINTED
+
+            END
             MENUITEM "Стенка слева",                IDC_CMDWHILE_WALLLEFT
             MENUITEM "Стенка справа",               IDC_CMDWHILE_WALLRIGHT
             MENUITEM "Стенка сверху",               IDC_CMDWHILE_WALLUP
@@ -432,8 +456,20 @@ BEGIN
     IDC_CMDIF_WALLRIGHT     "Если стенка справа, выполнить..."
     IDC_CMDIF_WALLUP        "Если стенка сверху, выполнить..."
     IDC_CMDIF_WALLDOWN      "Если стенка снизу, выполнить..."
-    IDC_CMDWHILE_WALLLEFT   "Цикл пока стенка слева"
     IDC_CMDWHILE_WALLRIGHT  "Цикл пока стенка справа"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDC_CMDIF_NOTWALLUP     "Если сверху нет стенки , выполнить..."
+    IDC_CMDIF_NOTWALLDOWN   "Если снизу нет стенки , выполнить..."
+    IDC_CMDIF_NOTPAINTED    "Текущее поле, где стоит робот, не закрашено"
+    IDC_CMDWHILE_NOTWALLLEFT "Цикл пока слева нет стенки"
+    IDC_CMDWHILE_NOTWALLRIGHT "Цикл пока справа нет стенки"
+    IDC_CMDWHILE_NOTWALLUP  "Цикл пока сверху нет стенки"
+    IDC_CMDWHILE_NOTWALLDOWN "Цикл пока снизу нет стенки"
+    IDC_CMDWHILE_NOTPAINTED "Цикл пока поле, где стоит робот, не закрашено"
+    IDC_CMDWHILE_WALLLEFT   "Цикл пока стенка слева"
 END
 
 STRINGTABLE DISCARDABLE 
@@ -455,6 +491,8 @@ BEGIN
     IDC_CMDPROC_CHANGE      "Изменить название процедуры"
     IDC_CMDPROC_DELETE      "Удалить указанную в дереве процедуру"
     IDC_CMDPROC_NOTHINGTOCALL "Нет процедур, доступных для вызова"
+    IDC_CMDIF_NOTWALLLEFT   "Если слева нет стенки , выполнить..."
+    IDC_CMDIF_NOTWALLRIGHT  "Если справа нет стенки , выполнить..."
 END
 
 #endif    // Russian resources
