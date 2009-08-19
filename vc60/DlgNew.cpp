@@ -80,16 +80,26 @@ void CDlgNew::setCommandTo( CCommand *cmd , int nCmd )
 			case IDC_CMDMOVE_RIGHT               :	cmd -> setMove( 'R' ); break;
 			case IDC_CMDMOVE_UP                  :	cmd -> setMove( 'U' ); break;
 			case IDC_CMDMOVE_DOWN                :	cmd -> setMove( 'D' ); break;
-			case IDC_CMDIF_WALLLEFT              :	cmd -> setIf( CMDCOND_WALLLEFT ); break;
-			case IDC_CMDIF_WALLRIGHT             :	cmd -> setIf( CMDCOND_WALLRIGHT ); break;
-			case IDC_CMDIF_WALLUP                :	cmd -> setIf( CMDCOND_WALLUP ); break;
-			case IDC_CMDIF_WALLDOWN              :	cmd -> setIf( CMDCOND_WALLDOWN ); break;
-			case IDC_CMDIF_PAINTED               :	cmd -> setIf( CMDCOND_PAINTED ); break;
-			case IDC_CMDWHILE_WALLLEFT           :	cmd -> setWhile( CMDCOND_WALLLEFT ); break;
-			case IDC_CMDWHILE_WALLRIGHT          :	cmd -> setWhile( CMDCOND_WALLRIGHT ); break;
-			case IDC_CMDWHILE_WALLUP             :	cmd -> setWhile( CMDCOND_WALLUP ); break;
-			case IDC_CMDWHILE_WALLDOWN           :	cmd -> setWhile( CMDCOND_WALLDOWN ); break;
-			case IDC_CMDWHILE_PAINTED            :	cmd -> setWhile( CMDCOND_PAINTED ); break;
+			case IDC_CMDIF_WALLLEFT              :	cmd -> setIf( CONDTYPE_WALLLEFT ); break;
+			case IDC_CMDIF_WALLRIGHT             :	cmd -> setIf( CONDTYPE_WALLRIGHT ); break;
+			case IDC_CMDIF_WALLUP                :	cmd -> setIf( CONDTYPE_WALLUP ); break;
+			case IDC_CMDIF_WALLDOWN              :	cmd -> setIf( CONDTYPE_WALLDOWN ); break;
+			case IDC_CMDIF_PAINTED               :	cmd -> setIf( CONDTYPE_PAINTED ); break;
+			case IDC_CMDIF_NOTWALLLEFT           :	cmd -> setIfNot( CONDTYPE_WALLLEFT ); break;
+			case IDC_CMDIF_NOTWALLRIGHT          :	cmd -> setIfNot( CONDTYPE_WALLRIGHT ); break;
+			case IDC_CMDIF_NOTWALLUP             :	cmd -> setIfNot( CONDTYPE_WALLUP ); break;
+			case IDC_CMDIF_NOTWALLDOWN           :	cmd -> setIfNot( CONDTYPE_WALLDOWN ); break;
+			case IDC_CMDIF_NOTPAINTED            :	cmd -> setIfNot( CONDTYPE_PAINTED ); break;
+			case IDC_CMDWHILE_WALLLEFT           :	cmd -> setWhile( CONDTYPE_WALLLEFT ); break;
+			case IDC_CMDWHILE_WALLRIGHT          :	cmd -> setWhile( CONDTYPE_WALLRIGHT ); break;
+			case IDC_CMDWHILE_WALLUP             :	cmd -> setWhile( CONDTYPE_WALLUP ); break;
+			case IDC_CMDWHILE_WALLDOWN           :	cmd -> setWhile( CONDTYPE_WALLDOWN ); break;
+			case IDC_CMDWHILE_PAINTED            :	cmd -> setWhile( CONDTYPE_PAINTED ); break;
+			case IDC_CMDWHILE_NOTWALLLEFT        :	cmd -> setWhileNot( CONDTYPE_WALLLEFT ); break;
+			case IDC_CMDWHILE_NOTWALLRIGHT       :	cmd -> setWhileNot( CONDTYPE_WALLRIGHT ); break;
+			case IDC_CMDWHILE_NOTWALLUP          :	cmd -> setWhileNot( CONDTYPE_WALLUP ); break;
+			case IDC_CMDWHILE_NOTWALLDOWN        :	cmd -> setWhileNot( CONDTYPE_WALLDOWN ); break;
+			case IDC_CMDWHILE_NOTPAINTED         :	cmd -> setWhileNot( CONDTYPE_PAINTED ); break;
 
 			default :
 				if( nCmd >= IDC_CMDPROC_CALLFIRST )

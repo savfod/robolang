@@ -196,34 +196,47 @@ void CRoboMap::robotPaint( CString name, COLORREF color )
 
 bool CRoboMap::checkCondition( Location loc, CommandCondition condition)
 { 
-	switch( condition )
+	switch( condition.type )
 	{
-		case CMDCOND_UNKNOWN:
+		case CONDTYPE_UNKNOWN:
 		{
 			TRACE(" CMDCOND_UNKNOWN in CRoboMap::checkCondition ");
 			return false;
 		}
-		case CMDCOND_WALLLEFT:
+		case CONDTYPE_WALLLEFT:
 		{
 			return( getExistenceWallV( loc.CrdX, loc.CrdY ) );
 		}
-		case CMDCOND_WALLRIGHT:
+		case CONDTYPE_WALLRIGHT:
 		{
 			return( getExistenceWallV( loc.CrdX + 1, loc.CrdY ) );
 		}
-		case CMDCOND_WALLUP:
+		case CONDTYPE_WALLUP:
 		{
 			return( getExistenceWallH( loc.CrdX, loc.CrdY ) );
 		}
-		case CMDCOND_WALLDOWN:
+		case CONDTYPE_WALLDOWN:
 		{
 			return( getExistenceWallH( loc.CrdX, loc.CrdY + 1 ) );
 		}
-		case CMDCOND_PAINTED:
+		case CONDTYPE_PAINTED:
 		{
 			COLORREF color = getCellColor( loc.CrdX, loc.CrdY );
 			return( color != RGB( 0, 0, 0) );
-		}				  
+		}
+		case CONDTYPE_NOT:
+		{
+			return ( !checkCondition(loc, *condition.cond1) );
+		}
+		case CONDTYPE_OR:
+		{
+			return ( checkCondition(loc, *condition.cond1) || checkCondition(loc, *condition.cond2) );
+		}
+		case CONDTYPE_AND:
+		{
+			return ( checkCondition(loc, *condition.cond1) && checkCondition(loc, *condition.cond2) );
+		}
+
 	}
 
 	return false;

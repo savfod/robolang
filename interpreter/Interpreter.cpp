@@ -83,6 +83,7 @@ void CInterpreter::interpretCommand(CCommand *cmd)
 				if(wasStopped) 
 					break;
 				interpretCommandArray( &( cmd -> childCommands ) );
+				map -> getRobotLocation( cmd -> getRobotName(), loc );
 			}
 			break;
 		}
