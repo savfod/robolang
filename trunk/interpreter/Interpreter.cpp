@@ -6,6 +6,7 @@
 #include "Interpreter.h"
 #include <ctime>
 
+#define WAIT( X ) { clock_t endwait; endwait = clock () + CLOCKS_PER_SEC * X; while (clock() < endwait) {} } //not finished// for alpha version only!
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -14,17 +15,29 @@
 CInterpreter::CInterpreter( IControl *p_ic )
 :	ic( p_ic )
 {
+	wasStopped = false;
 }
 
 CInterpreter::~CInterpreter()
 {
 }
 
-void CInterpreter::startInterpretating()
+void CInterpreter::startOrStopInterpretating(void*)
 {
-	wasStopped = false;
+	//not finished. Start and Stop should be different functions
+	CInterpreter* interpreter = IControl::getInstance() -> getCInterpreter();
+	
+	//if is on - stop
+	if(!interpreter -> wasStopped) // = if is on
+	{
+		interpreter -> wasStopped = true;
+		return;
+	}
+
+	interpreter -> wasStopped = false;
 	CProgram* program = IControl::getInstance() -> getCProgram();
-	interpretProcedure( program -> getMainProcedure() );
+	interpreter -> interpretProcedure( program -> getMainProcedure() );
+	interpreter -> wasStopped = true;
 }
 
 void CInterpreter::interpretProcedure(CProcedure* proc)
@@ -41,10 +54,6 @@ void CInterpreter::interpretCommand(CCommand *cmd)
 		return;
 
 	//not finished // wait must be in robolangMapWindow
-	clock_t endwait;
-	endwait = clock () + CLOCKS_PER_SEC/3 ;
-	while (clock() < endwait) {}
-	
 	
 
 	CRoboMap* map = IControl::getInstance() -> getCRoboMap();
@@ -52,11 +61,13 @@ void CInterpreter::interpretCommand(CCommand *cmd)
 	{
 		case CMDTYPE_PAINT:
 		{
+			WAIT( 0.2 );
 			map -> robotPaint( cmd -> getRobotName(), cmd -> color );		
 			break;
 		}
 		case CMDTYPE_MOVE:
 		{
+			WAIT( 0.2 );
 			bool successful = map -> robotMoved( cmd -> getRobotName(), cmd -> direction );
 			if( !successful ) 
 				wasStopped = true;

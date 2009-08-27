@@ -21,7 +21,7 @@ class CInterpreter
 public:
 	CInterpreter( IControl *ic );
 	virtual ~CInterpreter();
-	void startInterpretating();
+	static void startOrStopInterpretating(void*);
 	
 private:
 	void interpretCommand( CCommand* cmd );

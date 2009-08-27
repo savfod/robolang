@@ -456,11 +456,18 @@ BEGIN
     IDC_CMDIF_WALLRIGHT     "Если стенка справа, выполнить..."
     IDC_CMDIF_WALLUP        "Если стенка сверху, выполнить..."
     IDC_CMDIF_WALLDOWN      "Если стенка снизу, выполнить..."
+    IDC_CMDWHILE_WALLLEFT   "Цикл пока стенка слева"
     IDC_CMDWHILE_WALLRIGHT  "Цикл пока стенка справа"
 END
 
 STRINGTABLE DISCARDABLE 
 BEGIN
+    IDC_CMDWHILE_WALLUP     "Цикл пока стенка сверху"
+    IDC_CMDWHILE_WALLDOWN   "Цикл пока стенка снизу"
+    IDC_CMDIF_PAINTED       "Текущее поле, где стоит робот, закрашено"
+    IDC_CMDWHILE_PAINTED    "Текущее поле, где стоит робот, закрашено"
+    IDC_CMDIF_NOTWALLLEFT   "Если слева нет стенки , выполнить..."
+    IDC_CMDIF_NOTWALLRIGHT  "Если справа нет стенки , выполнить..."
     IDC_CMDIF_NOTWALLUP     "Если сверху нет стенки , выполнить..."
     IDC_CMDIF_NOTWALLDOWN   "Если снизу нет стенки , выполнить..."
     IDC_CMDIF_NOTPAINTED    "Текущее поле, где стоит робот, не закрашено"
@@ -469,7 +476,6 @@ BEGIN
     IDC_CMDWHILE_NOTWALLUP  "Цикл пока сверху нет стенки"
     IDC_CMDWHILE_NOTWALLDOWN "Цикл пока снизу нет стенки"
     IDC_CMDWHILE_NOTPAINTED "Цикл пока поле, где стоит робот, не закрашено"
-    IDC_CMDWHILE_WALLLEFT   "Цикл пока стенка слева"
 END
 
 STRINGTABLE DISCARDABLE 
@@ -479,20 +485,10 @@ END
 
 STRINGTABLE DISCARDABLE 
 BEGIN
-    IDC_CMDWHILE_WALLUP     "Цикл пока стенка сверху"
-    IDC_CMDWHILE_WALLDOWN   "Цикл пока стенка снизу"
-    IDC_CMDIF_PAINTED       "Текущее поле, где стоит робот, закрашено"
-    IDC_CMDWHILE_PAINTED    "Текущее поле, где стоит робот, закрашено"
-END
-
-STRINGTABLE DISCARDABLE 
-BEGIN
     IDC_CMDPROC_ADD         "Добавить новую процедуру"
     IDC_CMDPROC_CHANGE      "Изменить название процедуры"
     IDC_CMDPROC_DELETE      "Удалить указанную в дереве процедуру"
     IDC_CMDPROC_NOTHINGTOCALL "Нет процедур, доступных для вызова"
-    IDC_CMDIF_NOTWALLLEFT   "Если слева нет стенки , выполнить..."
-    IDC_CMDIF_NOTWALLRIGHT  "Если справа нет стенки , выполнить..."
 END
 
 #endif    // Russian resources
