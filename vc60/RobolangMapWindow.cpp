@@ -34,6 +34,7 @@ BEGIN_MESSAGE_MAP(CRobolangMapWindow, CView)
 	ON_WM_ERASEBKGND()
 	ON_WM_LBUTTONUP()
 	ON_WM_LBUTTONDOWN()
+	ON_WM_SIZE()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -77,7 +78,7 @@ void CRobolangMapWindow::OnDraw( CDC *dc )
 			int startX = startPoint.x + ( iX * cell.cx + ( iX + 1 ) * wallV.cx );
 			int startY = startPoint.y + ( iY * cell.cy + iY * wallH.cy );
 			COLORREF color = ( map -> getExistenceWallH( iX, iY ) ) ? RGB( 255, 0, 0) : RGB( 100, 100, 100 );
- 			dc ->FillSolidRect( startX, startY, wallH.cx, wallH.cy, color ); 
+ 			dc -> FillSolidRect( startX, startY, wallH.cx, wallH.cy, color ); 
 		}
 	}
 	
@@ -89,9 +90,29 @@ void CRobolangMapWindow::OnDraw( CDC *dc )
 			int startX = startPoint.x + ( iX * cell.cx + iX * wallV.cx );
 			int startY = startPoint.y + ( iY * cell.cy + ( iY + 1 ) * wallH.cy );
 			COLORREF color = ( map -> getExistenceWallV( iX, iY ) ) ? RGB( 255, 0, 0) : RGB( 100, 100, 100 );
- 			dc ->FillSolidRect( startX, startY, wallV.cx, wallV.cy, color ); 
+ 			dc -> FillSolidRect( startX, startY, wallV.cx, wallV.cy, color ); 
 		}
 	}
+
+	//WallC
+	for( iY = 1; iY < numberY ; iY++ ) //walls on edge are skipped
+	{
+		for( iX = 1; iX < numberX ; iX++ ) //walls on edge are skipped
+		{
+			int startX = startPoint.x + ( iX * cell.cx + iX * wallV.cx );
+			int startY = startPoint.y + ( iY * cell.cy + iY * wallH.cy );
+			
+			bool isWallUp = map -> getExistenceWallV( iX , iY - 1 ); 
+			bool isWallTop = map -> getExistenceWallV( iX, iY ); 
+			bool isWallLeft = map -> getExistenceWallH( iX - 1, iY ); 
+			bool isWallRight = map -> getExistenceWallH( iX, iY  ); 
+			bool isAnyWallNear = isWallUp || isWallTop || isWallLeft || isWallRight;
+			
+			COLORREF color = ( isAnyWallNear ) ? RGB( 255, 0, 0) : RGB( 100, 100, 100 );
+ 			dc ->FillSolidRect( startX, startY, wallC.cx, wallC.cy, color ); 
+		}
+	}
+
 	//edge
 	for( iY = 0; iY < numberY + 1; iY++ )
 	{
@@ -121,6 +142,13 @@ void CRobolangMapWindow::OnDraw( CDC *dc )
 		dc -> DrawIcon( startX, startY, robot);
 	}
 	DestroyIcon( robot );
+
+	//set map rectangular
+	rcMap.left = startPoint.x;
+	rcMap.top = startPoint.y;
+	rcMap.right = startPoint.x + numberX * cell.cx + ( numberX + 1 ) * wallV.cx;
+	rcMap.bottom = startPoint.y + numberY * cell.cy + ( numberY + 1 ) * wallH.cy;
+
 }
 
 BOOL CRobolangMapWindow::OnEraseBkgnd(CDC* pDC) 
@@ -132,7 +160,31 @@ BOOL CRobolangMapWindow::OnEraseBkgnd(CDC* pDC)
 	CRect rc;
 	GetClientRect( rc );
 	
-	dc -> FillSolidRect( rc , RGB( 134 , 238 , 195 ) );
+	//painting everything but map
+	CRect rcTop;
+	CRect rcBottom;
+	CRect rcLeft;
+	CRect rcRight;
+
+	rcTop.top = rcLeft.top = rcRight.top = rc.top;
+	rcBottom.top = rcMap.bottom;
+	
+	rcBottom.bottom = rcLeft.bottom = rcRight.bottom = rc.bottom;
+	rcTop.bottom = rcMap.top;
+
+	rcTop.left = rcBottom.left = rcLeft.left = rc.left;
+	rcRight.left = rcMap.right;
+
+	rcTop.right = rcBottom.right = rcRight.right = rc.right;
+	rcLeft.right = rcMap.left;
+
+	COLORREF color = RGB( 134 , 238 , 195 );
+	dc -> FillSolidRect( rcTop , color );
+	dc -> FillSolidRect( rcBottom , color );
+	dc -> FillSolidRect( rcLeft , color );
+	dc -> FillSolidRect( rcRight , color );
+
+	OnDraw(dc);
 
 	ReleaseDC(dc);
 	return TRUE;
@@ -290,4 +342,12 @@ BOOL CRobolangMapWindow::Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, D
 	// TODO: Add your specialized code here and/or call the base class
 	
 	return CWnd::Create(lpszClassName, lpszWindowName, dwStyle, rect, pParentWnd, nID, pContext);
+}
+
+void CRobolangMapWindow::OnSize(UINT nType, int cx, int cy) 
+{
+	CView::OnSize(nType, cx, cy);
+	
+	//SetWindowPos(NULL, 0, 0, 1000, 1000, 0);	// TODO: Add your message handler code here
+	
 }

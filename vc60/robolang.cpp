@@ -250,5 +250,5 @@ void CRobolangApp::OnStartInterpreter()
 {
 	// TODO: Add your command handler code here
 	CInterpreter* interpreter = getCInterpreter();
-	interpreter -> startInterpretating();
+	_beginthread( interpreter -> startOrStopInterpretating, 0, NULL);
 }

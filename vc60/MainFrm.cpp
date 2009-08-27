@@ -54,11 +54,11 @@ CMainFrame::~CMainFrame()
 
 void CMainFrame::resizeSplitters()
 {
-	m_wndSplitter.SetColumnInfo( 0 , 300 , 100 );
+	m_wndSplitter.SetColumnInfo( 0 , 300 , 70 );
 	m_wndSplitter.RecalcLayout();
 
 	CRobolangView *rightView = GetRightPane();
-	rightView -> splitter.SetRowInfo( 0 , 400 , 100 );
+	rightView -> splitter.SetRowInfo( 0 , 400 , 30 );
 	rightView -> splitter.RecalcLayout();
 }
 
