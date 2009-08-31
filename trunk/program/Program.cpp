@@ -135,11 +135,17 @@ CString CProgram::getBlockOfCommandsText(CCommandArray *commands)
 
 void CProgram::setProgram( CString program )
 {
-	/*while( program.size() )
+	procedures.RemoveAll();
+	while( !program.IsEmpty() )
 	{
-		while( !isLetter( program.GetAt(0) ) )
-			program.Delete(0);	
-	}*/
+		CProcedure *proc = new CProcedure("NoName");
+		readFirstProcedure(*proc, program);
+		procedures.SetAt( proc -> name, proc);
+	}
+	
+	CProgramUI *ui = ic -> getCProgramUI();
+	ui -> onProgramChanged();
+
 }
 
 bool CProgram::isLetter(TCHAR c)
@@ -151,6 +157,139 @@ bool CProgram::isLetter(TCHAR c)
 		(( 'А' <= c ) && ( c <= 'Я' ))
 				);
 }
+
+bool CProgram::isValid(TCHAR c)
+{
+	bool isEmpty = ( c == ' ' || c == '\n' || c == '\t' ); 
+	return( !isEmpty );
+}
+
+
+void CProgram::skipEmptySymbols(CString &string)
+{
+	if( string.IsEmpty() )
+		return;
+	while( ( !string.IsEmpty() ) && ( !isValid( string.GetAt(0) ) ) )
+		string.Delete(0);
+}
+
+bool CProgram::readFirstProcedure(CProcedure &proc, CString& string)
+{
+	skipEmptySymbols( string );
+	if( readFirstWord( string ) != (CString)"Процедура" )
+	{
+		return false;
+	}
+	proc.name = readFirstWord( string );
+	bool successful = readBlockOfCommands( proc.commands, string );
+	return successful;
+}
+
+CString CProgram::readFirstWord(CString &string)
+{
+	skipEmptySymbols( string );
+	CString word;
+	while( !string.IsEmpty() && isValid( string.GetAt(0) ) )
+	{
+		word += string.GetAt(0);
+		string.Delete(0);
+	}
+	return word;
+}
+
+bool CProgram::readBlockOfCommands(CCommandArray &commands, CString &string)
+{
+	if( readFirstWord( string ) != (CString)'{')
+	{
+		return false;
+	}
+
+	skipEmptySymbols( string );
+	
+	while( ( !string.IsEmpty() ) && ( string.GetAt(0) != '}' ) )
+	{
+		CCommand* cmd = new CCommand;
+		bool successful = readFirstCommand(*cmd, string);
+		skipEmptySymbols( string );
+		if( successful )
+		{
+			commands.Add( cmd );
+		}
+		else
+		{
+			if( string.GetAt(0) != '}' )
+				return false;
+		}
+	}
+	if( string.GetAt(0) == '}' )
+	{
+		string.Delete(0);
+		return true;
+	}
+	
+	return false;
+}
+
+bool CProgram::readFirstCommand(CCommand &cmd, CString &string)
+{
+	CString word = readFirstWord( string );
+	
+	//instead of switch
+	if( word == CString("Идти") )
+	{
+		cmd.type = CMDTYPE_MOVE;
+
+		CString direction = readFirstWord( string );
+		if( direction == CString("налево") )
+			cmd.direction = 'L';
+		else if( direction == CString("направо") )
+			cmd.direction = 'R';
+		else if( direction == CString("вверх") )
+			cmd.direction = 'U';
+		else if( direction == CString("вниз") )
+			cmd.direction = 'D';
+		return true;
+	}
+	else if( word == CString("Красить") )
+	{
+		cmd.type = CMDTYPE_PAINT;
+
+		readFirstWord( string ); // "в"
+		CString color = readFirstWord( string );
+		
+		if( color == CString("белый") )
+			cmd.color = RGB(255, 255, 255);
+		else if( color == CString("чёрный") || color == CString("черный") )// е/ё
+			cmd.color = RGB(0, 0, 0);
+		else if( color == CString("красный") )
+			cmd.color = RGB(255, 0, 0);
+		else if( color == CString("зелёный") )
+			cmd.color = RGB(0, 255, 0);
+		else
+			cmd.color = RGB(255, 255, 0);
+		return true;
+	}
+	else if( word == CString("Вызвать") )
+	{
+		cmd.type = CMDTYPE_CALL;
+		readFirstWord( string ); // "процедуру:"
+		cmd.callingProcedureName = readFirstWord( string );
+		return true;
+	}
+/*	else if( word == CString("Пока") )
+	{
+		cmd.type = CMDTYPE_WHILE;
+		
+*/
+	return false;
+
+
+
+	
+}		
+
+
+/////////////////////////////////////////////////////////////////////
 
 int CProgram::getProcedureCount()
 {
