@@ -132,6 +132,8 @@ public:
 class CProgram  
 {
 public:
+	bool readBlockOfCommands( CCommandArray &commands, CString &string);
+	
 	CProgram( IControl *ic );
 	virtual ~CProgram();
 
@@ -156,8 +158,15 @@ private:
 	CString getBlockOfCommandsText(CCommandArray *commands);
 
 	bool isLetter(TCHAR c);
+	void skipEmptySymbols(CString &string);
+	bool readFirstProcedure( CProcedure& proc, CString &string );
+	CString readFirstWord( CString &string );
 
 private:
+	bool readFirstCommand( CCommand &cmd, CString &string);
+
+	bool isValid(TCHAR c);
+	
 	IControl *ic;
 	CProcedureMap procedures;
 };

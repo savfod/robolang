@@ -61,6 +61,19 @@ void CRobolangDoc::Serialize(CArchive& ar)
 	}
 	else
 	{
+		//reading all text
+		CString wholeText;
+		CString currentText;
+
+		while( ar.ReadString(currentText) )
+		{
+			wholeText += currentText;
+			wholeText += '\n';
+		}
+		
+		CProgram *prog = IControl::getInstance() -> getCProgram();
+		prog -> setProgram( wholeText );
+
 		// TODO: add loading code here
 	}
 }
