@@ -6,6 +6,7 @@
 #include "ProgramUI.h"
 
 #include "../Program/Program.h"
+#include "..\control\Control.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -131,3 +132,16 @@ void CProgramUI::onEditDelete( CCommand *cmd )
 
 /*#########################################################################*/
 /*#########################################################################*/
+
+void CProgramUI::onProgramOpened(bool successful)
+{
+	CControl* control = IControl::getInstance() -> getCControl();
+	if(successful)
+		control -> onProgNewProgram();
+	else
+	{
+		IControl::getInstance() -> messageBox( "Ошибка. Не удалось прочесть файл." );
+		control -> onAppNewProgram();
+	}
+	onProgramChanged();
+}

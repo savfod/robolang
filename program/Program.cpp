@@ -136,15 +136,22 @@ CString CProgram::getBlockOfCommandsText(CCommandArray *commands)
 void CProgram::setProgram( CString program )
 {
 	procedures.RemoveAll();
+	bool successful = true;
 	while( !program.IsEmpty() )
 	{
 		CProcedure *proc = new CProcedure("NoName");
-		readFirstProcedure(*proc, program);
+		if( !readFirstProcedure(*proc, program) )
+			successful = false;
+
 		procedures.SetAt( proc -> name, proc);
+		skipEmptySymbols( program );
 	}
 	
+
 	CProgramUI *ui = ic -> getCProgramUI();
-	ui -> onProgramChanged();
+	ui -> onProgramOpened( successful );
+
+
 
 }
 
@@ -276,18 +283,91 @@ bool CProgram::readFirstCommand(CCommand &cmd, CString &string)
 		cmd.callingProcedureName = readFirstWord( string );
 		return true;
 	}
-/*	else if( word == CString("Пока") )
+	else if( word == CString("Пока") )
 	{
 		cmd.type = CMDTYPE_WHILE;
-		
-*/
+		bool successful = readCondition(cmd.condition, string) && readBlockOfCommands( cmd.childCommands, string );
+		if(successful)
+			return true;
+		else 
+			return false;
+	}	
+	else if( word == CString("Если") )
+	{
+		cmd.type = CMDTYPE_IF;
+		bool successful = readCondition(cmd.condition, string) && readBlockOfCommands( cmd.childCommands, string );
+		if(successful)
+			return true;
+		else 
+			return false;
+	}
+
 	return false;
-
-
-
-	
 }		
 
+bool CProgram::readCondition(CommandCondition &condition, CString &string)
+{
+	//not finished! only easy conditions
+	CString firstWord = readFirstWord( string );
+	CString secondWord = readFirstWord( string );
+	
+	if( secondWord == (CString)"стена" )
+	{
+		if( firstWord == CString("слева") )
+			condition.type = CONDTYPE_WALLLEFT;
+		else if( firstWord == CString("справа") )
+			condition.type = CONDTYPE_WALLRIGHT;
+		else if( firstWord == CString("сверху") )
+			condition.type = CONDTYPE_WALLUP;
+		else if( firstWord == CString("снизу") )
+			condition.type = CONDTYPE_WALLDOWN;
+		else
+			return false;
+		return true;	
+	}
+	else if ( secondWord == (CString)"свободно" )
+	{
+		condition.type = CONDTYPE_NOT;
+		
+		condition.cond1 = new CommandCondition;
+
+
+		if( firstWord == CString("слева") )
+			condition.cond1 -> type = CONDTYPE_WALLLEFT;
+		else if( firstWord == CString("справа") )
+			condition.cond1 -> type = CONDTYPE_WALLRIGHT;
+		else if( firstWord == CString("сверху") )
+			condition.cond1 -> type = CONDTYPE_WALLUP;
+		else if( firstWord == CString("снизу") )
+			condition.cond1 -> type = CONDTYPE_WALLDOWN;
+		else
+			return false;
+		return true;	
+	}
+	else if ( secondWord == (CString)"закрашено" )
+	{
+		condition.type = CONDTYPE_PAINTED;
+		
+		if( firstWord == CString("поле") )
+			return true;
+		return false;
+	}
+	else if ( secondWord == (CString)"не" )
+	{
+		secondWord = readFirstWord( string );
+		if( secondWord == (CString)"закрашено" && firstWord == (CString)"поле" )
+		{
+			condition.cond1 = new CommandCondition;
+			condition.type = CONDTYPE_NOT;
+			condition.cond1 -> type = CONDTYPE_PAINTED;
+			return true;
+		}
+
+		return false;
+	}
+
+	return false;
+}
 
 /////////////////////////////////////////////////////////////////////
 
@@ -334,3 +414,5 @@ bool CProgram::deleteProcedure( CString name )
 	
 	return( true );
 }
+
+

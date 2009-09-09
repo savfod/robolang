@@ -127,11 +127,11 @@ CString CCommand::getCommandString()
 			}							
 			case CMDTYPE_IF : 
 			{
-				return CString("если ") + condition.getConditionName();
+				return CString("Если ") + condition.getConditionName();
 			}
 			case CMDTYPE_WHILE : 
 			{
-				return CString("пока ") + condition.getConditionName();
+				return CString("Пока ") + condition.getConditionName();
 			}
 			case CMDTYPE_CALL : 
 			{

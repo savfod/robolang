@@ -132,6 +132,7 @@ public:
 class CProgram  
 {
 public:
+	bool readCondition( CommandCondition &condition, CString &string);
 	bool readBlockOfCommands( CCommandArray &commands, CString &string);
 	
 	CProgram( IControl *ic );

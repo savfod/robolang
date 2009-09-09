@@ -61,13 +61,13 @@ void CInterpreter::interpretCommand(CCommand *cmd)
 	{
 		case CMDTYPE_PAINT:
 		{
-			WAIT( 0.2 );
+			WAIT( 0.02 );
 			map -> robotPaint( cmd -> getRobotName(), cmd -> color );		
 			break;
 		}
 		case CMDTYPE_MOVE:
 		{
-			WAIT( 0.2 );
+			WAIT( 0.02 );
 			bool successful = map -> robotMoved( cmd -> getRobotName(), cmd -> direction );
 			if( !successful ) 
 				wasStopped = true;

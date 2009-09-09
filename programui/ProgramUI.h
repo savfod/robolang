@@ -29,6 +29,7 @@ public:
 class CProgramUI  
 {
 public:
+	void onProgramOpened(bool successful);
 	CProgramUI( IEditWindow *iw );
 	virtual ~CProgramUI();
 

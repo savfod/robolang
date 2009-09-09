@@ -29,7 +29,7 @@ void CControl::onAppNewProgram()
 	prog -> createNew();
 	map -> createNew();
 
-	ic -> removeProcedures();
+	ic -> removeProcedures(); 
 	
 	int n = prog -> getProcedureCount();
 	for( int k = 0; k < n; k++ )
@@ -96,3 +96,18 @@ bool CControl::onAppDeleteProc( CString name )
 	return( prog -> deleteProcedure( name ) );
 }
 
+void CControl::onProgNewProgram()
+{
+	CRoboMap *map = ic -> getCRoboMap();
+	map -> createNew();
+
+	ic -> removeProcedures(); 
+	
+	CProgram *prog = ic -> getCProgram();
+	int n = prog -> getProcedureCount();
+	for( int k = 0; k < n; k++ )
+	{
+		CProcedure *p = prog -> getProcedureByIndex( k );
+		ic -> addProcedure( p );
+	}
+}
