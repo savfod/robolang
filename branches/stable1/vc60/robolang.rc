@@ -1,0 +1,578 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Russian resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_RUS)
+#ifdef _WIN32
+LANGUAGE LANG_RUSSIAN, SUBLANG_DEFAULT
+#pragma code_page(1251)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\robolang.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#include ""afxprint.rc""       // printing/print preview resources\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\robolang.ico"
+IDR_ROBOLATYPE          ICON    DISCARDABLE     "res\\robolangDoc.ico"
+IDI_ICON1               ICON    DISCARDABLE     "res\\icon1.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP  MOVEABLE PURE   "res\\Toolbar.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR DISCARDABLE  16, 15
+BEGIN
+    BUTTON      ID_FILE_NEW
+    BUTTON      ID_FILE_OPEN
+    BUTTON      ID_FILE_SAVE
+    SEPARATOR
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    SEPARATOR
+    BUTTON      ID_FILE_PRINT
+    SEPARATOR
+    BUTTON      ID_APP_ABOUT
+    SEPARATOR
+    BUTTON      ID_START
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "&Программа"
+    BEGIN
+        MENUITEM "&Создать новую\tCtrl+N",      ID_FILE_NEW
+        MENUITEM "&Загрузить...\tCtrl+O",       ID_FILE_OPEN
+        MENUITEM "С&охранить\tCtrl+S",          ID_FILE_SAVE
+        MENUITEM "Сохранить &как...",           ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "&Печать...\tCtrl+P",          ID_FILE_PRINT
+        MENUITEM "Просмотр пе&чати",            ID_FILE_PRINT_PREVIEW
+        MENUITEM "Н&астройки печати...",        ID_FILE_PRINT_SETUP
+        MENUITEM SEPARATOR
+        MENUITEM "В&ыход",                      ID_APP_EXIT
+    END
+    POPUP "&Правка"
+    BEGIN
+        MENUITEM "&Добавить процедуру",         IDC_CMDPROC_ADD
+        MENUITEM "Переименовать",               IDC_CMDPROC_CHANGE
+        MENUITEM SEPARATOR
+        MENUITEM "Удалить процедуру",           IDC_CMDPROC_DELETE
+    END
+    POPUP "Команды"
+    BEGIN
+        POPUP "Перейти"
+        BEGIN
+            MENUITEM "Налево",                      IDC_CMDMOVE_LEFT
+            MENUITEM "Направо",                     IDC_CMDMOVE_RIGHT
+            MENUITEM "Вверх",                       IDC_CMDMOVE_UP
+            MENUITEM "Вниз",                        IDC_CMDMOVE_DOWN
+        END
+        POPUP "Закрасить"
+        BEGIN
+            MENUITEM "Белый",                       IDC_CMDPAINT_WHITE
+            MENUITEM "Черный",                      IDC_CMDPAINT_BLACK
+            MENUITEM "Красный",                     IDC_CMDPAINT_RED
+            MENUITEM "Желтый",                      IDC_CMDPAINT_YELLOW
+            MENUITEM "Зеленый",                     IDC_CMDPAINT_GREEN
+        END
+        POPUP "Если (условие)"
+        BEGIN
+            POPUP "Не"
+            BEGIN
+                MENUITEM "Стенка слева",                IDC_CMDIF_NOTWALLLEFT
+
+                MENUITEM "Стенка справа",               IDC_CMDIF_NOTWALLRIGHT
+
+                MENUITEM "Стенка сверху",               IDC_CMDIF_NOTWALLUP
+                MENUITEM "Стенка снизу",                IDC_CMDIF_NOTWALLDOWN
+
+                MENUITEM "Закрашено",                   IDC_CMDIF_NOTPAINTED
+            END
+            MENUITEM "Стенка слева",                IDC_CMDIF_WALLLEFT
+            MENUITEM "Стенка справа",               IDC_CMDIF_WALLRIGHT
+            MENUITEM "Стенка сверху",               IDC_CMDIF_WALLUP
+            MENUITEM "Стенка снизу",                IDC_CMDIF_WALLDOWN
+            MENUITEM "Закрашено",                   IDC_CMDIF_PAINTED
+        END
+        POPUP "Цикл пока (условие)"
+        BEGIN
+            POPUP "Не"
+            BEGIN
+                MENUITEM "Стенка слева",                IDC_CMDWHILE_NOTWALLLEFT
+
+                MENUITEM "Стенка справа",               IDC_CMDWHILE_NOTWALLRIGHT
+
+                MENUITEM "Стенка сверху",               IDC_CMDWHILE_NOTWALLUP
+
+                MENUITEM "Стенка снизу",                IDC_CMDWHILE_NOTWALLDOWN
+
+                MENUITEM "Закрашено",                   IDC_CMDWHILE_NOTPAINTED
+
+            END
+            MENUITEM "Стенка слева",                IDC_CMDWHILE_WALLLEFT
+            MENUITEM "Стенка справа",               IDC_CMDWHILE_WALLRIGHT
+            MENUITEM "Стенка сверху",               IDC_CMDWHILE_WALLUP
+            MENUITEM "Стенка снизу",                IDC_CMDWHILE_WALLDOWN
+            MENUITEM "Закрашено",                   IDC_CMDWHILE_PAINTED
+        END
+        POPUP "Вызвать процедуру"
+        BEGIN
+            MENUITEM "(нет процедур)",              IDC_CMDPROC_NOTHINGTOCALL
+            , GRAYED
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "Добавить...",                 IDC_CMDNEW
+        MENUITEM "Изменить...",                 IDC_CMDCHANGE
+        MENUITEM SEPARATOR
+        MENUITEM "Удалить",                     IDC_CMDDELETE
+    END
+    POPUP "&Вид"
+    BEGIN
+        MENUITEM "&Панель инструментов",        ID_VIEW_TOOLBAR
+        MENUITEM "&Строка состояния",           ID_VIEW_STATUS_BAR
+    END
+    POPUP "&Помощь"
+    BEGIN
+        MENUITEM "&О программе...",             ID_APP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS PRELOAD MOVEABLE PURE 
+BEGIN
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL, NOINVERT
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL, NOINVERT
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT, NOINVERT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT, NOINVERT
+    VK_F2,          IDC_CMDPROC_CHANGE,     VIRTKEY, NOINVERT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT, NOINVERT
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL, NOINVERT
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "О приложении РОБОКОП"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "РОБОКОП версия 1.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "57 школа 2009",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "OK",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDR_MAINFRAME DIALOG DISCARDABLE  0, 0, 330, 16
+STYLE WS_CHILD
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "TODO: здесь что-то обязательно будет",IDC_STATIC,12,4,
+                    300,8
+END
+
+IDD_CMDNEW DIALOG DISCARDABLE  0, 0, 301, 166
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Создать Новую Команду"
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Тип команды",IDC_STATIC,7,7,225,151,WS_GROUP
+    CONTROL         "Закрасить",IDC_CMDTYPEPAINT,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP | WS_TABSTOP,23,37,52,10
+    CONTROL         "Перейти",IDC_CMDTYPEMOVE,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,23,80,45,10
+    CONTROL         "Условие",IDC_CMDTYPEIF,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,23,115,45,10
+    CONTROL         "Цикл",IDC_CMDTYPEWHILE,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,23,130,33,10
+    GROUPBOX        "",IDC_STATIC,80,16,146,45,WS_GROUP
+    LTEXT           "Цвет:",IDC_STATIC,87,30,20,8
+    CONTROL         "",IDC_RECT,"Static",SS_WHITERECT,88,40,109,14
+    PUSHBUTTON      "Ц",IDC_COLOR,203,40,15,14
+    GROUPBOX        "",IDC_STATIC,80,61,146,45,WS_GROUP
+    CONTROL         "Влево",IDC_MOVELEFT,"Button",BS_AUTORADIOBUTTON,87,74,
+                    37,10
+    CONTROL         "Вправо",IDC_MOVERIGHT,"Button",BS_AUTORADIOBUTTON,154,
+                    74,41,10
+    CONTROL         "Вверх",IDC_MOVEUP,"Button",BS_AUTORADIOBUTTON,87,88,36,
+                    10
+    CONTROL         "Вниз",IDC_MOVEDOWN,"Button",BS_AUTORADIOBUTTON,154,88,
+                    33,10
+    DEFPUSHBUTTON   "OK",IDOK,244,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,244,24,50,14
+    GROUPBOX        "",IDC_STATIC,80,106,146,45,WS_GROUP
+    CONTROL         "Стенка слева",IDC_CONDLEFT,"Button",BS_AUTORADIOBUTTON,
+                    87,119,62,10
+    CONTROL         "Стенка справа",IDC_CONDRIGHT,"Button",
+                    BS_AUTORADIOBUTTON,155,119,66,10
+    CONTROL         "Стенка сверху",IDC_CONDUP,"Button",BS_AUTORADIOBUTTON,
+                    87,133,65,10
+    CONTROL         "Стенка снизу",IDC_CONDDOWN,"Button",BS_AUTORADIOBUTTON,
+                    155,133,61,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_CMDNEW, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 294
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 159
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    IDR_MAINFRAME           "РОБОКОП\n\nРОБОКОП\n\n\nRobolang.Document\nRobolang Document"
+END
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    AFX_IDS_APP_TITLE       "РОБОКОП"
+    AFX_IDS_IDLEMESSAGE     "Сейчас ничего не происходит"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "OVR"
+    ID_INDICATOR_REC        "REC"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_NEW             "Создать программу\nНовая программа"
+    ID_FILE_OPEN            "Загрузить программу\nОткрыть"
+    ID_FILE_CLOSE           "Закрыть текущую программу\nЗакрыть"
+    ID_FILE_SAVE            "Сохранить программу\nСохранить"
+    ID_FILE_SAVE_AS         "Сохранить программу как\nСохранить как"
+    ID_FILE_PAGE_SETUP      "Изменить настройки печати страницы\nНастройки печати страницы"
+    ID_FILE_PRINT_SETUP     "Изменить настройки принтера\nНастройки принтера"
+    ID_FILE_PRINT           "Распечатать программу на принтере\nПечатать"
+    ID_FILE_PRINT_PREVIEW   "Просмотр программы перед отправкой на принтер\nПросмотр перед печатью"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_APP_ABOUT            "Показать информацию о программе\nО программе"
+    ID_APP_EXIT             "Завершение работы приложения\nВыход"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_MRU_FILE1       "Загрузить программу"
+    ID_FILE_MRU_FILE2       "Загрузить программу"
+    ID_FILE_MRU_FILE3       "Загрузить программу"
+    ID_FILE_MRU_FILE4       "Загрузить программу"
+    ID_FILE_MRU_FILE5       "Загрузить программу"
+    ID_FILE_MRU_FILE6       "Загрузить программу"
+    ID_FILE_MRU_FILE7       "Загрузить программу"
+    ID_FILE_MRU_FILE8       "Загрузить программу"
+    ID_FILE_MRU_FILE9       "Загрузить программу"
+    ID_FILE_MRU_FILE10      "Загрузить программу"
+    ID_FILE_MRU_FILE11      "Загрузить программу"
+    ID_FILE_MRU_FILE12      "Загрузить программу"
+    ID_FILE_MRU_FILE13      "Загрузить программу"
+    ID_FILE_MRU_FILE14      "Загрузить программу"
+    ID_FILE_MRU_FILE15      "Загрузить программу"
+    ID_FILE_MRU_FILE16      "Загрузить программу"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_NEXT_PANE            "Перейти к следующему окну\nСледующее окно"
+    ID_PREV_PANE            "Перейти к предыдущему окну\nПредыдущее окно"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_EDIT_CLEAR           "Удалить выделенный1 текст\nСтереть"
+    ID_EDIT_CLEAR_ALL       "Удалить все\nУдалить все"
+    ID_EDIT_COPY            "Скопировать выделенный текст\nКопировать"
+    ID_EDIT_CUT             "Скопировать и удалить из исходного текста\nВырезать"
+    ID_EDIT_FIND            "Найти указанный текст\nНайти строку"
+    ID_EDIT_PASTE           "Вставить ранее скопированный текст\nВставить"
+    ID_EDIT_REPEAT          "Повторить последнее действие\nПовторить"
+    ID_EDIT_REPLACE         "Заменить текст\nЗаменить"
+    ID_EDIT_SELECT_ALL      "Выделить всю программу\nВыделить все"
+    ID_EDIT_UNDO            "Отменить операцию\nОтменить"
+    ID_EDIT_REDO            "Повторить отмененную операцию\nПовторить заново"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_VIEW_TOOLBAR         "Показать или скрыть панель инструментов\nПанель инструментов"
+    ID_VIEW_STATUS_BAR      "Показать или скрыть строку состояния\nСтрока состояния"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCSIZE          "Изменить размер окна приложения"
+    AFX_IDS_SCMOVE          "Переместить окно приложения"
+    AFX_IDS_SCMINIMIZE      "Свернуть окно приложения"
+    AFX_IDS_SCMAXIMIZE      "Развернуть окно приложения на полный экран"
+    AFX_IDS_SCCLOSE         "Закрыть приложение"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCRESTORE       "Восстановить обычный рамер окна приложения "
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_PREVIEW_CLOSE   "Закрыть просмотр перед печатью\nЗакрыть просмотр печати"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDC_CMDNEW              "Создать новую команду программы"
+    IDC_CMDCHANGE           "Изменить текущую команду"
+    IDC_CMDDELETE           "Удалить выбранную команду"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDC_CMDPAINT_WHITE      "Закрасить поле белым цветом"
+    IDC_CMDPAINT_RED        "Закрасить поле красным цветом"
+    IDC_CMDPAINT_YELLOW     "Закрасить поле желтым цветом"
+    IDC_CMDPAINT_GREEN      "Закрасить поле зеленым цветом"
+    IDC_CMDMOVE_LEFT        "Пойти налево"
+    IDC_CMDMOVE_RIGHT       "Пойти направо"
+    IDC_CMDMOVE_UP          "Пойти вверх"
+    IDC_CMDMOVE_DOWN        "Пойти вниз"
+    IDC_CMDIF_WALLLEFT      "Если стенка слева, выполнить..."
+    IDC_CMDIF_WALLRIGHT     "Если стенка справа, выполнить..."
+    IDC_CMDIF_WALLUP        "Если стенка сверху, выполнить..."
+    IDC_CMDIF_WALLDOWN      "Если стенка снизу, выполнить..."
+    IDC_CMDWHILE_WALLLEFT   "Цикл пока стенка слева"
+    IDC_CMDWHILE_WALLRIGHT  "Цикл пока стенка справа"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDC_CMDWHILE_WALLUP     "Цикл пока стенка сверху"
+    IDC_CMDWHILE_WALLDOWN   "Цикл пока стенка снизу"
+    IDC_CMDIF_PAINTED       "Текущее поле, где стоит робот, закрашено"
+    IDC_CMDWHILE_PAINTED    "Текущее поле, где стоит робот, закрашено"
+    IDC_CMDIF_NOTWALLLEFT   "Если слева нет стенки , выполнить..."
+    IDC_CMDIF_NOTWALLRIGHT  "Если справа нет стенки , выполнить..."
+    IDC_CMDIF_NOTWALLUP     "Если сверху нет стенки , выполнить..."
+    IDC_CMDIF_NOTWALLDOWN   "Если снизу нет стенки , выполнить..."
+    IDC_CMDIF_NOTPAINTED    "Текущее поле, где стоит робот, не закрашено"
+    IDC_CMDWHILE_NOTWALLLEFT "Цикл пока слева нет стенки"
+    IDC_CMDWHILE_NOTWALLRIGHT "Цикл пока справа нет стенки"
+    IDC_CMDWHILE_NOTWALLUP  "Цикл пока сверху нет стенки"
+    IDC_CMDWHILE_NOTWALLDOWN "Цикл пока снизу нет стенки"
+    IDC_CMDWHILE_NOTPAINTED "Цикл пока поле, где стоит робот, не закрашено"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDC_CMDPAINT_BLACK      "Закрасить поле черным цветом"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDC_CMDPROC_ADD         "Добавить новую процедуру"
+    IDC_CMDPROC_CHANGE      "Изменить название процедуры"
+    IDC_CMDPROC_DELETE      "Удалить указанную в дереве процедуру"
+    IDC_CMDPROC_NOTHINGTOCALL "Нет процедур, доступных для вызова"
+END
+
+#endif    // Russian resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "Comments", "\0"
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "robolang MFC Application\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "robolang\0"
+            VALUE "LegalCopyright", "Copyright (C) 2009\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "robolang.EXE\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "robolang Application\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+            VALUE "SpecialBuild", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\robolang.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#include "afxprint.rc"       // printing/print preview resources
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
