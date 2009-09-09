@@ -20,6 +20,8 @@ protected: // create from serialization only
 // Attributes
 public:
 	CRobolangDoc* GetDocument();	  
+private:
+	bool isFirstCalling;//InitialUpdate
 
 // Operations
 public:

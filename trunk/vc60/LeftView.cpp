@@ -55,7 +55,7 @@ END_MESSAGE_MAP()
 CLeftView::CLeftView()
 {
 	// TODO: add construction code here
-
+	isFirstCalling = true;
 }
 
 CLeftView::~CLeftView()
@@ -201,8 +201,13 @@ void CLeftView::OnInitialUpdate()
 
 	// TODO: You may populate your TreeView with items by directly accessing
 	//  its tree control through a call to GetTreeCtrl().
-	addItem( NULL , "Процедуры текущей программы" , TREEITEMTYPE_PROCHEADING );
-	addItem( NULL , "Известные программы" , TREEITEMTYPE_HISTORYHEADING );
+	if( isFirstCalling )
+	{
+		addItem( NULL , "Процедуры текущей программы" , TREEITEMTYPE_PROCHEADING );
+		addItem( NULL , "Известные программы" , TREEITEMTYPE_HISTORYHEADING );
+	}
+	
+	isFirstCalling = false;
 }
 
 /////////////////////////////////////////////////////////////////////////////

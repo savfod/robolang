@@ -32,6 +32,10 @@ BEGIN_MESSAGE_MAP(CRobolangApp, CWinApp)
 	ON_COMMAND(ID_APP_ABOUT, OnAppAbout)
 	ON_COMMAND(ID_FILE_NEW, OnFileNew)
 	ON_COMMAND(ID_START, OnStartInterpreter)
+	ON_COMMAND(ID_MAP_CLEAR_CELL, OnMapClearCell)
+	ON_COMMAND(ID_MAP_RANDOM_CELL, OnMapRandomCell)
+	ON_COMMAND(ID_MAP_CLEAR_WALL, OnMapClearWall)
+	ON_COMMAND(ID_MAP_RANDOM_WALL, OnMapRandomWall)
 	//}}AFX_MSG_MAP
 	// Standard file based document commands
 	ON_COMMAND(ID_FILE_NEW, CWinApp::OnFileNew)
@@ -251,4 +255,28 @@ void CRobolangApp::OnStartInterpreter()
 	// TODO: Add your command handler code here
 	CInterpreter* interpreter = getCInterpreter();
 	_beginthread( interpreter -> startOrStopInterpretating, 0, NULL);
+}
+
+void CRobolangApp::OnMapClearCell() 
+{
+	// TODO: Add your command handler code here
+	
+}
+
+void CRobolangApp::OnMapRandomCell() 
+{
+	// TODO: Add your command handler code here
+	
+}
+
+void CRobolangApp::OnMapClearWall() 
+{
+	// TODO: Add your command handler code here
+	
+}
+
+void CRobolangApp::OnMapRandomWall() 
+{
+	// TODO: Add your command handler code here
+	
 }

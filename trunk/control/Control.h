@@ -65,6 +65,7 @@ public:
 	bool onAppRenameProcedure( CProcedure *p , CString newName );
 	
 	void onAppNewProgram();
+	void onProgNewProgram();
 private:
 	IControl *ic;
 };

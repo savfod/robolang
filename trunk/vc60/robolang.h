@@ -46,6 +46,10 @@ public:
 	afx_msg void OnAppAbout();
 	afx_msg void OnFileNew();
 	afx_msg void OnStartInterpreter();
+	afx_msg void OnMapClearCell();
+	afx_msg void OnMapRandomCell();
+	afx_msg void OnMapClearWall();
+	afx_msg void OnMapRandomWall();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 
