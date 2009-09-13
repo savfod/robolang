@@ -73,7 +73,7 @@ public:
 	
 //public data
 	CLocationMap robots;
-	
+	COLORREF stdCellColor;
 
 	CColorSquareArrayPointer cells;
 	CBoolSquareArrayPointer wallH; //horizontal

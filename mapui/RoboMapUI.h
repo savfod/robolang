@@ -19,12 +19,18 @@ public:
 class CRoboMapUI  
 {
 public:
+	
 	CRoboMapUI( IRoboMapWindow *mw );
 	virtual ~CRoboMapUI();
 
 	void onViewCellChanged( int indexX, int indexY);
 	void onViewWallVChanged( int indexX, int indexY);
 	void onViewWallHChanged( int indexX, int indexY);
+
+	void onViewClearCell();
+	void onViewClearWall();
+	void onViewRandomCell();
+	void onViewRandomWall();
 
 	void onMapChanged();
 private:

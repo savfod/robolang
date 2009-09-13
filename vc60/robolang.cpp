@@ -260,23 +260,27 @@ void CRobolangApp::OnStartInterpreter()
 void CRobolangApp::OnMapClearCell() 
 {
 	// TODO: Add your command handler code here
-	
+	CRoboMapUI* mapUI = IControl::getInstance() -> getCRoboMapUI();
+	mapUI->onViewClearCell();
 }
 
 void CRobolangApp::OnMapRandomCell() 
 {
 	// TODO: Add your command handler code here
-	
+	CRoboMapUI* mapUI = IControl::getInstance() -> getCRoboMapUI();
+	mapUI->onViewRandomCell();
 }
 
 void CRobolangApp::OnMapClearWall() 
 {
 	// TODO: Add your command handler code here
-	
+	CRoboMapUI* mapUI = IControl::getInstance() -> getCRoboMapUI();
+	mapUI->onViewClearWall();
 }
 
 void CRobolangApp::OnMapRandomWall() 
 {
 	// TODO: Add your command handler code here
-	
+	CRoboMapUI* mapUI = IControl::getInstance() -> getCRoboMapUI();
+	mapUI->onViewRandomWall();
 }

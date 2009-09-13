@@ -17,6 +17,7 @@ const int STARTHEIGHT = 10;
 CRoboMap::CRoboMap( IControl *p_ic )
 :	ic( p_ic )
 {
+	stdCellColor = RGB( 250 , 162 , 14 );
 }
 
 CRoboMap::~CRoboMap()
@@ -324,7 +325,7 @@ void CRoboMap::createNew()
 	robots.SetAt( "пнанр 0", loc );
 
 	//for fun (first picture)
-	COLORREF color = RGB( 250 , 162 , 14 );
+	COLORREF color = stdCellColor;
 	cells -> GetAt(3) -> SetAt(1, color);
 	cells -> GetAt(3) -> SetAt(2, color);
 	cells -> GetAt(3) -> SetAt(3, color);
