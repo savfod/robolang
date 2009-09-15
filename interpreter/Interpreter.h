@@ -19,6 +19,8 @@ class IControl;
 class CInterpreter  
 {
 public:
+	void SpeedDown();
+	void SpeedUp();
 	CInterpreter( IControl *ic );
 	virtual ~CInterpreter();
 	static void startOrStopInterpretating(void*);
@@ -29,7 +31,7 @@ private:
 	void interpretCommandArray( CCommandArray *cmdArray );
 	
 	bool wasStopped;
-
+	double pauseTime;
 	IControl *ic;
 };
 

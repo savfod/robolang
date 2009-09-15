@@ -42,14 +42,28 @@ void CProgramUI::onControlProcActivated( CString name )
 	//finding CProgram, "singleton"
 	CProgram *program = IControl::getInstance() -> getCProgram();
 	
+	// refresh view
 	iw -> removeAllCommands();
-
 	procedure = program -> getProcedureByName( procName );
 	iw -> setProcedure( procedure );
 }
 
 /*#########################################################################*/
 /*#########################################################################*/
+
+void CProgramUI::onProgramNew()
+{
+	if( !isProcessUpdates )
+		return;
+
+	//finding CProgram, "singleton"
+	CProgram *program = IControl::getInstance() -> getCProgram();
+
+	// refresh view	
+	iw -> removeAllCommands();
+	procedure = program -> getMainProcedure(); 
+	iw -> setProcedure( procedure );
+}
 
 void CProgramUI::onProgramChanged()
 {
@@ -59,10 +73,13 @@ void CProgramUI::onProgramChanged()
 	//finding CProgram, "singleton"
 	CProgram *program = IControl::getInstance() -> getCProgram();
 
+	// refresh view	
 	iw -> removeAllCommands();
-
 	procedure = program -> getMainProcedure(); 
 	iw -> setProcedure( procedure );
+
+	//notify Doc
+	onSmthChanged();
 }
 
 void CProgramUI::onProgramProcRenamed( CProcedure *p )
@@ -75,6 +92,9 @@ void CProgramUI::onProgramProcRenamed( CProcedure *p )
 		procName = p -> name;
 		iw -> notifyProcRenamed( p );
 	}
+
+	//notify Doc
+	onSmthChanged();
 }
 
 void CProgramUI::onProgramProcDeleted( CString name )
@@ -88,6 +108,9 @@ void CProgramUI::onProgramProcDeleted( CString name )
 		iw -> removeAllCommands();
 		iw -> setProcedure( procedure );
 	}
+
+	//notify Doc
+	onSmthChanged();
 }
 
 /*#########################################################################*/
@@ -100,6 +123,9 @@ void CProgramUI::onEditAdd( CCommand *cmd , CCommand *parent , CCommand *before 
 	restoreUpdates();
 
 	iw -> setProcedure( procedure );
+
+	//notify Doc
+	onSmthChanged();
 }
 
 void CProgramUI::onEditUpdate( CCommand *cmd , CCommand *cmdData )
@@ -118,6 +144,9 @@ void CProgramUI::onEditUpdate( CCommand *cmd , CCommand *cmdData )
 
 	// refresh view
 	iw -> setProcedure( procedure );
+
+	//notify Doc
+	onSmthChanged();
 }
 
 void CProgramUI::onEditDelete( CCommand *cmd )
@@ -128,6 +157,9 @@ void CProgramUI::onEditDelete( CCommand *cmd )
 
 	// refresh view
 	iw -> setProcedure( procedure );
+
+	//notify Doc
+	onSmthChanged();
 }
 
 /*#########################################################################*/
@@ -144,4 +176,9 @@ void CProgramUI::onProgramOpened(bool successful)
 		control -> onAppNewProgram();
 	}
 	onProgramChanged();
+}
+
+void CProgramUI::onSmthChanged() 
+{
+	IControl::getInstance() -> onSmthChanged();
 }

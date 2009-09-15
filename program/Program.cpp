@@ -42,9 +42,6 @@ void CProgram::createNew()
 	// create empty program
 	addProcedure( "main" );
 
-	// notify ui
-	CProgramUI *ui = ic -> getCProgramUI();
-	ui -> onProgramChanged();
 }
 
 CProcedure *CProgram::addProcedure( CString name )
@@ -56,6 +53,19 @@ CProcedure *CProgram::addProcedure( CString name )
 	// create empty program
 	proc = new CProcedure( name );
 	procedures.SetAt( name , proc );
+
+	// notify ui
+	if( name != "main") //if it is reaction on "create new", the programm didn't chandged
+	{
+		CProgramUI *ui = ic -> getCProgramUI();
+		ui -> onProgramChanged();
+	}
+	else
+	{
+		CProgramUI *ui = ic -> getCProgramUI();
+		ui -> onProgramNew();
+	}
+	
 	return( proc );
 }
 
@@ -130,7 +140,6 @@ CString CProgram::getBlockOfCommandsText(CCommandArray *commands)
 	result += "}\r\n";
 
 	return result;
-
 }
 
 void CProgram::setProgram( CString program )
@@ -150,9 +159,6 @@ void CProgram::setProgram( CString program )
 
 	CProgramUI *ui = ic -> getCProgramUI();
 	ui -> onProgramOpened( successful );
-
-
-
 }
 
 bool CProgram::isLetter(TCHAR c)
@@ -396,6 +402,10 @@ void CProgram::renameProcedure( CProcedure *p , CString newName )
 	p -> name = newName;
 	procedures.SetAt( p -> name , p );
 
+	//not finished ( procedure calls must rename )
+	CString key;
+	CProcedure *proc;
+
 	// notify
 	CProgramUI *ui = ic -> getCProgramUI();
 	ui -> onProgramProcRenamed( p );
@@ -403,6 +413,7 @@ void CProgram::renameProcedure( CProcedure *p , CString newName )
 
 bool CProgram::deleteProcedure( CString name )
 {
+		//not finished ( procedure calls must be changed )
 	CProcedure* p;
 	BOOL wasFound = procedures.Lookup( name , p );
 	ASSERT( wasFound );

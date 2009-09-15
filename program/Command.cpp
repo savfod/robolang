@@ -211,3 +211,12 @@ void CCommand::setWhileNot( CommandConditionType p_condition )
 	condition.cond1 -> type = p_condition;
 }
 
+void CCommand::onProcRenamed( CString oldName, CString newName )
+{
+	if( type == CMDTYPE_CALL && callingProcedureName == oldName )
+		callingProcedureName = newName;
+
+	if( isCompound() )
+		for(int i = 0; i < childCommands.GetSize() ; i++ )
+			childCommands.GetAt(i) -> onProcRenamed( oldName, newName );
+}

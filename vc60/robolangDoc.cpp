@@ -71,7 +71,7 @@ void CRobolangDoc::Serialize(CArchive& ar)
 			wholeText += '\n';
 		}
 		
-		CProgram *prog = IControl::getInstance() -> getCProgram();
+ 		CProgram *prog = IControl::getInstance() -> getCProgram();
 		prog -> setProgram( wholeText );
 
 		// TODO: add loading code here

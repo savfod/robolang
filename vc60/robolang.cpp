@@ -36,6 +36,8 @@ BEGIN_MESSAGE_MAP(CRobolangApp, CWinApp)
 	ON_COMMAND(ID_MAP_RANDOM_CELL, OnMapRandomCell)
 	ON_COMMAND(ID_MAP_CLEAR_WALL, OnMapClearWall)
 	ON_COMMAND(ID_MAP_RANDOM_WALL, OnMapRandomWall)
+	ON_COMMAND(ID_INTERPRETER_SPEEDDOWN, OnViewInterpreterSpeedDown)
+	ON_COMMAND(ID_INTERPRETER_SPEEDUP, OnViewInterpreterSpeedUp)
 	//}}AFX_MSG_MAP
 	// Standard file based document commands
 	ON_COMMAND(ID_FILE_NEW, CWinApp::OnFileNew)
@@ -83,6 +85,12 @@ void CRobolangApp::addProcedure( CProcedure *p )
 {
 	CLeftView *lv = getControlWindow();
 	lv -> addProcedure( p );
+}
+void CRobolangApp::onSmthChanged()
+{
+	CLeftView* LeftView = getControlWindow();
+	CRobolangDoc* Doc = LeftView -> GetDocument();
+	Doc -> SetModifiedFlag();
 }
 
 /*#########################################################################*/
@@ -283,4 +291,18 @@ void CRobolangApp::OnMapRandomWall()
 	// TODO: Add your command handler code here
 	CRoboMapUI* mapUI = IControl::getInstance() -> getCRoboMapUI();
 	mapUI->onViewRandomWall();
+}
+
+void CRobolangApp::OnViewInterpreterSpeedDown() 
+{
+	// TODO: Add your command handler code here
+	CInterpreter* interpreter = getCInterpreter();
+	interpreter -> SpeedDown();
+}
+
+void CRobolangApp::OnViewInterpreterSpeedUp() 
+{
+	// TODO: Add your command handler code here
+	CInterpreter* interpreter = getCInterpreter();
+	interpreter -> SpeedUp();
 }
