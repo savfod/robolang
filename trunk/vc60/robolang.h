@@ -31,6 +31,7 @@ public:
 	virtual void messageBox( CString msg );
 	virtual void removeProcedures();
 	virtual void addProcedure( CProcedure *p );
+	virtual void onSmthChanged();
 
 public:
 // Overrides
@@ -50,6 +51,8 @@ public:
 	afx_msg void OnMapRandomCell();
 	afx_msg void OnMapClearWall();
 	afx_msg void OnMapRandomWall();
+	afx_msg void OnViewInterpreterSpeedDown();
+	afx_msg void OnViewInterpreterSpeedUp();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 

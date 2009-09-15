@@ -201,10 +201,14 @@ void CLeftView::OnInitialUpdate()
 
 	// TODO: You may populate your TreeView with items by directly accessing
 	//  its tree control through a call to GetTreeCtrl().
+	
+
 	if( isFirstCalling )
 	{
 		addItem( NULL , "Процедуры текущей программы" , TREEITEMTYPE_PROCHEADING );
-		addItem( NULL , "Известные программы" , TREEITEMTYPE_HISTORYHEADING );
+		
+		//not finished. This idea isn't supported, so the item is hidden 
+		//addItem( NULL , "Известные программы" , TREEITEMTYPE_HISTORYHEADING );
 	}
 	
 	isFirstCalling = false;

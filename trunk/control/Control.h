@@ -38,6 +38,7 @@ public:
 	virtual void messageBox( CString msg ) = 0;
 	virtual void removeProcedures() = 0;
 	virtual void addProcedure( CProcedure *p ) = 0;
+	virtual void onSmthChanged() = 0; 	
 
 protected:
 	// core classes - singletons

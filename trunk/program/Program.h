@@ -90,6 +90,10 @@ public:
 	void setWhileNot( CommandConditionType condition );
 	void setCall( CString name );
 
+	//for changes in programm
+	void onProcRenamed( CString oldName, CString newName );
+	void onProcDeleted( CString oldName );
+	
 // data
 public:
 	int robot;

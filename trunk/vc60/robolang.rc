@@ -95,7 +95,9 @@ BEGIN
     BUTTON      ID_FILE_PRINT
     BUTTON      ID_APP_ABOUT
     SEPARATOR
+    BUTTON      ID_INTERPRETER_SPEEDDOWN
     BUTTON      ID_START
+    BUTTON      ID_INTERPRETER_SPEEDUP
     SEPARATOR
     BUTTON      ID_MAP_CLEAR_CELL
     BUTTON      ID_MAP_RANDOM_CELL
@@ -241,15 +243,18 @@ END
 // Dialog
 //
 
-IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 231, 59
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "О приложении РОБОКОП"
 FONT 8, "MS Sans Serif"
 BEGIN
-    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,23,20,20
     LTEXT           "РОБОКОП версия 1.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
-    LTEXT           "57 школа 2009",IDC_STATIC,40,25,119,8
-    DEFPUSHBUTTON   "OK",IDOK,178,7,50,14,WS_GROUP
+    LTEXT           "57 школа 2009",IDC_STATIC,43,31,119,8
+    DEFPUSHBUTTON   "OK",IDOK,174,7,50,14,WS_GROUP
+    CONTROL         "http://code.google.com/p/robolang",IDC_STATIC,"Static",
+                    SS_LEFTNOWORDWRAP | SS_NOPREFIX | SS_NOTIFY | WS_GROUP,
+                    51,18,119,8
 END
 
 IDR_MAINFRAME DIALOG DISCARDABLE  0, 0, 330, 11
@@ -310,9 +315,9 @@ BEGIN
     IDD_ABOUTBOX, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 228
+        RIGHTMARGIN, 224
         TOPMARGIN, 7
-        BOTTOMMARGIN, 48
+        BOTTOMMARGIN, 52
     END
 
     IDD_CMDNEW, DIALOG
@@ -491,20 +496,24 @@ BEGIN
     IDC_CMDPROC_CHANGE      "Изменить название процедуры"
     IDC_CMDPROC_DELETE      "Удалить указанную в дереве процедуру"
     IDC_CMDPROC_NOTHINGTOCALL "Нет процедур, доступных для вызова"
+    ID_START                "Запустить/Остановить выполнение\nЗапустить/Остановить выполнение"
 END
 
 STRINGTABLE DISCARDABLE 
 BEGIN
     ID_BUTTON32811          "Очистить поля (убрать цвет)"
     ID_BUTTON32812          "Закрасить случайно"
-    ID_MAP_CLEAR_WALL       "Убрать стенки"
-    ID_MAP_RANDOM_WALL      "Расставить стенки случайно"
+    ID_MAP_CLEAR_WALL       "Убрать стенки\nУбрать стенки"
+    ID_MAP_RANDOM_WALL      "Расставить стенки случайно\nРасставить стенки случайно"
 END
 
 STRINGTABLE DISCARDABLE 
 BEGIN
-    ID_MAP_CLEAR_CELL       "Очитить поля"
-    ID_MAP_RANDOM_CELL      "Закрасить случайные поля"
+    ID_MAP_CLEAR_CELL       "Очитить поля\nОчитить поля"
+    ID_MAP_RANDOM_CELL      "Закрасить случайные поля\nЗакрасить случайные поля"
+    ID_INTERPRETER_SPEEDUP  "Увеличить скорость выполнения в 2 раза, если это возможно\n Увеличить скорость"
+    ID_INTERPRETER_SPEEDDOWN 
+                            "Уменьшить скорость выполнения в 2 раза, если это возможно\n Уменьшить скорость"
 END
 
 #endif    // Russian resources

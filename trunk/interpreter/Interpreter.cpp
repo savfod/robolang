@@ -15,7 +15,8 @@
 CInterpreter::CInterpreter( IControl *p_ic )
 :	ic( p_ic )
 {
-	wasStopped = false;
+	wasStopped = true;
+	pauseTime = 0.02;
 }
 
 CInterpreter::~CInterpreter()
@@ -61,13 +62,13 @@ void CInterpreter::interpretCommand(CCommand *cmd)
 	{
 		case CMDTYPE_PAINT:
 		{
-			WAIT( 0.02 );
+			WAIT( pauseTime );
 			map -> robotPaint( cmd -> getRobotName(), cmd -> color );		
 			break;
 		}
 		case CMDTYPE_MOVE:
 		{
-			WAIT( 0.02 );
+			WAIT( pauseTime );
 			bool successful = map -> robotMoved( cmd -> getRobotName(), cmd -> direction );
 			if( !successful ) 
 				wasStopped = true;
@@ -102,7 +103,16 @@ void CInterpreter::interpretCommand(CCommand *cmd)
 		{
 			CProgram* program = IControl::getInstance() -> getCProgram();
 			CString procName = cmd -> callingProcedureName;
-			interpretProcedure( program -> getProcedureByName( procName ) );
+			CProcedure* proc =  program -> getProcedureByName( procName );
+			
+			if( proc == NULL )
+			{
+				CString error = (CString)"Ошибка. Недействительное имя процедуры (" + procName + (CString)")";
+				IControl::getInstance() -> messageBox(error);
+				wasStopped = true;
+			}
+			else	
+				interpretProcedure( proc );
 			
 			break;
 		}
@@ -123,3 +133,13 @@ void CInterpreter::interpretCommandArray( CCommandArray *cmdArray )
 }
 
 
+
+void CInterpreter::SpeedUp()
+{
+	pauseTime /= 2;
+}
+
+void CInterpreter::SpeedDown()
+{
+	pauseTime *= 2;
+}

@@ -43,14 +43,16 @@ public:
 
 // CProgram
 	void onProgramChanged();
+	void onProgramNew();
 	void onProgramProcRenamed( CProcedure *p );
 	void onProgramProcDeleted( CString name );
 
 private:
 	void skipUpdates();
 	void restoreUpdates();
+	void onSmthChanged(); // notify other parts of the programm, that smth was changed
 
-private:
+private:	
 	IEditWindow *iw;
 	CProcedure *procedure;
 	CString procName;

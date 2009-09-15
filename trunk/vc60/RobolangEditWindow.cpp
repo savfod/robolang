@@ -278,7 +278,9 @@ void CRobolangEditWindow::OnInitialUpdate()
 	GetClientRect( rect );
 
 	lc.SetRedraw( false );
-	lc.InsertColumn( 0, "Робот", LVCFMT_LEFT, 100);
+
+	//not finished. column "robot" should be wider. Different robots are not supported, so column is hidden 
+	lc.InsertColumn( 0, "Робот", LVCFMT_LEFT, 0);
 	lc.InsertColumn( 1, "Команда", LVCFMT_LEFT, 100);
 	lc.SetRedraw( true );
 

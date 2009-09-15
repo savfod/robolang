@@ -22,6 +22,7 @@
 #define IDC_CONDRIGHT                   1011
 #define IDC_CONDUP                      1012
 #define IDC_CONDDOWN                    1013
+#define IDC_EDIT2                       1013
 #define IDC_CMDRANGE_FIRST              31001
 #define IDC_CMDPAINT_BLACK              31775
 #define IDC_CMDPAINT_WHITE              31776
@@ -69,6 +70,8 @@
 #define ID_MAP_RANDOM_WALL              32815
 #define ID_MAP_CLEAR_CELL               32816
 #define ID_MAP_RANDOM_CELL              32817
+#define ID_INTERPRETER_SPEEDUP          32818
+#define ID_INTERPRETER_SPEEDDOWN        32819
 
 // Next default values for new objects
 // 
@@ -76,8 +79,8 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        132
-#define _APS_NEXT_COMMAND_VALUE         32818
-#define _APS_NEXT_CONTROL_VALUE         1012
+#define _APS_NEXT_COMMAND_VALUE         32820
+#define _APS_NEXT_CONTROL_VALUE         1014
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
