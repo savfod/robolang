@@ -97,6 +97,10 @@ SOURCE=.\res\icon1.ico
 # End Source File
 # Begin Source File
 
+SOURCE=.\res\old_tool.bmp
+# End Source File
+# Begin Source File
+
 SOURCE=.\Resource.h
 # End Source File
 # Begin Source File
