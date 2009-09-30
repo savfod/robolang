@@ -6,6 +6,7 @@
 
 #include "robolangDoc.h"
 #include "..\program\program.h"
+#include "..\control\Control.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -29,7 +30,7 @@ END_MESSAGE_MAP()
 CRobolangDoc::CRobolangDoc()
 {
 	// TODO: add one-time construction code here
-
+	isInitialized = false;
 }
 
 CRobolangDoc::~CRobolangDoc()
@@ -43,7 +44,10 @@ BOOL CRobolangDoc::OnNewDocument()
 
 	// TODO: add reinitialization code here
 	// (SDI documents will reuse this document)
-
+	if( isInitialized )
+		IControl::getInstance() -> getCControl() -> onAppNewProgram();
+	
+	isInitialized = true;
 	return TRUE;
 }
 

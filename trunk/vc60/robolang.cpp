@@ -241,8 +241,7 @@ void CRobolangApp::OnFileNew()
 			CWinApp::OnFileNew();
 			return;
 		}
-
-	IControl::vCControl -> onAppNewProgram();
+	CWinApp::OnFileNew();
 }
 
 int CRobolangApp::ExitInstance() 

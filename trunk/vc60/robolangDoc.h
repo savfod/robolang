@@ -18,7 +18,8 @@ protected: // create from serialization only
 
 // Attributes
 public:
-
+private:
+	bool isInitialized;
 // Operations
 public:
 
