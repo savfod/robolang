@@ -77,7 +77,6 @@ IDI_ICON2               ICON    DISCARDABLE     "res\\icon2.ico"
 //
 
 IDR_MAINFRAME           BITMAP  MOVEABLE PURE   "res\\Toolbar.bmp"
-OLD_TOOLBAR             BITMAP  MOVEABLE PURE   "res\\old_tool.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -85,24 +84,6 @@ OLD_TOOLBAR             BITMAP  MOVEABLE PURE   "res\\old_tool.bmp"
 //
 
 IDR_MAINFRAME TOOLBAR DISCARDABLE  16, 15
-BEGIN
-    BUTTON      ID_FILE_NEW
-    BUTTON      ID_FILE_OPEN
-    BUTTON      ID_FILE_SAVE
-    SEPARATOR
-    BUTTON      ID_INTERPRETER_SPEEDDOWN
-    BUTTON      ID_START
-    BUTTON      ID_INTERPRETER_SPEEDUP
-    SEPARATOR
-    BUTTON      ID_MAP_CLEAR_CELL
-    BUTTON      ID_MAP_RANDOM_CELL
-    BUTTON      ID_MAP_CLEAR_WALL
-    BUTTON      ID_MAP_RANDOM_WALL
-    SEPARATOR
-    BUTTON      ID_APP_ABOUT
-END
-
-OLD_TOOLBAR TOOLBAR DISCARDABLE  16, 15
 BEGIN
     BUTTON      ID_FILE_NEW
     BUTTON      ID_FILE_OPEN
@@ -132,109 +113,6 @@ END
 //
 
 IDR_MAINFRAME MENU PRELOAD DISCARDABLE 
-BEGIN
-    POPUP "&Программа"
-    BEGIN
-        MENUITEM "&Создать новую\tCtrl+N",      ID_FILE_NEW
-        MENUITEM "&Загрузить...\tCtrl+O",       ID_FILE_OPEN
-        MENUITEM "С&охранить\tCtrl+S",          ID_FILE_SAVE
-        MENUITEM "Сохранить &как...",           ID_FILE_SAVE_AS
-        MENUITEM SEPARATOR
-        MENUITEM "&Печать...\tCtrl+P",          ID_FILE_PRINT
-        MENUITEM "Просмотр пе&чати",            ID_FILE_PRINT_PREVIEW
-        MENUITEM "Н&астройки печати...",        ID_FILE_PRINT_SETUP
-        MENUITEM SEPARATOR
-        MENUITEM "В&ыход",                      ID_APP_EXIT
-    END
-    POPUP "&Процедуры"
-    BEGIN
-        MENUITEM "&Добавить процедуру",         IDC_CMDPROC_ADD
-        MENUITEM "Переименовать",               IDC_CMDPROC_CHANGE
-        MENUITEM SEPARATOR
-        MENUITEM "Удалить процедуру",           IDC_CMDPROC_DELETE
-    END
-    POPUP "Команды"
-    BEGIN
-        POPUP "Перейти"
-        BEGIN
-            MENUITEM "Налево",                      IDC_CMDMOVE_LEFT
-            MENUITEM "Направо",                     IDC_CMDMOVE_RIGHT
-            MENUITEM "Вверх",                       IDC_CMDMOVE_UP
-            MENUITEM "Вниз",                        IDC_CMDMOVE_DOWN
-        END
-        POPUP "Закрасить"
-        BEGIN
-            MENUITEM "Белый",                       IDC_CMDPAINT_WHITE
-            MENUITEM "Черный",                      IDC_CMDPAINT_BLACK
-            MENUITEM "Красный",                     IDC_CMDPAINT_RED
-            MENUITEM "Желтый",                      IDC_CMDPAINT_YELLOW
-            MENUITEM "Зеленый",                     IDC_CMDPAINT_GREEN
-        END
-        POPUP "Если (условие)"
-        BEGIN
-            POPUP "Не"
-            BEGIN
-                MENUITEM "Стенка слева",                IDC_CMDIF_NOTWALLLEFT
-
-                MENUITEM "Стенка справа",               IDC_CMDIF_NOTWALLRIGHT
-
-                MENUITEM "Стенка сверху",               IDC_CMDIF_NOTWALLUP
-                MENUITEM "Стенка снизу",                IDC_CMDIF_NOTWALLDOWN
-
-                MENUITEM "Закрашено",                   IDC_CMDIF_NOTPAINTED
-            END
-            MENUITEM "Стенка слева",                IDC_CMDIF_WALLLEFT
-            MENUITEM "Стенка справа",               IDC_CMDIF_WALLRIGHT
-            MENUITEM "Стенка сверху",               IDC_CMDIF_WALLUP
-            MENUITEM "Стенка снизу",                IDC_CMDIF_WALLDOWN
-            MENUITEM "Закрашено",                   IDC_CMDIF_PAINTED
-        END
-        POPUP "Цикл пока (условие)"
-        BEGIN
-            POPUP "Не"
-            BEGIN
-                MENUITEM "Стенка слева",                IDC_CMDWHILE_NOTWALLLEFT
-
-                MENUITEM "Стенка справа",               IDC_CMDWHILE_NOTWALLRIGHT
-
-                MENUITEM "Стенка сверху",               IDC_CMDWHILE_NOTWALLUP
-
-                MENUITEM "Стенка снизу",                IDC_CMDWHILE_NOTWALLDOWN
-
-                MENUITEM "Закрашено",                   IDC_CMDWHILE_NOTPAINTED
-
-            END
-            MENUITEM "Стенка слева",                IDC_CMDWHILE_WALLLEFT
-            MENUITEM "Стенка справа",               IDC_CMDWHILE_WALLRIGHT
-            MENUITEM "Стенка сверху",               IDC_CMDWHILE_WALLUP
-            MENUITEM "Стенка снизу",                IDC_CMDWHILE_WALLDOWN
-            MENUITEM "Закрашено",                   IDC_CMDWHILE_PAINTED
-        END
-        POPUP "Вызвать процедуру"
-        BEGIN
-            MENUITEM "(нет процедур)",              IDC_CMDPROC_NOTHINGTOCALL
-            , GRAYED
-        END
-        MENUITEM SEPARATOR
-        MENUITEM "Удалить",                     IDC_CMDDELETE
-    END
-    POPUP "&Вид"
-    BEGIN
-        MENUITEM "&Панель инструментов",        ID_VIEW_TOOLBAR
-        MENUITEM "&Строка состояния",           ID_VIEW_STATUS_BAR
-    END
-    POPUP "&Помощь"
-    BEGIN
-        MENUITEM "&О программе...",             ID_APP_ABOUT
-    END
-END
-
-#if defined(APSTUDIO_INVOKED) || defined(OLD)
-#if defined(APSTUDIO_INVOKED)
-OLD_MENU$(OLD) MENU PRELOAD DISCARDABLE 
-#else
-OLD_MENU MENU PRELOAD DISCARDABLE 
-#endif
 BEGIN
     POPUP "&Программа"
     BEGIN
@@ -334,7 +212,6 @@ BEGIN
         MENUITEM "&О программе...",             ID_APP_ABOUT
     END
 END
-#endif
 
 
 /////////////////////////////////////////////////////////////////////////////

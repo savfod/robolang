@@ -18,6 +18,9 @@ CRoboMap::CRoboMap( IControl *p_ic )
 :	ic( p_ic )
 {
 	stdCellColor = RGB( 250 , 162 , 14 );
+	cells = new CArray< CColorArrayPointer, CColorArrayPointer >;
+	wallH = new CArray< CBoolArrayPointer, CBoolArrayPointer >;
+	wallV = new CArray< CBoolArrayPointer, CBoolArrayPointer >;
 }
 
 CRoboMap::~CRoboMap()
@@ -406,20 +409,23 @@ void CRoboMap::deleteOldObjects()
 
 void CRoboMap::deleteCells()
 {
-	//not finished
-
+	for( int i = 0; i < cells -> GetSize(); i++ )
+		delete cells -> GetAt( i );
+	delete cells;
 }
 
 void CRoboMap::deleteWallH()
 {
-	//not finished
-
+	for( int i = 0; i < wallH -> GetSize(); i++ )
+		delete wallH -> GetAt( i );
+	delete wallH;
 }
 
 void CRoboMap::deleteWallV()
 {
-	//not finished
-
+	for( int i = 0; i < wallV -> GetSize(); i++ )
+		delete wallV -> GetAt( i );
+	delete wallV;
 }
 
 

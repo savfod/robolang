@@ -35,6 +35,7 @@ BEGIN_MESSAGE_MAP(CRobolangMapWindow, CView)
 	ON_WM_LBUTTONUP()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_SIZE()
+	ON_WM_LBUTTONDBLCLK()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -350,4 +351,21 @@ void CRobolangMapWindow::OnSize(UINT nType, int cx, int cy)
 	
 	//SetWindowPos(NULL, 0, 0, 1000, 1000, 0);	// TODO: Add your message handler code here
 	
+}
+
+void CRobolangMapWindow::OnLButtonDblClk(UINT nFlags, CPoint point) 
+{
+	// TODO: Add your message handler code here and/or call default
+	Location loc;
+	LocationType type;
+	identificatePoint( point, loc, type );
+	CRoboMap* map = IControl::getInstance() -> getCRoboMap();
+
+	if( type == TYPE_INCELL )
+	{
+		map -> setRobotLocation( "пнанр 0", loc );
+	//	mapUI -> onViewCellChanged( loc.CrdX, loc.CrdY );
+	}
+	
+	CView::OnLButtonDblClk(nFlags, point);
 }

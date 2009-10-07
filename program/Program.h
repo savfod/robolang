@@ -168,6 +168,8 @@ private:
 	CString readFirstWord( CString &string );
 
 private:
+	void stylize( CString &string );
+	bool skipSymbol( char symbol, CString &string );
 	bool readFirstCommand( CCommand &cmd, CString &string);
 
 	bool isValid(TCHAR c);

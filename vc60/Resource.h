@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Developer Studio generated include file.
-// Used by robolang.rc
+// Used by asyarobot.rc
 //
 #define IDD_ABOUTBOX                    100
 #define ID_VIEW_ARRANGE                 127
@@ -8,6 +8,8 @@
 #define IDR_ROBOLATYPE                  129
 #define IDD_CMDNEW                      130
 #define IDI_ICON1                       131
+
+#define IDI_ICON2                       132
 #define OLD_TOOLBAR                     134
 #define OLD_MENU                        135
 #define IDC_CMDTYPEPAINT                1000
