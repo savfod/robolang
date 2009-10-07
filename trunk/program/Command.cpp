@@ -71,30 +71,30 @@ CString CommandCondition::getConditionName()
 {
 	switch( type )
 	{
-		case CONDTYPE_WALLLEFT : return( "слева стена" );
-		case CONDTYPE_WALLRIGHT : return( "справа стена" );
-		case CONDTYPE_WALLUP : return( "сверху стена" );
-		case CONDTYPE_WALLDOWN : return( "снизу стена" );
-		case CONDTYPE_PAINTED : return( "поле закрашено" );
-		case CONDTYPE_OR: return( "( " + cond1->getConditionName() + " или " + cond2->getConditionName() + " )" );
-		case CONDTYPE_AND: return( "( " + cond1->getConditionName() + " и " + cond2->getConditionName() + " )" );
+		case CONDTYPE_WALLLEFT : return( " слева стена " );
+		case CONDTYPE_WALLRIGHT : return( " справа стена " );
+		case CONDTYPE_WALLUP : return( " сверху стена " );
+		case CONDTYPE_WALLDOWN : return( " снизу стена " );
+		case CONDTYPE_PAINTED : return( " поле закрашено " );
+		case CONDTYPE_OR: return( " (" + cond1->getConditionName() + ")" + " или " + "(" + cond2->getConditionName() + " )" );
+		case CONDTYPE_AND: return( " (" + cond1->getConditionName() + ")" + " и " + "(" + cond2->getConditionName() + " )" );
 		
 		case CONDTYPE_NOT: 
 		{
 			switch( cond1 -> type )
 			{
-				case CONDTYPE_WALLLEFT : return( "слева свободно" );
-				case CONDTYPE_WALLRIGHT : return( "справа свободно" );
-				case CONDTYPE_WALLUP : return( "сверху свободно" );
-				case CONDTYPE_WALLDOWN : return( "снизу свободно" );
-				case CONDTYPE_PAINTED : return( "поле не закрашено" );
+				case CONDTYPE_WALLLEFT : return( " слева свободно " );
+				case CONDTYPE_WALLRIGHT : return( " справа свободно " );
+				case CONDTYPE_WALLUP : return( " сверху свободно " );
+				case CONDTYPE_WALLDOWN : return( " снизу свободно " );
+				case CONDTYPE_PAINTED : return( " поле не закрашено " );
 
 				case CONDTYPE_NOT : return cond1 -> cond1 -> getConditionName();
 			}
-			return ("( не " + cond1->getConditionName() + " )");
+			return (" не " + (CString)"(" + cond1->getConditionName() + ") ");
 		}
 	}
-	return( "Если не пойми что	" );
+	return( " не пойми что " );
 }
 
 CString CCommand::getCommandString()

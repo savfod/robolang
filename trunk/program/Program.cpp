@@ -82,6 +82,58 @@ CProcedure *CProgram::getProcedureByName( CString name )
 	return( NULL );
 }
 
+
+/////////////////////////////////////////////////////////////////////
+
+int CProgram::getProcedureCount()
+{
+	return( procedures.GetCount() );
+}
+
+CProcedure *CProgram::getProcedureByIndex( int index )
+{
+	POSITION pos = procedures.GetStartPosition();
+	if( pos == NULL )
+		return( NULL );
+
+	CString key;
+	CProcedure *proc;
+	for( int k = 0; k <= index; k++ )
+		procedures.GetNextAssoc( pos , key , proc );
+
+	return( proc );			
+}
+
+void CProgram::renameProcedure( CProcedure *p , CString newName )
+{
+	procedures.RemoveKey( p -> name );
+	p -> name = newName;
+	procedures.SetAt( p -> name , p );
+
+	//not finished ( procedure calls must rename )
+	CString key;
+	CProcedure *proc;
+
+	// notify
+	CProgramUI *ui = ic -> getCProgramUI();
+	ui -> onProgramProcRenamed( p );
+}
+
+bool CProgram::deleteProcedure( CString name )
+{
+		//not finished ( procedure calls must be changed )
+	CProcedure* p;
+	BOOL wasFound = procedures.Lookup( name , p );
+	ASSERT( wasFound );
+	delete p;
+	procedures.RemoveKey( name );
+
+	CProgramUI *ui = ic -> getCProgramUI();
+	ui -> onProgramProcDeleted( name );
+	
+	return( true );
+}
+
 /////////////////////////////////////////////////////////////////////
 // open/save
 
@@ -100,6 +152,7 @@ CString CProgram::getProgramText()
 		if( pos != NULL )
 			result += "\r\n";
 	}
+	stylize( result );
 	return result;
 }
 
@@ -167,7 +220,8 @@ bool CProgram::isLetter(TCHAR c)
 		(( 'a' <= c ) && ( c <= 'z' )) ||
 		(( 'A' <= c ) && ( c <= 'Z' )) ||
 		(( 'а' <= c ) && ( c <= 'я' )) ||
-		(( 'А' <= c ) && ( c <= 'Я' ))
+		(( 'А' <= c ) && ( c <= 'Я' )) ||
+		(c == '_')
 				);
 }
 
@@ -202,11 +256,11 @@ CString CProgram::readFirstWord(CString &string)
 {
 	skipEmptySymbols( string );
 	CString word;
-	while( !string.IsEmpty() && isValid( string.GetAt(0) ) )
+	while( !string.IsEmpty() && isValid( string.GetAt(0) ) && ( word.IsEmpty() || isLetter( string.GetAt(0) ) ) )
 	{
 		word += string.GetAt(0);
 		string.Delete(0);
-	}
+	} 
 	return word;
 }
 
@@ -285,7 +339,8 @@ bool CProgram::readFirstCommand(CCommand &cmd, CString &string)
 	else if( word == CString("Вызвать") )
 	{
 		cmd.type = CMDTYPE_CALL;
-		readFirstWord( string ); // "процедуру:"
+		readFirstWord( string ); // "процедуру"
+		skipSymbol(':', string);
 		cmd.callingProcedureName = readFirstWord( string );
 		return true;
 	}
@@ -313,7 +368,54 @@ bool CProgram::readFirstCommand(CCommand &cmd, CString &string)
 
 bool CProgram::readCondition(CommandCondition &condition, CString &string)
 {
-	//not finished! only easy conditions
+	skipEmptySymbols( string );
+	if(string.IsEmpty())
+		return false;
+
+	//compose condition or/and
+	if( string.GetAt( 0 ) == '(' )
+	{
+		condition.cond1 = new CommandCondition;
+		condition.cond2 = new CommandCondition;
+		bool result = true;
+
+		result = result && skipSymbol( '(', string );
+		result = result && readCondition( *condition.cond1, string );
+		result = result && skipSymbol( ')', string );
+
+		CString word = readFirstWord(string);
+		if( word == (CString)"и" )
+			condition.type = CONDTYPE_AND;
+		else if( word == (CString)"или" )
+			condition.type = CONDTYPE_OR;
+		else 
+			return false;
+		
+		result = result && skipSymbol( '(', string );
+		result = result && readCondition( *condition.cond2, string );
+		result = result && skipSymbol( ')', string );
+
+		return result;
+
+	}
+	//not ...
+	
+	if( string.GetAt( 0 ) == 'н' )
+	{
+		readFirstWord( string );
+
+		condition.type = CONDTYPE_NOT;
+		bool result = true;
+		condition.cond1 = new CommandCondition;
+		
+		result = result && skipSymbol( '(', string );
+		result = result && readCondition( *condition.cond1, string );
+		result = result && skipSymbol( ')', string );
+
+		return result;
+	}
+
+	//easy conditions
 	CString firstWord = readFirstWord( string );
 	CString secondWord = readFirstWord( string );
 	
@@ -375,55 +477,40 @@ bool CProgram::readCondition(CommandCondition &condition, CString &string)
 	return false;
 }
 
-/////////////////////////////////////////////////////////////////////
-
-int CProgram::getProcedureCount()
+bool CProgram::skipSymbol(char symbol, CString &string)
 {
-	return( procedures.GetCount() );
+	skipEmptySymbols( string );
+	if(string.IsEmpty())
+		return false;
+	if(string.GetAt(0) != symbol ) 
+	{
+		string.Delete(0);
+		return false;
+	}
+	string.Delete(0);
+	return true;
 }
 
-CProcedure *CProgram::getProcedureByIndex( int index )
+void CProgram::stylize(CString &string)
 {
-	POSITION pos = procedures.GetStartPosition();
-	if( pos == NULL )
-		return( NULL );
+	int depth = 0;
+	int index = 0;
+	while( index < string.GetLength() )
+	{
+		if( string.GetAt( index ) == '\n' )
+		{
+			//adding tabulations
+			for( int i = 0; i < depth; i++ )
+			{
+				string.Insert( index + 1 , '\t' ); //add \t after \n, 
+				index++;
+			}
+		}
+		else if( string.GetAt( index ) == '{' )
+			depth++;
+		else if( string.GetAt( index ) == '}' )
+			depth--;
 
-	CString key;
-	CProcedure *proc;
-	for( int k = 0; k <= index; k++ )
-		procedures.GetNextAssoc( pos , key , proc );
-
-	return( proc );			
+		index++;
+	}
 }
-
-void CProgram::renameProcedure( CProcedure *p , CString newName )
-{
-	procedures.RemoveKey( p -> name );
-	p -> name = newName;
-	procedures.SetAt( p -> name , p );
-
-	//not finished ( procedure calls must rename )
-	CString key;
-	CProcedure *proc;
-
-	// notify
-	CProgramUI *ui = ic -> getCProgramUI();
-	ui -> onProgramProcRenamed( p );
-}
-
-bool CProgram::deleteProcedure( CString name )
-{
-		//not finished ( procedure calls must be changed )
-	CProcedure* p;
-	BOOL wasFound = procedures.Lookup( name , p );
-	ASSERT( wasFound );
-	delete p;
-	procedures.RemoveKey( name );
-
-	CProgramUI *ui = ic -> getCProgramUI();
-	ui -> onProgramProcDeleted( name );
-	
-	return( true );
-}
-
-
