@@ -140,10 +140,6 @@ BEGIN
         MENUITEM "С&охранить\tCtrl+S",          ID_FILE_SAVE
         MENUITEM "Сохранить &как...",           ID_FILE_SAVE_AS
         MENUITEM SEPARATOR
-        MENUITEM "&Печать...\tCtrl+P",          ID_FILE_PRINT
-        MENUITEM "Просмотр пе&чати",            ID_FILE_PRINT_PREVIEW
-        MENUITEM "Н&астройки печати...",        ID_FILE_PRINT_SETUP
-        MENUITEM SEPARATOR
         MENUITEM "В&ыход",                      ID_APP_EXIT
     END
     POPUP "&Процедуры"
@@ -188,6 +184,7 @@ BEGIN
             MENUITEM "Стенка сверху",               IDC_CMDIF_WALLUP
             MENUITEM "Стенка снизу",                IDC_CMDIF_WALLDOWN
             MENUITEM "Закрашено",                   IDC_CMDIF_PAINTED
+            MENUITEM "Генератор условий",           IDC_CMDIF_COMPOSE
         END
         POPUP "Цикл пока (условие)"
         BEGIN
@@ -209,6 +206,7 @@ BEGIN
             MENUITEM "Стенка сверху",               IDC_CMDWHILE_WALLUP
             MENUITEM "Стенка снизу",                IDC_CMDWHILE_WALLDOWN
             MENUITEM "Закрашено",                   IDC_CMDWHILE_PAINTED
+            MENUITEM "Генератор условий",           IDC_CMDWHILE_COMPOSE
         END
         POPUP "Вызвать процедуру"
         BEGIN
@@ -427,6 +425,33 @@ BEGIN
                     155,133,61,10
 END
 
+IDD_NEWCONDITION DIALOG DISCARDABLE  0, 0, 289, 154
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Генератор условий"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,232,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,232,24,50,14
+    PUSHBUTTON      "Отрицание",IDC_CONDITION_NOT,13,19,63,14
+    PUSHBUTTON      "Логическое ИЛИ",IDC_CONDITION_OR,13,31,63,14
+    PUSHBUTTON      "Логическое И",IDC_CONDITION_AND,13,43,63,14
+    EDITTEXT        IDC_CONDITION_EDIT,7,104,69,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    GROUPBOX        "Составные условия",IDC_STATIC,7,7,80,82
+    GROUPBOX        "Простые условия",IDC_STATIC,95,7,80,81
+    EDITTEXT        IDC_CONDITION_COND1,7,121,190,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    EDITTEXT        IDC_CONDITION_COND2,7,133,190,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    PUSHBUTTON      "Генератор условий",IDC_CONDITION_MAKE1,213,120,69,14
+    PUSHBUTTON      "Слева Стена",IDC_CONDITION_WALL_LEFT,102,18,63,14
+    PUSHBUTTON      "Справа Стена",IDC_CONDITION_WALL_RIGHT,102,30,63,14
+    PUSHBUTTON      "Сверху Стена",IDC_CONDITION_WALL_UP,102,43,63,14
+    PUSHBUTTON      "Снизу Стена",IDC_CONDITION_WALL_DOWN,102,56,63,14
+    PUSHBUTTON      "Генератор условий",IDC_CONDITION_MAKE2,213,133,69,14
+    PUSHBUTTON      "Закрашено",IDC_CONDITION_PAINTED,102,69,63,14
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -450,6 +475,14 @@ BEGIN
         RIGHTMARGIN, 294
         TOPMARGIN, 7
         BOTTOMMARGIN, 159
+    END
+
+    IDD_NEWCONDITION, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 282
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 147
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -638,6 +671,11 @@ BEGIN
     ID_INTERPRETER_SPEEDUP  "Увеличить скорость выполнения в 2 раза, если это возможно\n Увеличить скорость"
     ID_INTERPRETER_SPEEDDOWN 
                             "Уменьшить скорость выполнения в 2 раза, если это возможно\n Уменьшить скорость"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDC_CMDWHILE_COMPOSE    "Генератор для составных условий."
 END
 
 #endif    // Russian resources

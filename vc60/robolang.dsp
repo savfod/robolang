@@ -142,6 +142,14 @@ SOURCE=.\DlgNew.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\DlgNewCondition.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\DlgNewCondition.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\LeftView.cpp
 # End Source File
 # Begin Source File

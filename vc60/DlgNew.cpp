@@ -5,6 +5,8 @@
 #include "robolang.h"
 
 #include "..\programui\programui.h"
+#include "DlgNewCondition.h"
+
 #include "DlgNew.h"
 
 #ifdef _DEBUG
@@ -90,6 +92,7 @@ void CDlgNew::setCommandTo( CCommand *cmd , int nCmd )
 			case IDC_CMDIF_NOTWALLUP             :	cmd -> setIfNot( CONDTYPE_WALLUP ); break;
 			case IDC_CMDIF_NOTWALLDOWN           :	cmd -> setIfNot( CONDTYPE_WALLDOWN ); break;
 			case IDC_CMDIF_NOTPAINTED            :	cmd -> setIfNot( CONDTYPE_PAINTED ); break;
+			case IDC_CMDIF_COMPOSE               :	cmd -> setIfC( createCondition() ); break;
 			case IDC_CMDWHILE_WALLLEFT           :	cmd -> setWhile( CONDTYPE_WALLLEFT ); break;
 			case IDC_CMDWHILE_WALLRIGHT          :	cmd -> setWhile( CONDTYPE_WALLRIGHT ); break;
 			case IDC_CMDWHILE_WALLUP             :	cmd -> setWhile( CONDTYPE_WALLUP ); break;
@@ -100,6 +103,7 @@ void CDlgNew::setCommandTo( CCommand *cmd , int nCmd )
 			case IDC_CMDWHILE_NOTWALLUP          :	cmd -> setWhileNot( CONDTYPE_WALLUP ); break;
 			case IDC_CMDWHILE_NOTWALLDOWN        :	cmd -> setWhileNot( CONDTYPE_WALLDOWN ); break;
 			case IDC_CMDWHILE_NOTPAINTED         :	cmd -> setWhileNot( CONDTYPE_PAINTED ); break;
+			case IDC_CMDWHILE_COMPOSE            :	cmd -> setWhileC( createCondition() ); break;
 
 			default :
 				if( nCmd >= IDC_CMDPROC_CALLFIRST )
@@ -114,6 +118,13 @@ void CDlgNew::setCommandTo( CCommand *cmd , int nCmd )
 				AfxMessageBox( "Unknown command" );
 				break;
 		}
+}
+
+CommandCondition CDlgNew::createCondition()
+{
+	CDlgNewCondition dlg;
+	dlg.DoModal();
+	return dlg.cond.getCopy();
 }
 
 void CDlgNew::enableControls( CommandType type )

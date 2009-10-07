@@ -66,7 +66,6 @@ CString CCommand::getCommandName()
 	return( "?" );
 }
 
-
 CString CommandCondition::getConditionName()
 {
 	switch( type )
@@ -94,7 +93,37 @@ CString CommandCondition::getConditionName()
 			return (" не " + (CString)"(" + cond1->getConditionName() + ") ");
 		}
 	}
-	return( " не пойми что " );
+	return( " условие отсутствует " );
+}
+
+CommandCondition CommandCondition::getCopy()
+{
+	CommandCondition res;
+	res.type = type;
+	switch( type )
+	{
+		
+		case CONDTYPE_OR: 
+		case CONDTYPE_AND:
+		{
+			//will be here in cases: Or/And
+			res.cond2 = new CommandCondition;
+			*(res.cond2) = cond2 -> getCopy(); 
+		}
+		case CONDTYPE_NOT:
+		{
+			//will be here in cases: Or/And/Not
+			res.cond1 = new CommandCondition;
+			*(res.cond1) = cond1 -> getCopy(); 
+		}
+	}
+
+	return( res );
+}
+
+CommandCondition::CommandCondition()
+{
+	cond1 = cond2 = NULL;
 }
 
 CString CCommand::getCommandString()
@@ -188,6 +217,12 @@ void CCommand::setIf( CommandConditionType p_condition )
 	condition.type = p_condition;
 }
 
+void CCommand::setIfC( CommandCondition p_condition )
+{
+	type = CMDTYPE_IF;
+	condition = p_condition;
+}
+
 void CCommand::setIfNot( CommandConditionType p_condition )
 {
 	type = CMDTYPE_IF;
@@ -196,11 +231,16 @@ void CCommand::setIfNot( CommandConditionType p_condition )
 	condition.cond1 -> type = p_condition;
 }
 
-
 void CCommand::setWhile( CommandConditionType p_condition )
 {
 	type = CMDTYPE_WHILE;
 	condition.type = p_condition;
+}
+
+void CCommand::setWhileC( CommandCondition p_condition )
+{
+	type = CMDTYPE_WHILE;
+	condition = p_condition;
 }
 
 void CCommand::setWhileNot( CommandConditionType p_condition )
