@@ -52,12 +52,15 @@ typedef enum {
 	CONDTYPE_AND = 8
 } CommandConditionType;
 
-struct CommandCondition
+class CommandCondition
 {
+public:
+	CommandCondition();
 	CommandConditionType type;
 	CommandCondition* cond1; //for not, or, and
 	CommandCondition* cond2; //for or, and
 	CString getConditionName();
+	CommandCondition getCopy();
 };
 
 class CCommand  
@@ -85,8 +88,10 @@ public:
 	void setPaint( COLORREF color );
 	void setMove( char direction );
 	void setIf( CommandConditionType condition );
+	void setIfC( CommandCondition condition ); //other papam
 	void setIfNot( CommandConditionType condition );
 	void setWhile( CommandConditionType condition );
+	void setWhileC( CommandCondition condition ); //other param
 	void setWhileNot( CommandConditionType condition );
 	void setCall( CString name );
 

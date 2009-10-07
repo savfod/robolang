@@ -28,6 +28,7 @@ public:
 private:
 	void enableControls( CommandType type );
 	static void setCommandTo( CCommand *cmd , int nCmd );
+	static CommandCondition createCondition();
 
 public:
 	CCommand *cmd;

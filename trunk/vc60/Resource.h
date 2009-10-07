@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Developer Studio generated include file.
-// Used by asyarobot.rc
+// Used by robolang.rc
 //
 #define IDD_ABOUTBOX                    100
 #define ID_VIEW_ARRANGE                 127
@@ -8,10 +8,10 @@
 #define IDR_ROBOLATYPE                  129
 #define IDD_CMDNEW                      130
 #define IDI_ICON1                       131
-
 #define IDI_ICON2                       132
 #define OLD_TOOLBAR                     134
 #define OLD_MENU                        135
+#define IDD_NEWCONDITION                136
 #define IDC_CMDTYPEPAINT                1000
 #define IDC_CMDTYPEMOVE                 1001
 #define IDC_CMDTYPEIF                   1002
@@ -27,6 +27,19 @@
 #define IDC_CONDUP                      1012
 #define IDC_CONDDOWN                    1013
 #define IDC_EDIT2                       1013
+#define IDC_CONDITION_NOT               1014
+#define IDC_CONDITION_OR                1015
+#define IDC_CONDITION_AND               1016
+#define IDC_CONDITION_WALL_LEFT         1017
+#define IDC_CONDITION_WALL_RIGHT        1018
+#define IDC_CONDITION_WALL_UP           1019
+#define IDC_CONDITION_WALL_DOWN         1020
+#define IDC_CONDITION_MAKE1             1021
+#define IDC_CONDITION_PAINTED           1022
+#define IDC_CONDITION_EDIT              1023
+#define IDC_CONDITION_COND1             1024
+#define IDC_CONDITION_COND2             1025
+#define IDC_CONDITION_MAKE2             1026
 #define IDC_CMDRANGE_FIRST              31001
 #define IDC_CMDPAINT_BLACK              31775
 #define IDC_CMDPAINT_WHITE              31776
@@ -76,15 +89,17 @@
 #define ID_MAP_RANDOM_CELL              32817
 #define ID_INTERPRETER_SPEEDUP          32818
 #define ID_INTERPRETER_SPEEDDOWN        32819
+#define IDC_CMDWHILE_COMPOSE            31820
+#define IDC_CMDIF_COMPOSE               31821
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        136
-#define _APS_NEXT_COMMAND_VALUE         32820
-#define _APS_NEXT_CONTROL_VALUE         1014
+#define _APS_NEXT_RESOURCE_VALUE        137
+#define _APS_NEXT_COMMAND_VALUE         32822
+#define _APS_NEXT_CONTROL_VALUE         1025
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
