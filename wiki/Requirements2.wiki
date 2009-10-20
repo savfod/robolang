@@ -1,4 +1,5 @@
 #summary Требования к программе
+#labels Phase-Requirements,Deprecated
 
 
 ===Определение проблемы===
