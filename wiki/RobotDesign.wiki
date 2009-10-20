@@ -1,5 +1,5 @@
 #summary Дизайн программы (общий)
-#labels Phase-Design
+#labels Phase-Design,Deprecated
 =Program components=
 =Components interactions=
 || || control || interpreter || map || mapui || program || programui || framework (vc60) ||
