@@ -1,3 +1,4 @@
+#labels Deprecated,Phase-Design
 Nearest target for the program:
  * finish all edit/load/view program operations (it means having complete syntax and program representation design)
  * finish working with "program" component - all the code that is required as is seen currently
