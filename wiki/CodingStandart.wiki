@@ -1,4 +1,5 @@
 #summary Стандарт написания кода
+#labels Phase-Implementation,Deprecated
 
 = Правила =
 
