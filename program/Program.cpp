@@ -221,7 +221,9 @@ bool CProgram::isLetter(TCHAR c)
 		(( 'A' <= c ) && ( c <= 'Z' )) ||
 		(( 'à' <= c ) && ( c <= 'ÿ' )) ||
 		(( 'À' <= c ) && ( c <= 'ß' )) ||
-		(c == '_')
+		(c == '_')                     ||
+		(c == '¸')                     ||
+		(c == '¨')                     
 				);
 }
 
@@ -509,8 +511,16 @@ void CProgram::stylize(CString &string)
 		else if( string.GetAt( index ) == '{' )
 			depth++;
 		else if( string.GetAt( index ) == '}' )
+		{
 			depth--;
-
+			
+			// for string with }
+			if( string.GetAt( index - 1 ) == '\t' ) 
+			{
+				string.Delete( index - 1 );
+				continue;
+			}
+		}
 		index++;
 	}
 }

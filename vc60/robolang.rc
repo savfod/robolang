@@ -374,9 +374,8 @@ BEGIN
     LTEXT           "РОБОКОП версия 1.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
     LTEXT           "57 школа 2009",IDC_STATIC,43,31,119,8
     DEFPUSHBUTTON   "OK",IDOK,174,7,50,14,WS_GROUP
-    CONTROL         "http://code.google.com/p/robolang",IDC_STATIC,"Static",
-                    SS_LEFTNOWORDWRAP | SS_NOPREFIX | SS_NOTIFY | WS_GROUP,
-                    51,18,119,8
+    LTEXT           "http://code.google.com/p/robolang",IDC_STATIC,51,18,119,
+                    8,WS_TABSTOP
 END
 
 IDR_MAINFRAME DIALOG DISCARDABLE  0, 0, 330, 11
