@@ -11,7 +11,7 @@
 #include "..\map\RoboMap.h"
 
 typedef enum {
-	TYPE_UNKNOWN = 0 ,
+	LOCATIONTYPE_UNKNOWN = 0 ,
 	TYPE_INWALLC = 1 ,
 	TYPE_INWALLH = 2 ,
 	TYPE_INWALLV = 3 ,
@@ -19,6 +19,11 @@ typedef enum {
 	TYPE_OUTOFMAP = 5
 } LocationType;
 
+struct Element{
+	Location loc;
+	LocationType type;
+};
+	
 /////////////////////////////////////////////////////////////////////////////
 // CRobolangMapWindow window
 
@@ -40,9 +45,12 @@ private:
 	CSize cell;
 	CRect rcMap;
 	CString capturedRobot;
+	Element currentElement;
 // Operations
 public:
 	void identificatePoint( CPoint point, Location &resLoc, LocationType &resType );
+	Element identificatePoint( CPoint point );
+	void makeChange(Element el, ChangeType change); 
 
 	virtual void updateMap();
 
@@ -66,6 +74,7 @@ protected:
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };
@@ -76,3 +85,4 @@ protected:
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 
 #endif // !defined(AFX_RobolangMapWindow_H__F54358C2_5B21_4E73_9B78_14BB9215B2DA__INCLUDED_)
+

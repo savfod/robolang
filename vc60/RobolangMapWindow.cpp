@@ -36,6 +36,7 @@ BEGIN_MESSAGE_MAP(CRobolangMapWindow, CView)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_SIZE()
 	ON_WM_LBUTTONDBLCLK()
+	ON_WM_MOUSEMOVE()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -78,7 +79,7 @@ void CRobolangMapWindow::OnDraw( CDC *dc )
 		{
 			int startX = startPoint.x + ( iX * cell.cx + ( iX + 1 ) * wallV.cx );
 			int startY = startPoint.y + ( iY * cell.cy + iY * wallH.cy );
-			COLORREF color = ( map -> getExistenceWallH( iX, iY ) ) ? RGB( 255, 0, 0) : RGB( 100, 100, 100 );
+			COLORREF color = ( map -> getExistenceWallH( iX, iY ) ) ? RGB( 255, 0, 0) : RGB( 50, 50, 50 );
  			dc -> FillSolidRect( startX, startY, wallH.cx, wallH.cy, color ); 
 		}
 	}
@@ -90,7 +91,7 @@ void CRobolangMapWindow::OnDraw( CDC *dc )
 		{
 			int startX = startPoint.x + ( iX * cell.cx + iX * wallV.cx );
 			int startY = startPoint.y + ( iY * cell.cy + ( iY + 1 ) * wallH.cy );
-			COLORREF color = ( map -> getExistenceWallV( iX, iY ) ) ? RGB( 255, 0, 0) : RGB( 100, 100, 100 );
+			COLORREF color = ( map -> getExistenceWallV( iX, iY ) ) ? RGB( 255, 0, 0) : RGB( 50, 50, 50 );
  			dc -> FillSolidRect( startX, startY, wallV.cx, wallV.cy, color ); 
 		}
 	}
@@ -109,7 +110,7 @@ void CRobolangMapWindow::OnDraw( CDC *dc )
 			bool isWallRight = map -> getExistenceWallH( iX, iY  ); 
 			bool isAnyWallNear = isWallUp || isWallTop || isWallLeft || isWallRight;
 			
-			COLORREF color = ( isAnyWallNear ) ? RGB( 255, 0, 0) : RGB( 100, 100, 100 );
+			COLORREF color = ( isAnyWallNear ) ? RGB( 255, 0, 0) : RGB( 50, 50, 50 );
  			dc ->FillSolidRect( startX, startY, wallC.cx, wallC.cy, color ); 
 		}
 	}
@@ -188,6 +189,7 @@ BOOL CRobolangMapWindow::OnEraseBkgnd(CDC* pDC)
 	OnDraw(dc);
 
 	ReleaseDC(dc);
+	capturedRobot.Empty();
 	return TRUE;
 }
 
@@ -195,7 +197,7 @@ void CRobolangMapWindow::updateMap()
 {
 	CDC *dc = GetDC();
 	OnDraw(dc);
-	capturedRobot.Empty();
+//	capturedRobot.Empty();
 	ReleaseDC(dc);
 }
 
@@ -212,12 +214,12 @@ void CRobolangMapWindow::OnLButtonUp(UINT nFlags, CPoint point)
 	{
 		case TYPE_INWALLH:
 		{
-			mapUI -> onViewWallHChanged( loc.CrdX, loc.CrdY );
+			mapUI -> onViewWallHChanged( loc.CrdX, loc.CrdY,TYPE_INVERT );
 			break;
 		}
 		case TYPE_INWALLV:
 		{
-			mapUI -> onViewWallVChanged( loc.CrdX, loc.CrdY );
+			mapUI -> onViewWallVChanged( loc.CrdX, loc.CrdY, TYPE_INVERT );
 			break;
 		}
 		case TYPE_INCELL:
@@ -232,7 +234,8 @@ void CRobolangMapWindow::OnLButtonUp(UINT nFlags, CPoint point)
 					break;
 				}
 			}
-			mapUI -> onViewCellChanged( loc.CrdX, loc.CrdY );
+			if( currentElement.type != TYPE_INCELL || currentElement.loc.CrdX != loc.CrdX || currentElement.loc.CrdY != loc.CrdY )
+				mapUI -> onViewCellChanged( loc.CrdX, loc.CrdY, TYPE_INVERT );
 			break;
 		}
 	}
@@ -246,6 +249,8 @@ void CRobolangMapWindow::OnLButtonDown(UINT nFlags, CPoint point)
 	Location loc;
 	LocationType type;
 	identificatePoint( point, loc, type );
+	
+	currentElement.type = LOCATIONTYPE_UNKNOWN; //stops this system.
 	
 	if( type == TYPE_INCELL )
 	{
@@ -276,7 +281,7 @@ void CRobolangMapWindow::identificatePoint( CPoint point, Location &resLoc, Loca
 	CRoboMap* map = IControl::getInstance() -> getCRoboMap();
 	if(map == NULL)
 	{
-		resType = TYPE_UNKNOWN;
+		resType = LOCATIONTYPE_UNKNOWN;
 		return;
 	}
 	RoboMapSize size = map -> getSize();	
@@ -333,7 +338,11 @@ void CRobolangMapWindow::identificatePoint( CPoint point, Location &resLoc, Loca
 }
 
 
-
+Element CRobolangMapWindow::identificatePoint( CPoint point ){
+	Element el;
+	identificatePoint( point, ( el.loc ), ( el.type ) );
+	return el;
+}
 
 
 
@@ -368,4 +377,40 @@ void CRobolangMapWindow::OnLButtonDblClk(UINT nFlags, CPoint point)
 	}
 	
 	CView::OnLButtonDblClk(nFlags, point);
+}
+
+void CRobolangMapWindow::OnMouseMove(UINT nFlags, CPoint point) 
+{
+	// TODO: Add your message handler code here and/or call default
+	Element newElement = identificatePoint( point );
+	CRoboMapUI *mapUI = IControl::getInstance() -> getCRoboMapUI();
+	
+	//if(currentElement != newElement )
+	if( currentElement.loc.CrdX !=  newElement.loc.CrdX || currentElement.loc.CrdY !=  newElement.loc.CrdY || currentElement.type !=  newElement.type )
+	{
+		ChangeType type = ( nFlags & MK_SHIFT ) ? TYPE_ERASE : TYPE_FILL;
+			
+		if( (newElement.type == TYPE_INCELL) && (nFlags & MK_LBUTTON) )
+			makeChange( newElement, type );
+				
+		if( (newElement.type == TYPE_INWALLH) && ( nFlags & MK_RBUTTON ) )
+			makeChange( newElement, type );
+		
+		if( ( newElement.type == TYPE_INWALLV ) && ( nFlags & MK_RBUTTON ) )
+			makeChange( newElement, type );
+	}
+	
+	currentElement = newElement;
+	CView::OnMouseMove(nFlags, point);	
+}
+
+void CRobolangMapWindow::makeChange(Element el, ChangeType change)
+{
+	CRoboMapUI *mapUI = IControl::getInstance() -> getCRoboMapUI();
+	switch( el.type ) 
+	{	
+		case TYPE_INCELL:	mapUI -> onViewCellChanged( el.loc.CrdX, el.loc.CrdY, change);	break;
+		case TYPE_INWALLV:	mapUI -> onViewWallVChanged( el.loc.CrdX, el.loc.CrdY, change); break;
+		case TYPE_INWALLH:	mapUI -> onViewWallHChanged( el.loc.CrdX, el.loc.CrdY, change); break;
+	}
 }

@@ -56,6 +56,7 @@ class CommandCondition
 {
 public:
 	CommandCondition();
+	~CommandCondition();
 	CommandConditionType type;
 	CommandCondition* cond1; //for not, or, and
 	CommandCondition* cond2; //for or, and

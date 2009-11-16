@@ -80,7 +80,7 @@ void CInterpreter::interpretCommand(CCommand *cmd)
 			Location loc;
 			map -> getRobotLocation( cmd -> getRobotName(), loc );
 						
-			if( map ->checkCondition( loc, cmd -> condition ) )
+			if( map -> checkCondition( loc, cmd -> condition ) )
 				interpretCommandArray( &( cmd -> childCommands ) );
 			
 			break;
