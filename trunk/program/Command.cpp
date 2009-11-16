@@ -123,7 +123,16 @@ CommandCondition CommandCondition::getCopy()
 
 CommandCondition::CommandCondition()
 {
+	type = CONDTYPE_UNKNOWN;
 	cond1 = cond2 = NULL;
+}
+
+CommandCondition::~CommandCondition()
+{
+/*	if(cond1)	
+		delete cond1;
+	if(cond2)
+		delete cond2;*/
 }
 
 CString CCommand::getCommandString()
@@ -260,3 +269,4 @@ void CCommand::onProcRenamed( CString oldName, CString newName )
 		for(int i = 0; i < childCommands.GetSize() ; i++ )
 			childCommands.GetAt(i) -> onProcRenamed( oldName, newName );
 }
+

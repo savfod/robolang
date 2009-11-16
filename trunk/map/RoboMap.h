@@ -49,7 +49,6 @@ public:
 	void createNew();
 
 
-	bool executeCommand( CCommand *cmd );
 	bool checkCondition( Location loc, CommandCondition condition);
 	bool robotMoved( CString name, char direction ); //LRUD //if successful return true
 	void robotPaint( CString name	, COLORREF color );

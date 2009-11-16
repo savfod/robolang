@@ -31,93 +31,6 @@ CRoboMap::~CRoboMap()
 }
 
 
-bool CRoboMap::executeCommand( CCommand *cmd )
-{
-	Location loc;
-	CString name = cmd -> getRobotName();
-	BOOL wasFound = robots.Lookup( name , loc);
-	if( !wasFound )
-	{
-		TRACE("in CRoboMap::executeCommand robot not found");
-		return false;
-	}
-
-	if( cmd -> getType() == CMDTYPE_PAINT)
-	{
-		setCellColor( cmd -> color, loc.CrdX, loc.CrdY );
-		return true;
-	}
-	if( cmd -> getType() == CMDTYPE_MOVE)
-	{
-		switch( cmd -> direction)
-		{
-			case 'L':
-			case 'l':
-			{
-				if( getExistenceWallV( loc.CrdX, loc.CrdY ) )
-				{
-					MessageBox(NULL, "Робот не может пройти сквозь стену", NULL, IDOK);
-					return false;
-				}
-				else
-				{
-					loc.CrdX--;
-					setRobotLocation( name, loc );
-					return true;
-				}
-			}
-			case 'R':
-			case 'r':
-			{
-				if( getExistenceWallV( loc.CrdX + 1, loc.CrdY ) )
-				{
-					MessageBox(NULL, "Робот не может пройти сквозь стену", NULL, IDOK);
-					return false;
-				}
-				else
-				{
-					loc.CrdX++;
-					setRobotLocation( name, loc );
-					return true;
-				}
-			}
-			case 'U':
-			case 'u':
-			{
-				if( getExistenceWallH( loc.CrdX , loc.CrdY ) )
-				{
-					MessageBox(NULL, "Робот не может пройти сквозь стену", NULL, IDOK);
-					return false;
-				}
-				else
-				{
-					loc.CrdY--;
-					setRobotLocation( name, loc );
-					return true;
-				}
-			}
-			case 'D':
-			case 'd':
-			{
-				if( getExistenceWallH( loc.CrdX , loc.CrdY + 1 ) )
-				{ 
-					MessageBox(NULL, "Робот не может пройти сквозь стену", NULL, IDOK);
-					return false;
-				}
-				else
-				{
-					loc.CrdY++;
-					setRobotLocation( name, loc );
-					return true;
-				}
-			}
-
-		}
-	}
-	TRACE("in CRoboMap::executeCommand unexpected command");
-	return false;
-}
-
 bool CRoboMap::robotMoved( CString name, char direction ) //LRUD 
 {
 	Location loc;
@@ -205,6 +118,7 @@ bool CRoboMap::checkCondition( Location loc, CommandCondition condition)
 		case CONDTYPE_UNKNOWN:
 		{
 			TRACE(" CMDCOND_UNKNOWN in CRoboMap::checkCondition ");
+			IControl::getInstance() -> messageBox ("Пустое условие!");
 			return false;
 		}
 		case CONDTYPE_WALLLEFT:
