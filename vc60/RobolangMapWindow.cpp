@@ -23,6 +23,7 @@ CRobolangMapWindow::CRobolangMapWindow()
 	wallC = CSize( 5, 5 );
 	wallH = CSize( cell.cx, wallC.cy );
 	wallV = CSize( wallC.cx, cell.cy );
+	isBlocked = false;
 }
 
 CRobolangMapWindow::~CRobolangMapWindow()
@@ -37,6 +38,7 @@ BEGIN_MESSAGE_MAP(CRobolangMapWindow, CView)
 	ON_WM_SIZE()
 	ON_WM_LBUTTONDBLCLK()
 	ON_WM_MOUSEMOVE()
+	ON_WM_RBUTTONDOWN()
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
@@ -234,12 +236,16 @@ void CRobolangMapWindow::OnLButtonUp(UINT nFlags, CPoint point)
 					break;
 				}
 			}
-			if( currentElement.type != TYPE_INCELL || currentElement.loc.CrdX != loc.CrdX || currentElement.loc.CrdY != loc.CrdY )
+			
+			if(!isBlocked)
 				mapUI -> onViewCellChanged( loc.CrdX, loc.CrdY, TYPE_INVERT );
+			
 			break;
 		}
 	}
 	capturedRobot.Empty();
+	isBlocked = false;
+
 
 	CView::OnLButtonUp(nFlags, point);
 }
@@ -250,7 +256,7 @@ void CRobolangMapWindow::OnLButtonDown(UINT nFlags, CPoint point)
 	LocationType type;
 	identificatePoint( point, loc, type );
 	
-	currentElement.type = LOCATIONTYPE_UNKNOWN; //stops this system.
+	currentElement.type = LOCATIONTYPE_UNKNOWN; //stops trace system.
 	
 	if( type == TYPE_INCELL )
 	{
@@ -385,17 +391,29 @@ void CRobolangMapWindow::OnMouseMove(UINT nFlags, CPoint point)
 	Element newElement = identificatePoint( point );
 	CRoboMapUI *mapUI = IControl::getInstance() -> getCRoboMapUI();
 	
+	
 	//if(currentElement != newElement )
 	if( currentElement.loc.CrdX !=  newElement.loc.CrdX || currentElement.loc.CrdY !=  newElement.loc.CrdY || currentElement.type !=  newElement.type )
 	{
+		
 		ChangeType type = ( nFlags & MK_SHIFT ) ? TYPE_ERASE : TYPE_FILL;
-			
+
+		//blocking from usual lbuttonup
+		isBlocked = false;
+		if( newElement.type == TYPE_INCELL )
+		{
+			CRoboMap* map = IControl::getInstance() -> getCRoboMap();
+			bool justStarted = (currentElement.type == LOCATIONTYPE_UNKNOWN);
+			bool isColoured = !( map -> getCellColor( newElement.loc.CrdX, newElement.loc.CrdY ) == RGB(0,0,0) );
+			bool willBeChanged = ( isColoured && (type == TYPE_ERASE) ) || (!isColoured && (type == TYPE_FILL) );
+			if( (justStarted && willBeChanged) || (!justStarted) )
+				isBlocked = true;
+		}
+
 		if( (newElement.type == TYPE_INCELL) && (nFlags & MK_LBUTTON) )
 			makeChange( newElement, type );
-				
 		if( (newElement.type == TYPE_INWALLH) && ( nFlags & MK_RBUTTON ) )
 			makeChange( newElement, type );
-		
 		if( ( newElement.type == TYPE_INWALLV ) && ( nFlags & MK_RBUTTON ) )
 			makeChange( newElement, type );
 	}
@@ -413,4 +431,12 @@ void CRobolangMapWindow::makeChange(Element el, ChangeType change)
 		case TYPE_INWALLV:	mapUI -> onViewWallVChanged( el.loc.CrdX, el.loc.CrdY, change); break;
 		case TYPE_INWALLH:	mapUI -> onViewWallHChanged( el.loc.CrdX, el.loc.CrdY, change); break;
 	}
+}
+
+void CRobolangMapWindow::OnRButtonDown(UINT nFlags, CPoint point) 
+{
+	// TODO: Add your message handler code here and/or call default
+	currentElement.type = LOCATIONTYPE_UNKNOWN; //stops trace system.
+	
+	CView::OnRButtonDown(nFlags, point);
 }
