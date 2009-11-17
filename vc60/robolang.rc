@@ -370,11 +370,11 @@ STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "О приложении РОБОКОП"
 FONT 8, "MS Sans Serif"
 BEGIN
-    ICON            IDR_MAINFRAME,IDC_STATIC,14,23,20,20
-    LTEXT           "РОБОКОП версия 1.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,23,21,20
+    LTEXT           "РОБОКОП версия 1.1",IDC_STATIC,7,7,119,8,SS_NOPREFIX
     LTEXT           "57 школа 2009",IDC_STATIC,43,31,119,8
     DEFPUSHBUTTON   "OK",IDOK,174,7,50,14,WS_GROUP
-    LTEXT           "http://code.google.com/p/robolang",IDC_STATIC,51,18,119,
+    LTEXT           "http://code.google.com/p/robolang",IDC_STATIC,43,16,119,
                     8,WS_TABSTOP
 END
 
@@ -697,8 +697,8 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,1
- PRODUCTVERSION 1,0,0,1
+ FILEVERSION 1,1,0,0
+ PRODUCTVERSION 1,1,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -716,14 +716,14 @@ BEGIN
             VALUE "Comments", "\0"
             VALUE "CompanyName", "\0"
             VALUE "FileDescription", "robolang MFC Application\0"
-            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "FileVersion", "1, 1, 0, 0\0"
             VALUE "InternalName", "robolang\0"
             VALUE "LegalCopyright", "Copyright (C) 2009\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "robolang.EXE\0"
             VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "robolang Application\0"
-            VALUE "ProductVersion", "1, 0, 0, 1\0"
+            VALUE "ProductVersion", "1, 1, 0, 0\0"
             VALUE "SpecialBuild", "\0"
         END
     END
