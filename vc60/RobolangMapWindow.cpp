@@ -392,10 +392,10 @@ void CRobolangMapWindow::OnMouseMove(UINT nFlags, CPoint point)
 	CRoboMapUI *mapUI = IControl::getInstance() -> getCRoboMapUI();
 	
 	
-	//if(currentElement != newElement )
-	if( currentElement.loc.CrdX !=  newElement.loc.CrdX || currentElement.loc.CrdY !=  newElement.loc.CrdY || currentElement.type !=  newElement.type )
+	//if(currentElement != newElement && L or R mouse button)
+	if( ( currentElement.loc.CrdX !=  newElement.loc.CrdX || currentElement.loc.CrdY !=  newElement.loc.CrdY || currentElement.type !=  newElement.type ) && (nFlags & (MK_LBUTTON | MK_RBUTTON ) ) )
 	{
-		
+		 
 		ChangeType type = ( nFlags & MK_SHIFT ) ? TYPE_ERASE : TYPE_FILL;
 
 		//blocking from usual lbuttonup
