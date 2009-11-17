@@ -46,6 +46,7 @@ private:
 	CRect rcMap;
 	CString capturedRobot;
 	Element currentElement;
+	bool isBlocked; // for filling cells
 // Operations
 public:
 	void identificatePoint( CPoint point, Location &resLoc, LocationType &resType );
@@ -75,6 +76,7 @@ protected:
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 };
